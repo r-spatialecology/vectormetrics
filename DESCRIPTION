@@ -1,0 +1,20 @@
+Package: vectormetrics
+Title: Landscape Metrics for Categorical Map Patterns in Vector Data
+Version: 0.1
+Authors@R: 
+    c(person("Maximillian H.K.", "Hesselbarth", email = "maximilian.hesselbarth@uni-goettingen.de",
+             role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1125-9918")),
+             person("Marco", "Sciaini", email = "sciaini.marco@gmail.com",
+             role = "aut", comment = c(ORCID = '0000-0002-3042-5435')),
+             person("Jakub", "Nowosad", role = "aut",
+             email = "nowosad.jakub@gmail.com", 
+             comment = c(ORCID = "0000-0002-1057-3721")))
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    sf,
+    tibble
+RoxygenNote: 6.1.1

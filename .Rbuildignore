@@ -1,0 +1,7 @@
+^LICENSE\.md$
+^data-raw$
+^\.travis\.yml$
+^README\.Rmd$
+^appveyor\.yml$
+^vectormetrics\.Rproj$
+^\.Rproj\.user$
