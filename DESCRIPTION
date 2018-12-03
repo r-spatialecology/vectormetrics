@@ -18,5 +18,6 @@ LazyData: true
 Imports: 
     dplyr,
     sf,
-    tibble
+    tibble,
+    purrr
 RoxygenNote: 6.1.1
