@@ -22,7 +22,7 @@
 #' @return tibble
 #'
 #' @examples
-#' vm_p_area(landscape, class)
+#' vm_p_area(vector_landscape, class)
 #'
 #' @aliases vm_p_area
 #' @rdname vm_p_area
