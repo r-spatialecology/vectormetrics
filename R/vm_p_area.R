@@ -36,24 +36,30 @@
 #' @name vm_p_area
 #' @export
 
-vm_p_area <- function(landscape, class){
+vm_p_area <- function(landscape, class) {
+
+  # check if x argument is a multipolygon or polygon
+  if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
+    stop("Please provide PLOYGON or MULTIPLOYGON")
+  }
+
+  # select geometry column for spatial operations and the column that identifies
+  # the classes
+  landscape <- landscape %>% select(!!(class), geometry)
+
   # if multipolygon, cast to single polygons (patch level)
-  landscape_cast <- sf::st_cast(landscape, "POLYGON")
+  landscape_cast <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
 
   # compute area and divide by 10000 to get hectare
   landscape_cast$area <- sf::st_area(landscape_cast) / 10000
 
-  # drop geometry and get patch id
-  landscape_tibble         <- sf::st_set_geometry(landscape_cast, NULL)
-  landscape_tibble_grouped <- dplyr::group_by(landscape_tibble, class)
-  landscape_tibble         <- dplyr::mutate(landscape_tibble_grouped,
-                                            id = dplyr::row_number())
-
+  # return results tibble
   tibble::tibble(
     level = "patch",
-    class = as.integer(landscape_tibble$class),
-    id = as.integer(landscape_tibble$id),
+    class = as.numeric(as.character(landscape_cast$landcover)),
+    id = as.integer(1:nrow(landscape_cast)),
     metric = "area",
-    value = as.double(landscape_tibble$area)
+    value = as.double(landscape_cast$area)
   )
+
 }
