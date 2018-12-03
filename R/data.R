@@ -6,4 +6,4 @@
 #'
 #' @format A sf object.
 #' @source Simulated neutral landscape model with R. https://github.com/ropensci/NLMR/
-"landscape"
+"vector_landscape"
