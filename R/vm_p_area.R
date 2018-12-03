@@ -22,7 +22,7 @@
 #' @return tibble
 #'
 #' @examples
-#' vm_p_area(vector_landscape, class)
+#' vm_p_area(vector_landscape, "class")
 #'
 #' @aliases vm_p_area
 #' @rdname vm_p_area
@@ -40,12 +40,12 @@ vm_p_area <- function(landscape, class) {
 
   # check if x argument is a multipolygon or polygon
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide PLOYGON or MULTIPLOYGON")
+    stop("Please provide POLYGON or MULTIPOLYGON")
   }
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- landscape %>% select(!!(class), geometry)
+  landscape <- dplyr::select(landscape, !!class)
 
   # if multipolygon, cast to single polygons (patch level)
   landscape_cast <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
@@ -56,10 +56,9 @@ vm_p_area <- function(landscape, class) {
   # return results tibble
   tibble::tibble(
     level = "patch",
-    class = as.numeric(as.character(landscape_cast$landcover)),
-    id = as.integer(1:nrow(landscape_cast)),
+    class = as.numeric(as.character(landscape_cast$class)),
+    id = as.integer(seq_len(nrow(landscape_cast))),
     metric = "area",
     value = as.double(landscape_cast$area)
   )
-
 }

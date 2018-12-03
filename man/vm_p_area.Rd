@@ -32,7 +32,7 @@ metric is the simplest measure of composition.
 \subsection{Behaviour}{Increases, without limit, as the patch size increases.}
 }
 \examples{
-vm_p_area(vector_landscape, class)
+vm_p_area(vector_landscape, "class")
 
 }
 \references{
