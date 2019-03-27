@@ -6,15 +6,9 @@
 #'
 #' @return tibble
 #'
-#' @examples
-#' vm_p_area(vector_landscape, "class")
-#'
-#' @aliases vm_p_area
-#' @rdname vm_p_area
-#'
 #' @keywords internal
 #'
-#' @name vm_p_area
+#' @name vm_cv
 #' @export
 
 vm_cv <- function(x){
