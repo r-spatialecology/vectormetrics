@@ -15,18 +15,19 @@
 
 #' @export
 vm_c_ca <- function(landscape, class){
+
   # calculate the area of all the patches
   area <- vm_p_area(landscape, class)
+
   # grouped by the class, and then calculate the total area of each class,
-  area_sum <- aggregate(area$value, by= list(area$class), sum)
-  names(area_sum) <- c("class", "area_sum")
+  area_sum <- aggregate(area$value, by= list(area$class), sum, na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_sum$class),
+    class = as.integer(area_sum[, 1]),
     id = as.integer(NA),
     metric = "ca",
-    value = as.double(area_sum$area_sum)
+    value = as.double(area_sum[, 2])
   )
 }

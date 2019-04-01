@@ -5,7 +5,7 @@
 #' The index describes the percentage of a patch that is core area.
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @param core_distance the fixed distance to the edge of the patch
+#' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated indices of all patches are in column "value",
 #' and this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
@@ -14,7 +14,7 @@
 #' vm_p_cai(landscape, "landcover", core_distance = 0.8)
 #' @export
 # cai
-vm_p_cai <- function(landscape, class, core_distance) {
+vm_p_cai <- function(landscape, class, edge_depth) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
@@ -22,7 +22,7 @@ vm_p_cai <- function(landscape, class, core_distance) {
   }
 
   area <- vm_p_area(landscape, class)
-  core <- vm_p_core(landscape, class, core_distance)
+  core <- vm_p_core(landscape, class, edge_depth)
   cai <- core$value / area$value * 100
 
   # return results tibble
