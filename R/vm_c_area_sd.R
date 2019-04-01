@@ -10,22 +10,28 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_area_sd(landscape, "landcover")
-
+#' vm_c_area_sd(vector_landscape, "class")
+#'
 #' @export
+
 vm_c_area_sd <- function(landscape, class){
+
   # calculate the area of all the patches
   area <- vm_p_area(landscape, class)
-  # grouped by the class, and then calculate the standard deviation of area in each class,
-  area_sd <- aggregate(area$value, by= list(area$class), sd)
-  names(area_sd) <- c("class", "area_sd")
+
+  # grouped by the class, and then calculate the standard deviation of area
+  area_sd <- aggregate(area$value,
+                       by= list(area$class),
+                       sd,
+                       na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_sd$class),
+    class = as.integer(area_sd[, 1]),
     id = as.integer(NA),
     metric = "area_sd",
-    value = as.double(area_sd$area_sd)
+    value = as.double(area_sd[, 2])
   )
+
 }

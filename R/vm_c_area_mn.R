@@ -13,22 +13,27 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_area_mn(landscape, "landcover")
+#' vm_c_area_mn(vector_landscape, "class")
 
 #' @export
 vm_c_area_mn <- function(landscape, class){
+
   # calculate the area of all the patches
   area <- vm_p_area(landscape, class)
-  # grouped by the class, and then calculate the mean value of area in each class,
-  area_mn <- aggregate(area$value, by= list(area$class), mean)
-  names(area_mn) <- c("class", "area_mn")
+
+  # grouped by the class, and then calculate the mean value
+  area_mn <- aggregate(area$value,
+                       by= list(area$class),
+                       mean,
+                       na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_mn$class),
+    class = as.integer(area_mn[,1]),
     id = as.integer(NA),
     metric = "area_mn",
-    value = as.double(area_mn$area_mn)
+    value = as.double(area_mn[,2])
   )
+
 }
