@@ -22,5 +22,5 @@ The index is based on the patch perimeter and the patch area and describes the p
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_frac(landscape, "landcover")
+vm_p_frac(vector_landscape, "class")
 }

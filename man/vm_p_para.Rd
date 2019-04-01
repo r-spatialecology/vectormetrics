@@ -22,5 +22,5 @@ The ratio describes the patch complexity in a straightforward way.
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_para(landscape, "landcover")
+vm_p_para(vector_landscape, "class")
 }

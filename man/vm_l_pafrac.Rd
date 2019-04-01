@@ -23,5 +23,5 @@ This function allows you to get the result of 2 divided by ß,
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_l_pafrac(landscape, "landcover")
+vm_l_pafrac(vector_landscape, "class")
 }

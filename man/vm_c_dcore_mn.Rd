@@ -26,5 +26,5 @@ of the total number of disjunct core areas belonging to one class in a categoric
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_dcore_mn(landscape, "landcover", core_distance= 1)
+vm_c_dcore_mn(vector_landscape, "class", core_distance= 1)
 }

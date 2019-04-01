@@ -11,7 +11,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_pland(landscape, "landcover")
+#' vm_c_pland(vector_landscape, "class")
 
 #' @export
 vm_c_pland <- function(landscape, class){

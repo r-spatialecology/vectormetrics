@@ -13,7 +13,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_l_shape_mn(landscape, "landcover")
+#' vm_l_shape_mn(vector_landscape, "class")
 
 #' @export
 vm_l_shape_mn <- function(landscape, class){

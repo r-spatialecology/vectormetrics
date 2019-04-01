@@ -17,7 +17,7 @@ and this function returns also some important information such as level and metr
 Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_l_lsi(landscape, "landcover")
+vm_l_lsi(vector_landscape, "class")
 }
 \description{
 This function allows you to calculate the ratio between the actual edge length of class i

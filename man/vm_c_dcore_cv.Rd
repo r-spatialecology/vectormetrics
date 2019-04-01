@@ -26,5 +26,5 @@ of each class  belonging to one class in a categorical landscape in vector data 
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_dcore_cv(landscape, "landcover", core_distance= 1)
+vm_c_dcore_cv(vector_landscape, "class", core_distance= 1)
 }

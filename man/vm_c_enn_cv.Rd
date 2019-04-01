@@ -26,5 +26,5 @@ same class.
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_enn_cv(landscape, "landcover")
+vm_c_enn_cv(vector_landscape, "class")
 }

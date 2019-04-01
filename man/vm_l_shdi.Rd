@@ -23,5 +23,5 @@ in a categorical landscape in vector data format, Shannon's diversity index is d
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_l_shdi(landscape, "landcover")
+vm_l_shdi(vector_landscape, "class")
 }

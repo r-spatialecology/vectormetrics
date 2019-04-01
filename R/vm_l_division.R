@@ -12,7 +12,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_l_division(landscape, "landcover")
+#' vm_l_division(vector_landscape, "class")
 
 #' @export
 vm_l_division <- function(landscape, class){

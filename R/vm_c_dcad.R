@@ -3,7 +3,7 @@
 #' in relation to the landscape area in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @param core_distance the fixed distance to the edge of the patch
+#' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated ratios are in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -11,26 +11,26 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_dcad(landscape, "landcover", core_distance = 1)
+#' vm_c_dcad(vector_landscape, "class", edge_depth = 1)
 
 #' @export
-vm_c_dcad <- function(landscape, class, core_distance){
+vm_c_dcad <- function(landscape, class, edge_depth){
 
   # the total landscape area
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   area_sum <- sum(area$value)
 
-  core_num <- vm_p_ncore(landscape, class, core_distance)
+  core_num <- vm_p_ncore(landscape, class, edge_depth)
   # grouped by the class, and then calculate the sum of number of disjunct core area in each class
   core_num_sum <- stats::aggregate(core_num$value, list(core_num$class), sum)
-  names(core_num_sum) <- c("class", "core_number")
 
-  core_num_sum$DCAD <- (core_num_sum$core_number/area_sum)*10000*100
+  core_num_sum$DCAD <- (core_num_sum[, 2]/area_sum)*10000*100
+
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(core_num_sum$class),
+    class = as.integer(core_num_sum[, 1]),
     id = as.integer(NA),
     metric = "DCAD",
     value = as.double(core_num_sum$DCAD)

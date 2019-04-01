@@ -11,7 +11,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_core(landscape, "landcover", core_distance = 0.8)
+#' vm_p_core(vector_landscape, "class", core_distance = 0.8)
 #' @export
 
 vm_p_ncore <- function(landscape, class, core_distance){

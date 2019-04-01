@@ -24,5 +24,5 @@ and the sum is standardized by the total landscape area. it is a aggregation met
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_l_mesh(landscape, "landcover")
+vm_l_mesh(vector_landscape, "class")
 }

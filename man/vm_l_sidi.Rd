@@ -23,5 +23,5 @@ in a categorical landscape in vector data format, Simpson's diversity index is d
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_l_sidi(landscape, "landcover")
+vm_l_sidi(vector_landscape, "class")
 }

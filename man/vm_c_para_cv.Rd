@@ -24,5 +24,5 @@ of the ratios of all patches belonging to one class in a categorical landscape i
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_para_cv(landscape, "landcover")
+vm_c_para_cv(vector_landscape, "class")
 }

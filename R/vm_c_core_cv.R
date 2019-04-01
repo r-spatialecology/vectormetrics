@@ -19,7 +19,7 @@ vm_c_core_cv <- function(landscape, class, edge_depth){
 
   core_cv <- stats::aggregate(core$value,
                               by= list(core$class),
-                              cv)
+                              vm_cv)
 
   # return results tibble
   tibble::tibble(

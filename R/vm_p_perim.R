@@ -7,7 +7,7 @@
 #' and this function returns also some important information such as level, class, patch id and metric name.
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' st_p_area(landscape, "landcover")
+#' st_p_area(vector_landscape, "class")
 #' @export
 
 vm_p_perim <- function(landscape, class) {

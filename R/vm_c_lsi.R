@@ -12,7 +12,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_lsi(landscape, "landcover")
+#' vm_c_lsi(vector_landscape, "class")
 
 #' @export
 vm_c_lsi <- function(landscape, class){
