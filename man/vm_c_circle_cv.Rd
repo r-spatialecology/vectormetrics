@@ -25,5 +25,5 @@ the ratio is the patch area relative to area of the smallest circumscribing circ
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_circle_cv(landscape, "landcover")
+vm_c_circle_cv(vector_landscape, "class")
 }

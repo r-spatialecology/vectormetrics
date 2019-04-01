@@ -4,14 +4,14 @@
 \alias{vm_p_cai}
 \title{core area index(vector data)}
 \usage{
-vm_p_cai(landscape, class, core_distance)
+vm_p_cai(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
 
-\item{core_distance}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
 the returned calculated indices of all patches are in column "value",

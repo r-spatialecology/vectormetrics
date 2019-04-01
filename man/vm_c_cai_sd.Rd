@@ -4,12 +4,14 @@
 \alias{vm_c_cai_sd}
 \title{The standard deviation of core area index of all patches at class level(vector data)}
 \usage{
-vm_c_cai_sd(landscape, class, core_distance)
+vm_c_cai_sd(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
 the returned calculated standard deviation of
@@ -25,5 +27,5 @@ of all the ratio of the core area and the area belonging to one class in a categ
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_cai_sd(landscape, "landcover", core_distance = 1)
+vm_c_cai_sd(vector_landscape, "class", edge_depth = 1)
 }

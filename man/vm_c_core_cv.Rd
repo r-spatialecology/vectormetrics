@@ -4,14 +4,14 @@
 \alias{vm_c_core_cv}
 \title{The coefficient of variation of each class core areas(vector data)}
 \usage{
-vm_c_core_cv(landscape, class, core_distance)
+vm_c_core_cv(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
 
-\item{core_distance}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
 the returned calculated coefficient of variation of core areas of each class is in column "value",
@@ -26,5 +26,5 @@ of all patch core areas belonging to one class in a categorical landscape in vec
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_core_cv(landscape, "landcover", core_distance= 1)
+vm_c_core_cv(vector_landscape, "class", edge_depth= 1)
 }
