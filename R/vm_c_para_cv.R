@@ -17,7 +17,7 @@
 vm_c_para_cv <- function(landscape, class){
   para <- vm_p_para(landscape, class)
   # grouped by the class, and then calculate the Coefficient Of Variation of perimeter-area ratio in each class.
-  para_cv <- stats::aggregate(para$value, by= list(para$class), cv)
+  para_cv <- stats::aggregate(para$value, by= list(para$class), vm_cv)
   names(para_cv) <- c("class", "para_cv")
 
   # return results tibble
