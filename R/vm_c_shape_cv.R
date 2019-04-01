@@ -20,7 +20,7 @@
 vm_c_shape_cv <- function(landscape, class){
   shape <- vm_p_shape(landscape, class)
   # grouped by the class, and then calculate the Coefficient Of Variation of shape index in each class.
-  shape_cv <- aggregate(shape$value, by= list(shape$class), cv)
+  shape_cv <- stats::aggregate(shape$value, by= list(shape$class), cv)
   names(shape_cv) <- c("class", "shape_cv")
 
   # return results tibble

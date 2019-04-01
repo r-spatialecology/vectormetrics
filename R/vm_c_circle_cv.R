@@ -17,7 +17,7 @@
 vm_c_circle_cv <- function(landscape, class){
   circle <- vm_p_circle(landscape, class)
   # grouped by the class, and then calculate the Coefficient Of Variation of core area index in each class.
-  circle_cv <- aggregate(circle$value, by= list(circle$class), cv)
+  circle_cv <- stats::aggregate(circle$value, by= list(circle$class), cv)
   names(circle_cv) <- c("class", "circle_cv")
 
   # return results tibble

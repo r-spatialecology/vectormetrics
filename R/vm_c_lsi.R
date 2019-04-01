@@ -17,12 +17,12 @@
 #' @export
 vm_c_lsi <- function(landscape, class){
   peri <- vm_p_perim(landscape, class)
-  peri_class <- aggregate(peri$value, by= list(peri$class), sum)
+  peri_class <- stats::aggregate(peri$value, by= list(peri$class), sum)
   names(peri_class) <- c("class", "peri_class")
   # minimum edge length, is the total perimeter of a circle with the same area of this class
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
-  area_c <- aggregate(area$value, by= list(area$class), sum)
+  area_c <- stats::aggregate(area$value, by= list(area$class), sum)
   names(area_c) <- c("class", "area_class")
   area_c$R <- sqrt(area_c$area_class/pi)
   area_c$mini <- 2*pi*area_c$R

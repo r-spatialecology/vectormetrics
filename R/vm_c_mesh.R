@@ -21,7 +21,7 @@ vm_c_mesh <- function(landscape, class){
   area$value <- area$value * 10000
   area$value_2 <- (area$value)^2
   # grouped by the class, and then calculate the total value of area square in each class,
-  area_sum <- aggregate(area$value_2, by= list(area$class), sum)
+  area_sum <- stats::aggregate(area$value_2, by= list(area$class), sum)
   names(area_sum) <- c("class", "area_sum")
   # calculate the total landscape area
   A <- sum(area$value)

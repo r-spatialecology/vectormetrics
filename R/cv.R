@@ -22,5 +22,5 @@ vm_cv <- function(x, na.rm = TRUE){
 
 }
 
-# aggregate(area$value, by= list(area$class), raster::cv)
-# aggregate(area$value, by= list(area$class), vm_cv)
+# stats::aggregate(area$value, by= list(area$class), raster::cv)
+# stats::aggregate(area$value, by= list(area$class), vm_cv)

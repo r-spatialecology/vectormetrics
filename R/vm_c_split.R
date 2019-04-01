@@ -22,7 +22,7 @@ vm_c_split <- function(landscape, class){
   A <- sum(area$value)
   # the sum of all the area squares of patches belonging to each class
   area$square <- area$value ^2
-  area_c <- aggregate(area$square, by= list(area$class), sum)
+  area_c <- stats::aggregate(area$square, by= list(area$class), sum)
   names(area_c) <- c("class", "area_square")
 
   area_c$split <- A^2/area_c$area_square

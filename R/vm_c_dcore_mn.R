@@ -19,7 +19,7 @@
 vm_c_dcore_mn <- function(landscape, class, core_distance){
   dcore <- vm_p_ncore(landscape, class, core_distance)
   # grouped by the class, and then calculate the mean value of the number of disjunct core areas in each class.
-  dcore_mn <- aggregate(dcore$value, by= list(dcore$class), mean)
+  dcore_mn <- stats::aggregate(dcore$value, by= list(dcore$class), mean)
   names(dcore_mn) <- c("class", "dcore_mn")
 
   # return results tibble

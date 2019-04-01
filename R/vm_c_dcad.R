@@ -23,7 +23,7 @@ vm_c_dcad <- function(landscape, class, core_distance){
 
   core_num <- vm_p_ncore(landscape, class, core_distance)
   # grouped by the class, and then calculate the sum of number of disjunct core area in each class
-  core_num_sum <- aggregate(core_num$value, list(core_num$class), sum)
+  core_num_sum <- stats::aggregate(core_num$value, list(core_num$class), sum)
   names(core_num_sum) <- c("class", "core_number")
 
   core_num_sum$DCAD <- (core_num_sum$core_number/area_sum)*10000*100

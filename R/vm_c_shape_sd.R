@@ -20,7 +20,7 @@
 vm_c_shape_sd <- function(landscape, class){
   shape <- vm_p_shape(landscape, class)
   # grouped by the class, and then calculate the standard deviation of shape index in each class.
-  shape_sd <- aggregate(shape$value, by= list(shape$class), sd)
+  shape_sd <- stats::aggregate(shape$value, by= list(shape$class), sd)
   names(shape_sd) <- c("class", "shape_sd")
 
   # return results tibble

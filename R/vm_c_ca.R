@@ -20,7 +20,7 @@ vm_c_ca <- function(landscape, class){
   area <- vm_p_area(landscape, class)
 
   # grouped by the class, and then calculate the total area of each class,
-  area_sum <- aggregate(area$value, by= list(area$class), sum, na.rm = TRUE)
+  area_sum <- stats::aggregate(area$value, by= list(area$class), sum, na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(

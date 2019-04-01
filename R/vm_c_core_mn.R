@@ -19,7 +19,7 @@
 vm_c_core_mn <- function(landscape, class, core_distance){
   core <- vm_p_core(landscape, class, core_distance)
   # grouped by the class, and then calculate the mean value of core area index in each class.
-  core_mn <- aggregate(core$value, by= list(core$class), mean)
+  core_mn <- stats::aggregate(core$value, by= list(core$class), mean)
   names(core_mn) <- c("class", "core_mn")
 
   # return results tibble

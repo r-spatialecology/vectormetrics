@@ -16,7 +16,7 @@
 vm_c_ndca <- function(landscape, class, core_distance){
   dcore <- vm_p_ncore(landscape, class, core_distance)
   # grouped by the class, and then calculate the Coefficient Of Variation of the number of disjunct core areas in each class.
-  dcore_c <- aggregate(dcore$value, by= list(dcore$class), sum)
+  dcore_c <- stats::aggregate(dcore$value, by= list(dcore$class), sum)
   names(dcore_c) <- c("class", "dcore_class")
 
   # return results tibble

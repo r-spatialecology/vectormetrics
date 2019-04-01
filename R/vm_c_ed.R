@@ -17,7 +17,7 @@
 
 vm_c_ed <- function(landscape, class){
   peri <- vm_p_perim(landscape, class)
-  peri_sum <- aggregate(peri$value, list(peri$class), sum)
+  peri_sum <- stats::aggregate(peri$value, list(peri$class), sum)
   names(peri_sum) <- c("class", "perimeter")
   # total area in the landscape
   area <- vm_p_area(landscape, class)

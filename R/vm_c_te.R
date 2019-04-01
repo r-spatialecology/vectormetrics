@@ -16,7 +16,7 @@
 vm_c_te <- function(landscape, class){
   perim <- vm_p_perim(landscape, class)
   # grouped by the class, and then calculate the total peremeter of each class.
-  perim_c <- aggregate(perim$value, by= list(perim$class), sum)
+  perim_c <- stats::aggregate(perim$value, by= list(perim$class), sum)
   names(perim_c) <- c("class", "perim_class")
 
   # return results tibble

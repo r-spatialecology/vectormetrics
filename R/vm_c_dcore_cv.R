@@ -17,7 +17,7 @@
 vm_c_dcore_cv <- function(landscape, class, core_distance){
   dcore <- vm_p_ncore(landscape, class, core_distance)
   # grouped by the class, and then calculate the Coefficient Of Variation of the number of disjunct core areas in each class.
-  dcore_cv <- aggregate(dcore$value, by= list(dcore$class), cv)
+  dcore_cv <- stats::aggregate(dcore$value, by= list(dcore$class), cv)
   names(dcore_cv) <- c("class", "dcore_cv")
 
   # return results tibble

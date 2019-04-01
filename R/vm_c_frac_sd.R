@@ -17,7 +17,7 @@
 vm_c_frac_sd <- function(landscape, class){
   frac <- vm_p_frac(landscape, class)
   # grouped by the class, and then calculate the standard deviation of fractal dimension index in each class.
-  frac_sd <- aggregate(frac$value, by= list(frac$class), sd)
+  frac_sd <- stats::aggregate(frac$value, by= list(frac$class), sd)
   names(frac_sd) <- c("class", "frac_sd")
 
   # return results tibble

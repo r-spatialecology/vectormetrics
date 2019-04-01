@@ -20,7 +20,7 @@
 vm_c_shape_mn <- function(landscape, class){
   shape <- vm_p_shape(landscape, class)
   # grouped by the class, and then calculate the mean value of shape index in each class.
-  shape_mn <- aggregate(shape$value, by= list(shape$class), mean)
+  shape_mn <- stats::aggregate(shape$value, by= list(shape$class), mean)
   names(shape_mn) <- c("class", "shape_mn")
 
   # return results tibble

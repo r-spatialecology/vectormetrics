@@ -17,7 +17,7 @@
 vm_c_dcore_sd <- function(landscape, class, core_distance){
   dcore <- vm_p_ncore(landscape, class, core_distance)
   # grouped by the class, and then calculate the standard deviation of the number of disjunct core areas in each class.
-  dcore_sd <- aggregate(dcore$value, by= list(dcore$class), sd)
+  dcore_sd <- stats::aggregate(dcore$value, by= list(dcore$class), sd)
   names(dcore_sd) <- c("class", "dcore_sd")
 
   # return results tibble

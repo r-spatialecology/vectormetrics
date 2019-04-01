@@ -17,7 +17,7 @@
 vm_c_frac_cv <- function(landscape, class){
   frac <- vm_p_frac(landscape, class)
   # grouped by the class, and then calculate the Coefficient Of Variation of fractal dimension index in each class.
-  frac_cv <- aggregate(frac$value, by= list(frac$class), cv)
+  frac_cv <- stats::aggregate(frac$value, by= list(frac$class), cv)
   names(frac_cv) <- c("class", "frac_cv")
 
   # return results tibble

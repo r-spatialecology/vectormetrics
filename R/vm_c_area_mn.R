@@ -22,7 +22,7 @@ vm_c_area_mn <- function(landscape, class){
   area <- vm_p_area(landscape, class)
 
   # grouped by the class, and then calculate the mean value
-  area_mn <- aggregate(area$value,
+  area_mn <- stats::aggregate(area$value,
                        by= list(area$class),
                        mean,
                        na.rm = TRUE)

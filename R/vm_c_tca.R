@@ -17,7 +17,7 @@
 vm_c_tca <- function(landscape, class, core_distance){
   core <- vm_p_core(landscape, class, core_distance)
   # grouped by the class, and then calculate the sum core area in each class.
-  core_sum <- aggregate(core$value, by= list(core$class), sum)
+  core_sum <- stats::aggregate(core$value, by= list(core$class), sum)
   names(core_sum) <- c("class", "core_sum")
 
   # return results tibble

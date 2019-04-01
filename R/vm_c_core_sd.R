@@ -17,7 +17,7 @@
 vm_c_core_sd <- function(landscape, class, core_distance){
   core <- vm_p_core(landscape, class, core_distance)
   # grouped by the class, and then calculate the standard deviation of core area index in each class.
-  core_sd <- aggregate(core$value, by= list(core$class), sd)
+  core_sd <- stats::aggregate(core$value, by= list(core$class), sd)
   names(core_sd) <- c("class", "core_sd")
 
   # return results tibble

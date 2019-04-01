@@ -17,7 +17,7 @@
 vm_c_circle_sd <- function(landscape, class){
   circle <- vm_p_circle(landscape, class)
   # grouped by the class, and then calculate the standard deviation of core area index in each class.
-  circle_sd <- aggregate(circle$value, by= list(circle$class), sd)
+  circle_sd <- stats::aggregate(circle$value, by= list(circle$class), sd)
   names(circle_sd) <- c("class", "circle_sd")
 
   # return results tibble

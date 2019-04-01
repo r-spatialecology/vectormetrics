@@ -17,7 +17,7 @@
 vm_c_circle_mn <- function(landscape, class){
 circle <- vm_p_circle(landscape, class)
 # grouped by the class, and then calculate the mean value of core area index in each class.
-circle_mn <- aggregate(circle$value, by= list(circle$class), mean)
+circle_mn <- stats::aggregate(circle$value, by= list(circle$class), mean)
 names(circle_mn) <- c("class", "circle_mn")
 
 # return results tibble

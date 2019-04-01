@@ -18,7 +18,7 @@
 vm_c_para_mn <- function(landscape, class){
   para <- vm_p_para(landscape, class)
   # grouped by the class, and then calculate the mean value of perimeter-area ratio in each class.
-  para_mn <- aggregate(para$value, by= list(para$class), mean)
+  para_mn <- stats::aggregate(para$value, by= list(para$class), mean)
   names(para_mn) <- c("class", "para_mn")
 
   # return results tibble

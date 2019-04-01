@@ -17,7 +17,7 @@
 vm_c_core_cv <- function(landscape, class, core_distance){
   core <- vm_p_core(landscape, class, core_distance)
   # grouped by the class, and then calculate the Coefficient Of Variation of core area index in each class.
-  core_cv <- aggregate(core$value, by= list(core$class), cv)
+  core_cv <- stats::aggregate(core$value, by= list(core$class), cv)
   names(core_cv) <- c("class", "core_cv")
 
   # return results tibble

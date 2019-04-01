@@ -16,7 +16,7 @@
 vm_c_para_sd <- function(landscape, class){
   para <- vm_p_para(landscape, class)
   # grouped by the class, and then calculate the standard deviation of perimeter-area ratio in each class.
-  para_sd <- aggregate(para$value, by= list(para$class), sd)
+  para_sd <- stats::aggregate(para$value, by= list(para$class), sd)
   names(para_sd) <- c("class", "para_sd")
 
   # return results tibble

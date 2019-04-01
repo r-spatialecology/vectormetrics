@@ -19,7 +19,7 @@ vm_c_lpi <- function(landscape, class){
   # landscape area
   sum_landscape <- sum(area$value) * 10000
   # maximal patch area of each class
-  area_max <- aggregate(area$value, by= list(area$class), max)
+  area_max <- stats::aggregate(area$value, by= list(area$class), max)
   names(area_max) <- c("class", "area_max")
 
   area_max$lpi <- area_max$area_max*10000/sum_landscape * 100
