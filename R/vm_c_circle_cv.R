@@ -12,20 +12,21 @@
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
 #' vm_c_circle_cv(landscape, "landcover")
-
 #' @export
+
 vm_c_circle_cv <- function(landscape, class){
+
   circle <- vm_p_circle(landscape, class)
-  # grouped by the class, and then calculate the Coefficient Of Variation of core area index in each class.
+
   circle_cv <- stats::aggregate(circle$value, by= list(circle$class), cv)
-  names(circle_cv) <- c("class", "circle_cv")
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(circle_cv$class),
+    class = as.integer(circle_cv[, 1]),
     id = as.integer(NA),
     metric = "circle_cv",
-    value = as.double(circle_cv$circle_cv)
+    value = as.double(circle_cv[, 2])
   )
+
 }

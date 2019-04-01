@@ -14,18 +14,22 @@
 #' vm_c_circle_mn(landscape, "landcover")
 
 #' @export
-vm_c_circle_mn <- function(landscape, class){
-circle <- vm_p_circle(landscape, class)
-# grouped by the class, and then calculate the mean value of core area index in each class.
-circle_mn <- stats::aggregate(circle$value, by= list(circle$class), mean)
-names(circle_mn) <- c("class", "circle_mn")
+vm_c_circle_mn <- function(landscape, class) {
 
-# return results tibble
-tibble::tibble(
-  level = "class",
-  class = as.integer(circle_mn$class),
-  id = as.integer(NA),
-  metric = "circle_mn",
-  value = as.double(circle_mn$circle_mn)
-)
+  circle <- vm_p_circle(landscape, class)
+
+  circle_mn <- stats::aggregate(circle$value,
+                                by = list(circle$class),
+                                mean,
+                                na.rm =TRUE)
+
+  # return results tibble
+  tibble::tibble(
+    level = "class",
+    class = as.integer(circle_mn[, 1]),
+    id = as.integer(NA),
+    metric = "circle_mn",
+    value = as.double(circle_mn[, 2])
+  )
+
 }
