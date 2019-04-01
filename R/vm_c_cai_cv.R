@@ -12,7 +12,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_cai_cv(vector_landscape, "landcover", edge_depth = 1)
+#' vm_c_cai_cv(vector_landscape, "class", edge_depth = 1)
 #' @export
 
 vm_c_cai_cv <- function(landscape, class, edge_depth){
@@ -21,7 +21,7 @@ vm_c_cai_cv <- function(landscape, class, edge_depth){
   cai <- vm_p_cai(landscape, class, edge_depth)
 
   # and calculate cv for each class
-  cai_cv <- aggregate(cai$value, by= list(cai$class), cv)
+  cai_cv <- stats::aggregate(cai$value, by= list(cai$class), cv)
 
   # return results tibble
   tibble::tibble(

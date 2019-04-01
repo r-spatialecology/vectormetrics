@@ -4,6 +4,7 @@
 #' of all the ratio of the core area and the area belonging to one class in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated standard deviation of
 #' ratio of the core area and the area of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
@@ -12,21 +13,25 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_cai_sd(landscape, "landcover", core_distance = 1)
+#' vm_c_cai_sd(vector_landscape, "class", edge_depth = 1)
 
 #' @export
-vm_c_cai_sd <- function(landscape, class, core_distance){
-  cai <- vm_p_cai(landscape, class, core_distance)
-  # grouped by the class, and then calculate the standard deviation of core area index in each class.
-  cai_sd <- aggregate(cai$value, by= list(cai$class), sd)
-  names(cai_sd) <- c("class", "cai_sd")
+vm_c_cai_sd <- function(landscape, class, edge_depth){
+
+  cai <- vm_p_cai(landscape, class, edge_depth)
+
+  cai_sd <- stats::aggregate(cai$value,
+                             by= list(cai$class),
+                             sd,
+                             na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(cai_sd$class),
+    class = as.integer(cai_sd[, 1]),
     id = as.integer(NA),
     metric = "cai_sd",
-    value = as.double(cai_sd$cai_sd)
+    value = as.double(cai_sd[, 2])
   )
+
 }
