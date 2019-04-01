@@ -24,5 +24,5 @@ of each class in a categorical landscape in vector data format
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_ca(vector_vector_landscape, "class")
+vm_c_ca(vector_landscape, "class")
 }

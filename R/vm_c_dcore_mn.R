@@ -17,17 +17,20 @@
 
 #' @export
 vm_c_dcore_mn <- function(landscape, class, core_distance){
+
   dcore <- vm_p_ncore(landscape, class, core_distance)
-  # grouped by the class, and then calculate the mean value of the number of disjunct core areas in each class.
-  dcore_mn <- stats::aggregate(dcore$value, by= list(dcore$class), mean)
-  names(dcore_mn) <- c("class", "dcore_mn")
+
+  dcore_mn <- stats::aggregate(dcore$value,
+                               by= list(dcore$class),
+                               mean,
+                               na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(dcore_mn$class),
+    class = as.integer(dcore_mn[, 1]),
     id = as.integer(NA),
     metric = "dcore_mn",
-    value = as.double(dcore_mn$dcore_mn)
+    value = as.double(dcore_mn[, 2])
   )
 }
