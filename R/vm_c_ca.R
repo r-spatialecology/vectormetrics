@@ -11,15 +11,13 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_c_ca(landscape, "landcover")
+#' vm_c_ca(vector_landscape, "landcover")
 
 #' @export
 vm_c_ca <- function(landscape, class){
 
-  # calculate the area of all the patches
   area <- vm_p_area(landscape, class)
 
-  # grouped by the class, and then calculate the total area of each class,
   area_sum <- stats::aggregate(area$value, by= list(area$class), sum, na.rm = TRUE)
 
   # return results tibble
