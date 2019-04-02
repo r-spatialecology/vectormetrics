@@ -43,6 +43,8 @@ vm_p_area <- function(landscape, class) {
     stop("Please provide POLYGON or MULTIPOLYGON")
   }
 
+  landscape <- landscape[, c("class", "geometry")]
+
   # if multipolygon, cast to single polygons (patch level)
   landscape_cast <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
 

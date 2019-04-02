@@ -21,17 +21,11 @@ vm_p_enn <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- dplyr::select(landscape, class, "geometry")
-  names(landscape) <- c("landcover", "geometry")
+  landscape <- landscape[, c("class", "geometry")]
+
 
   # extract the multipolygon, cast to single polygons (patch level)
-
-  if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
-    landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
-    landscape_poly <- landscape[sf::st_geometry_type(landscape)=="POLYGON", ]
-    landscape <- rbind(landscape_multi, landscape_poly)
-  }
+  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
 
   # cast then to MULTILINESTRING
   landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=F)

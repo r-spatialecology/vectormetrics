@@ -19,7 +19,7 @@ vm_p_perim <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- dplyr::select(landscape, class, "geometry")
+  landscape <- landscape[, c("class", "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
 
@@ -37,13 +37,11 @@ vm_p_perim <- function(landscape, class) {
   landscape_cast_2$perim <- sf::st_length(landscape_cast_2)
 
   # return results tibble
-  class_ids <- dplyr::pull(sf::st_set_geometry(landscape, NULL), class)
-  if (class(class_ids) == "factor"){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
-  }
+  class_ids <- sf::st_set_geometry(landscape, NULL)
+
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids),
+    class = as.integer(class_ids[, 1]),
     id = as.integer(1:nrow(landscape_cast_2)),
     metric = "perim",
     value = as.double(landscape_cast_2$perim)

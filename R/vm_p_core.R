@@ -22,16 +22,10 @@ vm_p_core <- function(landscape, class, edge_depth) {
   }
 
   # extract the multipolygon, cast to single polygons (patch level)
-
-  if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
-    landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
-    landscape_poly <- landscape[sf::st_geometry_type(landscape)=="POLYGON", ]
-    landscape <- rbind(landscape_multi, landscape_poly)
-  }
+  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
-  core_area <- sf::st_buffer(landscape, dist = -edge_depth) # you can actually buffer negative in sf, with st_buffer(landscape, -edge_depth)
+  core_area <- sf::st_buffer(landscape, dist = -edge_depth)
 
   # calculate the area of each core area
   landscape$core <- sf::st_area(core_area)/10000

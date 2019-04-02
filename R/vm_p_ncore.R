@@ -20,8 +20,9 @@ vm_p_ncore <- function(landscape, class, edge_depth){
     stop("Please provide PLOYGON or MULTIPLOYGON")
   }
 
-  # extract the multipolygon, cast to single polygons (patch level)
+  landscape <- dplyr::select(landscape, !!class, "geometry")
 
+  # extract the multipolygon, cast to single polygons (patch level)
   if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
     landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
@@ -35,10 +36,12 @@ vm_p_ncore <- function(landscape, class, edge_depth){
   # the number of polygons(Disjunct core areas) in each patch
   core_area$core_area_number <- sapply(core_area$geometry, length)
 
-  class_ids <-dplyr::pull(sf::st_set_geometry(landscape, NULL), class)
+  class_ids <-dplyr::pull(sf::st_set_geometry(landscape, NULL), !!class)
+
   if (class(class_ids) == "factor"){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
+
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
@@ -46,4 +49,5 @@ vm_p_ncore <- function(landscape, class, edge_depth){
     metric = "ncore",
     value = as.double(core_area$core_area_number)
   )
+
 }

@@ -22,7 +22,6 @@ vm_p_shape <- function(landscape, class) {
     stop("Please provide PLOYGON or MULTIPLOYGON")
   }
 
-
   peri <- vm_p_perim(landscape, class)
 
   # shape metric is the ratio between actual perimeter and the hypothetical minimum perimeter of the patch
