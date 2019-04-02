@@ -18,17 +18,21 @@
 
 #' @export
 vm_c_shape_sd <- function(landscape, class){
+
   shape <- vm_p_shape(landscape, class)
-  # grouped by the class, and then calculate the standard deviation of shape index in each class.
-  shape_sd <- stats::aggregate(shape$value, by= list(shape$class), sd)
-  names(shape_sd) <- c("class", "shape_sd")
+
+  shape_sd <- stats::aggregate(shape$value,
+                               by= list(shape$class),
+                               sd,
+                               na.rm = TRUE)
+
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(shape_sd$class),
+    class = as.integer(shape_sd[, 1]),
     id = as.integer(NA),
     metric = "shape_sd",
-    value = as.double(shape_sd$shape_sd)
+    value = as.double(shape_sd[, 2])
   )
 }

@@ -11,7 +11,7 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_cai(vector_landscape, "class", core_distance = 0.8)
+#' vm_p_cai(vector_landscape, "class", edge_depth = 0.8)
 #' @export
 # cai
 vm_p_cai <- function(landscape, class, edge_depth) {

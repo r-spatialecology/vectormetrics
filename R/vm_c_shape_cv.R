@@ -18,17 +18,19 @@
 
 #' @export
 vm_c_shape_cv <- function(landscape, class){
+
   shape <- vm_p_shape(landscape, class)
-  # grouped by the class, and then calculate the Coefficient Of Variation of shape index in each class.
-  shape_cv <- stats::aggregate(shape$value, by= list(shape$class), vm_cv)
-  names(shape_cv) <- c("class", "shape_cv")
+
+  shape_cv <- stats::aggregate(shape$value,
+                               by= list(shape$class),
+                               vm_cv)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(shape_cv$class),
+    class = as.integer(shape_cv[, 1]),
     id = as.integer(NA),
     metric = "shape_cv",
-    value = as.double(shape_cv$shape_cv)
+    value = as.double(shape_cv[, 2])
   )
 }

@@ -4,17 +4,17 @@
 #' Core area is defined as an area that within the patch and its edge is a fixed value from the boundary of the patch.
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @param core_distance the fixed distance to the edge of the patch
+#' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated core areas of all patches are in column "value",
 #' and this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_core(vector_landscape, "class", core_distance = 0.8)
+#' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 #' @export
 
 # core
-vm_p_core <- function(landscape, class, core_distance) {
+vm_p_core <- function(landscape, class, edge_depth) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
@@ -31,7 +31,7 @@ vm_p_core <- function(landscape, class, core_distance) {
   }
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
-  core_area <- sf::st_buffer(landscape, dist = -core_distance) # you can actually buffer negative in sf, with st_buffer(landscape, -core_distance)
+  core_area <- sf::st_buffer(landscape, dist = -edge_depth) # you can actually buffer negative in sf, with st_buffer(landscape, -edge_depth)
 
   # calculate the area of each core area
   landscape$core <- sf::st_area(core_area)/10000

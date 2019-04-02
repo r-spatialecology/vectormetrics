@@ -16,24 +16,27 @@
 
 #' @export
 vm_c_mesh <- function(landscape, class){
+
   # calculate the area of all the patches and then square it
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   area$value_2 <- (area$value)^2
-  # grouped by the class, and then calculate the total value of area square in each class,
-  area_sum <- stats::aggregate(area$value_2, by= list(area$class), sum)
-  names(area_sum) <- c("class", "area_sum")
-  # calculate the total landscape area
+
+  area_sum <- stats::aggregate(area$value_2,
+                               by= list(area$class),
+                               sum,
+                               na.rm = TRUE)
+
   A <- sum(area$value)
 
-  area_sum$mesh <- area_sum$area_sum/A/10000
+  area_sum$mesh <- area_sum[, 2]/A/10000
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_sum$class),
+    class = as.integer(area_sum[, 1]),
     id = as.integer(NA),
     metric = "MESH",
-    value = as.double(area_sum$mesh)
+    value = as.double(area_sum[, 2])
   )
 }

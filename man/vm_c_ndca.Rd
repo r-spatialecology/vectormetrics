@@ -4,14 +4,14 @@
 \alias{vm_c_ndca}
 \title{the number of disjunct core area in each class(vector data)}
 \usage{
-vm_c_ndca(landscape, class, core_distance)
+vm_c_ndca(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
 
-\item{core_distance}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
 the returned calculated number of core area of each class is in column "value",
@@ -25,5 +25,5 @@ This function allows you to calculate the number of disjunct core areas of each 
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_c_ndca(vector_landscape, "class", core_distance = 1)
+vm_c_ndca(vector_landscape, "class", edge_depth = 1)
 }

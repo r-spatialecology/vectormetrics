@@ -15,21 +15,24 @@
 
 #' @export
 vm_c_lpi <- function(landscape, class){
-  area <- vm_p_area(landscape, class)
-  # landscape area
-  sum_landscape <- sum(area$value) * 10000
-  # maximal patch area of each class
-  area_max <- stats::aggregate(area$value, by= list(area$class), max)
-  names(area_max) <- c("class", "area_max")
 
-  area_max$lpi <- area_max$area_max*10000/sum_landscape * 100
+  area <- vm_p_area(landscape, class)
+
+  sum_landscape <- sum(area$value) * 10000
+
+  area_max <- stats::aggregate(area$value,
+                               by= list(area$class),
+                               max,
+                               na.rm = TRUE)
+
+  area_max$lpi <- area_max[, 2]*10000/sum_landscape * 100
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_max$class),
+    class = as.integer(area_max[, 1]),
     id = as.integer(NA),
     metric = "lpi",
-    value = as.double(area_max$lpi)
+    value = as.double(area_max[, 2])
   )
 }

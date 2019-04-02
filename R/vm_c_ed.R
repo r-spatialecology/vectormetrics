@@ -16,21 +16,25 @@
 #' @export
 
 vm_c_ed <- function(landscape, class){
+
   peri <- vm_p_perim(landscape, class)
-  peri_sum <- stats::aggregate(peri$value, list(peri$class), sum)
-  names(peri_sum) <- c("class", "perimeter")
+
+  peri_sum <- stats::aggregate(peri$value,
+                               list(peri$class),
+                               sum)
+
   # total area in the landscape
   area <- vm_p_area(landscape, class)
   area_sum <- sum(area$value)* 10000
 
-  peri_sum$ED <- peri_sum$perimeter/area_sum * 10000
+  peri_sum$ED <- peri_sum[, 2]/area_sum * 10000
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(peri_sum$class),
+    class = as.integer(peri_sum[, 1]),
     id = as.integer(NA),
     metric = "ED",
-    value = as.double(peri_sum$ED)
+    value = as.double(peri_sum[, 2])
   )
 }

@@ -4,14 +4,14 @@
 \alias{vm_p_core}
 \title{core area(vector data)}
 \usage{
-vm_p_core(landscape, class, core_distance)
+vm_p_core(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
 
-\item{core_distance}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
 the returned calculated core areas of all patches are in column "value",
@@ -24,5 +24,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 \examples{
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_core(vector_landscape, "class", core_distance = 0.8)
+vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 }

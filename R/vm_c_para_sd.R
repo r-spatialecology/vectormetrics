@@ -14,17 +14,20 @@
 
 #' @export
 vm_c_para_sd <- function(landscape, class){
+
   para <- vm_p_para(landscape, class)
-  # grouped by the class, and then calculate the standard deviation of perimeter-area ratio in each class.
-  para_sd <- stats::aggregate(para$value, by= list(para$class), sd)
-  names(para_sd) <- c("class", "para_sd")
+
+  para_sd <- stats::aggregate(para$value,
+                              by= list(para$class),
+                              sd,
+                              na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(para_sd$class),
+    class = as.integer(para_sd[, 1]),
     id = as.integer(NA),
     metric = "para_sd",
-    value = as.double(para_sd$para_sd)
+    value = as.double(para_sd[, 2])
   )
 }

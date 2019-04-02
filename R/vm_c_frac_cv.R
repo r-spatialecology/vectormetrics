@@ -15,17 +15,20 @@
 
 #' @export
 vm_c_frac_cv <- function(landscape, class){
+
   frac <- vm_p_frac(landscape, class)
-  # grouped by the class, and then calculate the Coefficient Of Variation of fractal dimension index in each class.
-  frac_cv <- stats::aggregate(frac$value, by= list(frac$class), vm_cv)
-  names(frac_cv) <- c("class", "frac_cv")
+
+  frac_cv <- stats::aggregate(frac$value,
+                              by= list(frac$class),
+                              vm_cv)
+
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(frac_cv$class),
+    class = as.integer(frac_cv[, 1]),
     id = as.integer(NA),
     metric = "frac_cv",
-    value = as.double(frac_cv$frac_cv)
+    value = as.double(frac_cv[, 2])
   )
 }

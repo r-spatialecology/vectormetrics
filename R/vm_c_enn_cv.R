@@ -16,10 +16,12 @@
 
 #' @export
 vm_c_enn_cv <- function(landscape, class){
+
   enn <- vm_p_enn(landscape, class)
-  # grouped by the class, and then calculate the Coefficient Of Variation of euclidean nearest-neighbor distance in each class.
-  enn_cv <- stats::aggregate(enn$value, by= list(enn$class), vm_cv)
-  names(enn_cv) <- c("class", "enn_cv")
+
+  enn_cv <- stats::aggregate(enn$value,
+                             by= list(enn$class),
+                             vm_cv)
 
   # return results tibble
   tibble::tibble(

@@ -14,6 +14,7 @@
 
 #' @export
 vm_c_pafrac <- function(landscape, class){
+
   area <- vm_p_area(landscape, class)
   perim <- vm_p_perim(landscape, class)
   area$value <- log(area$value * 10000)

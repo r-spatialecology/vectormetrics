@@ -17,17 +17,21 @@
 
 #' @export
 vm_c_division <- function(landscape, class){
+
   area <- vm_p_area(landscape, class)
   area_sum <- sum(area$value)
   area$division <- (area$value/area_sum)^2
-  c_division <- stats::aggregate(area$division, list(area$class), sum)
-  names(c_division) <- c("class", "division")
-  c_division$division <- 1 - c_division$division
+
+  c_division <- stats::aggregate(area$division,
+                                 list(area$class),
+                                 sum)
+
+  c_division$division <- 1 - c_division[, 2]
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(c_division$class),
+    class = as.integer(c_division[, 1]),
     id = as.integer(NA),
     metric = "division",
     value = as.double(c_division$division)

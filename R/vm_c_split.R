@@ -16,20 +16,23 @@
 
 #' @export
 vm_c_split <- function(landscape, class){
-  # the total landscape area in square meters
+
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   A <- sum(area$value)
-  # the sum of all the area squares of patches belonging to each class
-  area$square <- area$value ^2
-  area_c <- stats::aggregate(area$square, by= list(area$class), sum)
-  names(area_c) <- c("class", "area_square")
 
-  area_c$split <- A^2/area_c$area_square
+  area$square <- area$value ^2
+  area_c <- stats::aggregate(area$square,
+                             by= list(area$class),
+                             sum,
+                             na.rm = TRUE)
+
+
+  area_c$split <- A^2/area_c[, 2]
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(area_c$class),
+    class = as.integer(area_c[, 1]),
     id = as.integer(NA),
     metric = "split",
     value = as.double(area_c$split)

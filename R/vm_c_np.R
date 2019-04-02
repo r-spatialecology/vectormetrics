@@ -14,20 +14,21 @@
 
 #' @export
 vm_c_np <- function(landscape, class){
+
   area <- vm_p_area(landscape, class)
   patch <- table(area$class)
   patch <- as.data.frame(patch)
 
-  names(patch) <- c("class", "num_patch")
   if (class(patch$class) == "factor"){
-    patch$class <- as.numeric(levels(patch$class))[patch$class]
+    patch$class <- as.numeric(levels(patch[, 1]))[patch[, 1]]
   }
+
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(patch$class),
+    class = as.integer(patch[, 1]),
     id = as.integer(1:nrow(patch)),
     metric = "np",
-    value = as.integer(patch$num_patch)
+    value = as.integer(patch[, 2])
   )
 }

@@ -15,17 +15,21 @@
 
 #' @export
 vm_c_frac_sd <- function(landscape, class){
+
   frac <- vm_p_frac(landscape, class)
-  # grouped by the class, and then calculate the standard deviation of fractal dimension index in each class.
-  frac_sd <- stats::aggregate(frac$value, by= list(frac$class), sd)
-  names(frac_sd) <- c("class", "frac_sd")
+
+  frac_sd <- stats::aggregate(frac$value,
+                              by= list(frac$class),
+                              sd,
+                              na.rm = TRUE)
+
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(frac_sd$class),
+    class = as.integer(frac_sd[, 1]),
     id = as.integer(NA),
     metric = "frac_sd",
-    value = as.double(frac_sd$frac_sd)
+    value = as.double(frac_sd[, 2])
   )
 }

@@ -18,17 +18,20 @@
 
 #' @export
 vm_c_shape_mn <- function(landscape, class){
+
   shape <- vm_p_shape(landscape, class)
-  # grouped by the class, and then calculate the mean value of shape index in each class.
-  shape_mn <- stats::aggregate(shape$value, by= list(shape$class), mean)
-  names(shape_mn) <- c("class", "shape_mn")
+
+  shape_mn <- stats::aggregate(shape$value,
+                               by= list(shape$class),
+                               mean,
+                               na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(shape_mn$class),
+    class = as.integer(shape_mn[, 1]),
     id = as.integer(NA),
     metric = "shape_mn",
-    value = as.double(shape_mn$shape_mn)
+    value = as.double(shape_mn[, 2])
   )
 }

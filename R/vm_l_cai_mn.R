@@ -6,7 +6,7 @@
 
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @param core_distance the fixed distance to the edge of the patch
+#' @param edge_depth the fixed distance to the edge of the patch
 
 #' @return  the returned calculated mean value of core area index of the whole landscape is in column "value",
 #' and this function returns also some important information such as level and metric name,
@@ -15,11 +15,11 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_l_cai_mn(vector_landscape, "class", core_distance = 1)
+#' vm_l_cai_mn(vector_landscape, "class", edge_depth = 1)
 
 #' @export
-vm_l_cai_mn <- function(landscape, class, core_distance){
-  cai <- vm_p_cai(landscape, class, core_distance)
+vm_l_cai_mn <- function(landscape, class, edge_depth){
+  cai <- vm_p_cai(landscape, class, edge_depth)
   cai_l <- mean(cai$value)
   # return results tibble
   tibble::tibble(

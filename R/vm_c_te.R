@@ -14,17 +14,20 @@
 
 #' @export
 vm_c_te <- function(landscape, class){
+
   perim <- vm_p_perim(landscape, class)
-  # grouped by the class, and then calculate the total peremeter of each class.
-  perim_c <- stats::aggregate(perim$value, by= list(perim$class), sum)
-  names(perim_c) <- c("class", "perim_class")
+
+  perim_c <- stats::aggregate(perim$value,
+                              by= list(perim$class),
+                              sum,
+                              na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(perim_c$class),
+    class = as.integer(perim_c[, 1]),
     id = as.integer(NA),
     metric = "te",
-    value = as.double(perim_c$perim_class)
+    value = as.double(perim_c[, 2])
   )
 }

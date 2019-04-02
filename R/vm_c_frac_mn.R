@@ -17,17 +17,20 @@
 
 #' @export
 vm_c_frac_mn <- function(landscape, class){
+
   frac <- vm_p_frac(landscape, class)
-  # grouped by the class, and then calculate the mean value of fractal dimension index in each class.
-  frac_mn <- stats::aggregate(frac$value, by= list(frac$class), mean)
-  names(frac_mn) <- c("class", "frac_mn")
+
+  frac_mn <- stats::aggregate(frac$value,
+                              by= list(frac$class),
+                              mean,
+                              na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(frac_mn$class),
+    class = as.integer(frac_mn[, 1]),
     id = as.integer(NA),
     metric = "frac_mn",
-    value = as.double(frac_mn$frac_mn)
+    value = as.double(frac_mn[, 2])
   )
 }

@@ -14,17 +14,20 @@
 
 #' @export
 vm_c_enn_sd <- function(landscape, class){
+
   enn <- vm_p_enn(landscape, class)
-  # grouped by the class, and then calculate the standard deviation of euclidean nearest-neighbor distance in each class.
-  enn_sd <- stats::aggregate(enn$value, by= list(enn$class), sd)
-  names(enn_sd) <- c("class", "enn_sd")
+
+  enn_sd <- stats::aggregate(enn$value,
+                             by= list(enn$class),
+                             sd,
+                             na.rm = TRUE)
 
   # return results tibble
   tibble::tibble(
     level = "class",
-    class = as.integer(enn_sd$class),
+    class = as.integer(enn_sd[, 1]),
     id = as.integer(NA),
     metric = "enn_sd",
-    value = as.double(enn_sd$enn_sd)
+    value = as.double(enn_sd[, 2])
   )
 }
