@@ -17,7 +17,7 @@
 vm_p_ncore <- function(landscape, class, edge_depth){
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide PLOYGON or MULTIPLOYGON")
+    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
   landscape <- dplyr::select(landscape, !!class, "geometry")

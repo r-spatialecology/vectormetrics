@@ -14,7 +14,7 @@ vm_p_perim <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide PLOYGON or MULTIPLOYGON")
+    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
   # select geometry column for spatial operations and the column that identifies
