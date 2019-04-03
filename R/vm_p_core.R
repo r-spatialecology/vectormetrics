@@ -6,19 +6,35 @@
 #' @param class Name of the class column of the input landscape
 #' @param edge_depth Distance (in map units) a location has the be away from the patch edge to be considered as core location
 #'
+#' @details
+#' \deqn{CORE = a_{ij}^{core}}
+#' where \eqn{a_{ij}^{core}} is the core area in square meters
+#'
+#' CORE is a 'Core area metric' and equals the area within a patch that is not
+#' on the edge of it. A location is defined as core area if the location has no
+#' neighbour with a different value than itself. It describes patch area
+#' and shape simultaneously (more core area when the patch is large and the shape is
+#' rather compact, i.e. a square).
+#'
+#' \subsection{Units}{Hectares}
+#' \subsection{Range}{CORE >= 0}
+#' \subsection{Behaviour}{Increases, without limit, as the patch area increases
+#' and the patch shape simplifies (more core area). CORE = 0 when every location in
+#' the patch is an edge.}
+#'
 #' @examples
 #' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 #'
 #' @export
+vm_p_core <- function(landscape, class, edge_depth) UseMethod("vm_p_core")
 
-lsm_c_ai <- function(landscape) UseMethod("lsm_c_ai")
-
-
-vm_p_core <- function(landscape, class, edge_depth) {
+#' @name vm_p_core
+#' @export
+vm_p_core.sf <- function(landscape, class, edge_depth) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide PLOYGON or MULTIPLOYGON")
+    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
@@ -47,4 +63,13 @@ vm_p_core <- function(landscape, class, edge_depth) {
     metric = "core",
     value = as.double(landscape$core)
   )
+}
+
+#' @name vm_p_core
+#' @export
+vm_p_core.SpatialPolygonsDataFrame <- function(landscape, class, edge_depth) {
+
+  landscape <- sf::st_as_sf(landscape)
+  vm_p_core(landscape, class, edge_depth)
+
 }
