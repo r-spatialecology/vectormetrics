@@ -25,6 +25,15 @@
 #' @examples
 #' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 #'
+#' @aliases vm_p_core
+#' @rdname vm_p_core
+#'
+#' @references
+#' McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
+#' Program for Categorical and Continuous Maps. Computer software program produced by
+#' the authors at the University of Massachusetts, Amherst. Available at the following
+#' web site: http://www.umass.edu/landeco/research/fragstats/fragstats.html
+#'
 #' @export
 vm_p_core <- function(landscape, class, edge_depth) UseMethod("vm_p_core")
 
