@@ -20,7 +20,7 @@ vm_c_para_sd <- function(landscape, class){
   para_sd <- stats::aggregate(para$value,
                               by= list(para$class),
                               sd,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

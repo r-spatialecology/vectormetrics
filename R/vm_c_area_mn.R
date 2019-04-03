@@ -25,7 +25,7 @@ vm_c_area_mn <- function(landscape, class){
   area_mn <- stats::aggregate(area$value,
                        by= list(area$class),
                        mean,
-                       na.rm = TRUE)
+                       na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

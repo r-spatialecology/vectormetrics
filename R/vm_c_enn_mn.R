@@ -24,7 +24,7 @@ vm_c_enn_mn <- function(landscape, class){
   enn_mn <- stats::aggregate(enn$value,
                              by= list(enn$class),
                              mean,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

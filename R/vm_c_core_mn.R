@@ -23,7 +23,7 @@ vm_c_core_mn <- function(landscape, class, edge_depth){
   core_mn <- stats::aggregate(core$value,
                               by= list(core$class),
                               mean,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

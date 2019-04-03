@@ -25,7 +25,7 @@ vm_c_split <- function(landscape, class){
   area_c <- stats::aggregate(area$square,
                              by= list(area$class),
                              sum,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
 
   area_c$split <- A^2/area_c[, 2]

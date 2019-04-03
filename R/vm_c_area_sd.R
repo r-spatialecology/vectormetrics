@@ -23,7 +23,7 @@ vm_c_area_sd <- function(landscape, class){
   area_sd <- stats::aggregate(area$value,
                        by= list(area$class),
                        sd,
-                       na.rm = TRUE)
+                       na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

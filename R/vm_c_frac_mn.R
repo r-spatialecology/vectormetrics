@@ -23,7 +23,7 @@ vm_c_frac_mn <- function(landscape, class){
   frac_mn <- stats::aggregate(frac$value,
                               by= list(frac$class),
                               mean,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

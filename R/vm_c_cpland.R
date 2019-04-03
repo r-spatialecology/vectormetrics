@@ -24,7 +24,7 @@ vm_c_cpland <- function(landscape, class, edge_depth){
   core_sum <- stats::aggregate(core$value,
                                by= list(core$class),
                                sum,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   # calculate the core area percentage of landscape
   core_sum$cpland <- (core_sum[, 2]/sum_landscape) * 100

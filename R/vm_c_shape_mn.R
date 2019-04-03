@@ -24,7 +24,7 @@ vm_c_shape_mn <- function(landscape, class){
   shape_mn <- stats::aggregate(shape$value,
                                by= list(shape$class),
                                mean,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

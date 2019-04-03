@@ -34,14 +34,11 @@ vm_p_enn <- function(landscape, class) {
   enn <- c()
   for (i in 1:nrow(landscape_poly)) {
 
-    # obtain which class the processing polygon is
     c <- sf::st_set_geometry(landscape_poly[i, ], NULL)
     c <- as.numeric(c)
 
-    # one is, cast the MULTIPOINT of the processing polygon into POINT,
-    # another is, cast the MULTIPOINT of all other polygons into POINT.
-    landscape_point_1 <- sf::st_cast(landscape_poly[i, ], "POINT", warn = FALSE) # center patch # MH: add warn = FALSE to supress warnings
-    landscape_point_2 <- sf::st_cast(landscape_poly[-i, ], "POINT", warn = FALSE) # MH: add warn = FALSE to supress warnings
+    landscape_point_1 <- sf::st_cast(landscape_poly[i, ], "POINT", warn = FALSE)
+    landscape_point_2 <- sf::st_cast(landscape_poly[-i, ], "POINT", warn = FALSE)
 
     # create another vector to storage all the output of this "for" loop
     min_dis <- c()

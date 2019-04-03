@@ -23,7 +23,7 @@ vm_c_lpi <- function(landscape, class){
   area_max <- stats::aggregate(area$value,
                                by= list(area$class),
                                max,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   area_max$lpi <- area_max[, 2]*10000/sum_landscape * 100
 

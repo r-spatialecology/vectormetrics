@@ -1,17 +1,18 @@
-#' @title core area(vector data)
+#' CORE (patch level)
 #'
-#' @description This function allows you to calculate the core area of all patches in square meters
-#' Core area is defined as an area that within the patch and its edge is a fixed value from the boundary of the patch.
-#' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
-#' @param edge_depth the fixed distance to the edge of the patch
-#' @return  the returned calculated core areas of all patches are in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
+#' @description Core area (Core area metric)
+#'
+#' @param landscape *sf* MULTIPOLYGON or POLYGON feature
+#' @param class Name of the class column of the input landscape
+#' @param edge_depth Distance (in map units) a location has the be away from the patch edge to be considered as core location
+#'
 #' @examples
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
 #' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
+#'
 #' @export
+
+lsm_c_ai <- function(landscape) UseMethod("lsm_c_ai")
+
 
 vm_p_core <- function(landscape, class, edge_depth) {
 

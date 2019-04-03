@@ -21,7 +21,7 @@ vm_c_tca <- function(landscape, class, edge_depth){
   core_sum <- stats::aggregate(core$value,
                                by= list(core$class),
                                sum,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

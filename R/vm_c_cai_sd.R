@@ -23,7 +23,7 @@ vm_c_cai_sd <- function(landscape, class, edge_depth){
   cai_sd <- stats::aggregate(cai$value,
                              by= list(cai$class),
                              sd,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

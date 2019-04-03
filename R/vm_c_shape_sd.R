@@ -24,7 +24,7 @@ vm_c_shape_sd <- function(landscape, class){
   shape_sd <- stats::aggregate(shape$value,
                                by= list(shape$class),
                                sd,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
 
   # return results tibble

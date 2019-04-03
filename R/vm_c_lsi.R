@@ -22,7 +22,7 @@ vm_c_lsi <- function(landscape, class){
   peri_class <- stats::aggregate(peri$value,
                                  by= list(peri$class),
                                  sum,
-                                 na.rm = TRUE)
+                                 na.rm = FALSE)
 
   # minimum edge length, is the total perimeter of a circle with the same area of this class
   area <- vm_p_area(landscape, class)
@@ -30,7 +30,7 @@ vm_c_lsi <- function(landscape, class){
   area_c <- stats::aggregate(area$value,
                              by= list(area$class),
                              sum,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   area_c$R <- sqrt(area_c[, 2]/pi)
   area_c$mini <- 2*pi*area_c$R

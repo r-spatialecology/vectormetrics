@@ -23,7 +23,7 @@ vm_p_circle <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- landscape[, c("class", "geometry")]
+  landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)

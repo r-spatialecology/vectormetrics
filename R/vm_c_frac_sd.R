@@ -21,7 +21,7 @@ vm_c_frac_sd <- function(landscape, class){
   frac_sd <- stats::aggregate(frac$value,
                               by= list(frac$class),
                               sd,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
 
   # return results tibble

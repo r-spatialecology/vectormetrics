@@ -21,7 +21,7 @@ vm_c_circle_sd <- function(landscape, class){
   circle_sd <- stats::aggregate(circle$value,
                                 by= list(circle$class),
                                 sd,
-                                na.rm = TRUE)
+                                na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

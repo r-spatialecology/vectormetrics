@@ -21,7 +21,7 @@ vm_c_cai_mn <- function(landscape, class, edge_depth){
   cai_mn <- stats::aggregate(cai$value,
                              by= list(cai$class),
                              mean,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

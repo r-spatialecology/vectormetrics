@@ -20,7 +20,7 @@ vm_c_ndca <- function(landscape, class, edge_depth){
   dcore_c <- stats::aggregate(dcore$value,
                               by= list(dcore$class),
                               sum,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

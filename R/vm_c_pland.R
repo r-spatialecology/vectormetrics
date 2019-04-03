@@ -21,7 +21,7 @@ vm_c_pland <- function(landscape, class){
   area_c <- stats::aggregate(area$value,
                              by= list(area$class),
                              sum,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   area_c$area_class <- area_c$area_class * 10000
 

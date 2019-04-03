@@ -21,7 +21,7 @@ vm_c_core_sd <- function(landscape, class, edge_depth){
   core_sd <- stats::aggregate(core$value,
                               by= list(core$class),
                               sd,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
   # return results tibble
   tibble::tibble(
     level = "class",

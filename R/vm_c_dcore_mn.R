@@ -23,7 +23,7 @@ vm_c_dcore_mn <- function(landscape, class, edge_depth){
   dcore_mn <- stats::aggregate(dcore$value,
                                by= list(dcore$class),
                                mean,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

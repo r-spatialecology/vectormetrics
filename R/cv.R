@@ -11,7 +11,7 @@
 #' @name vm_cv
 #' @export
 
-vm_cv <- function(x, na.rm = TRUE){
+vm_cv <- function(x, na.rm = FALSE){
 
   x_mean <- mean(x, na.rm = na.rm)
   x_sd   <- sd(x, na.rm = na.rm)

@@ -21,7 +21,7 @@ vm_c_dcore_sd <- function(landscape, class, edge_depth){
   dcore_sd <- stats::aggregate(dcore$value,
                                by= list(dcore$class),
                                sd,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

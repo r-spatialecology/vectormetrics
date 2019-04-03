@@ -25,7 +25,7 @@ vm_c_mesh <- function(landscape, class){
   area_sum <- stats::aggregate(area$value_2,
                                by= list(area$class),
                                sum,
-                               na.rm = TRUE)
+                               na.rm = FALSE)
 
   A <- sum(area$value)
 

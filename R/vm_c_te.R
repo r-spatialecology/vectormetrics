@@ -20,7 +20,7 @@ vm_c_te <- function(landscape, class){
   perim_c <- stats::aggregate(perim$value,
                               by= list(perim$class),
                               sum,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

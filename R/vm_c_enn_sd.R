@@ -20,7 +20,7 @@ vm_c_enn_sd <- function(landscape, class){
   enn_sd <- stats::aggregate(enn$value,
                              by= list(enn$class),
                              sd,
-                             na.rm = TRUE)
+                             na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(

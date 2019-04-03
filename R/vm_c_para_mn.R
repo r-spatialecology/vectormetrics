@@ -20,7 +20,7 @@ vm_c_para_mn <- function(landscape, class){
   para_mn <- stats::aggregate(para$value,
                               by= list(para$class),
                               mean,
-                              na.rm = TRUE)
+                              na.rm = FALSE)
 
   # return results tibble
   tibble::tibble(
