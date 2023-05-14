@@ -16,7 +16,7 @@ vm_p_convp <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- landscape[, c("class", "geometry")]
+  landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
 

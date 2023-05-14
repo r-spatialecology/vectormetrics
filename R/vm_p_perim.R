@@ -19,10 +19,9 @@ vm_p_perim <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- landscape[, c("class", "geometry")]
+  landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
-
   if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
     landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)

@@ -22,19 +22,29 @@ vm_p_shape <- function(landscape, class) {
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
+  landscape <- landscape[, c(class, "geometry")]
+
+  # extract the multipolygon, cast to single polygons (patch level)
+  if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
+    landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
+    landscape_poly <- landscape[sf::st_geometry_type(landscape)=="POLYGON", ]
+    landscape <- rbind(landscape_multi, landscape_poly)
+  }
+
   peri <- vm_p_perim(landscape, class)
 
   # shape metric is the ratio between actual perimeter and the hypothetical minimum perimeter of the patch
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
   # pi * R^2 = area, R = sqrt(area/pi), hypothetical minimum perimeter = 2 * pi * R
-  area <- vm_p_area(landscape, class)
-  area$value <- area$value * 10000
-  shape <- peri$value / (2 * pi * sqrt(area$value / pi))
+  area <- vm_p_area(landscape, class)$value * 10000
+  shape <- peri$value / vm_p_circlep(landscape, class)$value
 
+  class_ids <- sf::st_set_geometry(landscape, NULL)
   tibble::tibble(
     level = "patch",
-    class = as.integer(area$class),
-    id = as.integer(1:nrow(area)),
+    class = as.integer(class_ids[, 1]),
+    id = as.integer(1:nrow(landscape)),
     metric = "shape",
     value = as.double(shape)
   )

@@ -10,8 +10,6 @@
 #' @export
 
 vm_p_detour <- function(landscape, class) {
-  `%>%` = dplyr::`%>%`
-
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
@@ -19,7 +17,7 @@ vm_p_detour <- function(landscape, class) {
 
   # select geometry column for spatial operations and the column that identifies
   # the classes
-  landscape <- landscape[, c("class", "geometry")]
+  landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
 
@@ -33,14 +31,11 @@ vm_p_detour <- function(landscape, class) {
   # area of polygons
   landscape$area <- vm_p_area(landscape, class)$value * 10000
 
-  # cast then to multilinestring
-  landscape_cast_2 <- landscape %>% sf::st_convex_hull() %>% sf::st_cast("MULTILINESTRING", warn = FALSE)
-
-  # calculate the length of each convex hull
-  landscape_cast_2$convex_perim <- sf::st_length(landscape_cast_2)
+  # calculate the length of each perimeter hull
+  landscape$convex_perim <- vm_p_convp(landscape, class)$value
 
   # ratio of perimeter of polygon and its convex hull
-  detour_index <- (sqrt(landscape$area / pi) * 2 * pi) / landscape_cast_2$convex_perim
+  detour_index <- vm_p_circlep(landscape, class)$value / landscape$convex_perim
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)
@@ -48,7 +43,7 @@ vm_p_detour <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids[, 1]),
-    id = as.integer(1:nrow(landscape_cast_2)),
+    id = as.integer(1:nrow(landscape)),
     metric = "detour_index",
     value = as.double(detour_index)
   )
