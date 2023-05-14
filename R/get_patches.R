@@ -2,13 +2,13 @@ get_patches <- function(landscape, class, direction = 8) UseMethod("get_patches"
 
 get_patches.sf <- function(landscape, class, direction = 8){
 
-  landscape_cast <- landscape %>%
+  landscape_cast <- landscape |>
     sf::st_cast("POLYGON", warn = FALSE)
 
   if (direction == 4) {
     class <- rlang::enquo(class)
-    result <- landscape_cast %>%
-      dplyr::group_by(!!class) %>%
+    result <- landscape_cast |>
+      dplyr::group_by(!!class) |>
       dplyr::mutate(patch = seq_len(dplyr::n()))
     result$patch = as.factor(result$patch)
     return(result)
