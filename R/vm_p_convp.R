@@ -1,15 +1,14 @@
-#' @title Perimeter Index(vector data)
+#' @title Perimeter of the convex hull(vector data)
 #'
-#' @description Calculate Perimeter Index
+#' @description Calculate perimeter of the convex hull of the polygon
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @return  ratio between perimeter of equal-area circle and perimeter of polygon
+#' @return  perimeter of the convex hull of the polygon
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_pi <- function(landscape, class) {
+vm_p_convp <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
@@ -20,6 +19,7 @@ vm_p_pi <- function(landscape, class) {
   landscape <- landscape[, c("class", "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
+
   if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
     landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
@@ -27,12 +27,8 @@ vm_p_pi <- function(landscape, class) {
     landscape <- rbind(landscape_multi, landscape_poly)
   }
 
-  # calculate the length of each perimeter
-  landscape$perim <- vm_p_perim(landscape, class)$value
-  landscape$circle_perim <- vm_p_circlep(landscape, class)$value
-
-  # ratio of perimeter of equal-area circle and polygon perimeters
-  perim_index <- landscape$circle_perim / landscape$perim
+  convex = sf::st_convex_hull(landscape)
+  convex_perim = vm_p_perim(convex, class)$value
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)
@@ -41,7 +37,7 @@ vm_p_pi <- function(landscape, class) {
     level = "patch",
     class = as.integer(class_ids[, 1]),
     id = as.integer(1:nrow(landscape)),
-    metric = "perim_index",
-    value = as.double(perim_index)
+    metric = "convex_area",
+    value = as.double(convex_perim)
   )
 }
