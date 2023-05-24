@@ -1,4 +1,6 @@
-get_patches <- function(landscape, class, direction = 8) UseMethod("get_patches")
+get_patches <- function(landscape, class, direction = 8){
+  UseMethod("get_patches")
+}
 
 get_patches.sf <- function(landscape, class, direction = 8){
 
@@ -19,26 +21,41 @@ get_patches.sf <- function(landscape, class, direction = 8){
     lsc_classes <- unique(dplyr::pull(landscape, !!class))
 
     landscape_nb <- purrr::map(lsc_classes, function(class_i) {
-      a <- dplyr::filter(landscape_cast, class == class_i)
-
-      nb <- sf::st_relate(a, a, pattern = nb_string, sparse = FALSE)
-      nb[lower.tri(nb)] <- NA
+      class_patches <- dplyr::filter(landscape_cast, class == class_i)
+      nb <- sf::st_relate(class_patches, class_patches, pattern = nb_string, sparse = FALSE)
+      done_shapes = c()
 
       landscape_nb <- purrr::map(seq_len(ncol(nb)), .f = function(patch_i, class_i) {
-        nb_ind <- which(nb[, patch_i] == TRUE)
-        nb_union <- sf::st_union(a[c(nb_ind, patch_i), ])
-        nb_union <- sf::st_sf(geometry = nb_union)
-        nb_union$class <- class_i
-        nb_union$patch <- patch_i
-        nb_union
+        if (!(patch_i %in% done_shapes)){
+          nb_ind <- which(nb[, patch_i] == TRUE)
+          nb_ind <- c(nb_ind, patch_i)
+          indexes <- nb_ind
+          indexes <- c(indexes, which(nb[, nb_ind] == TRUE) %% nrow(nb))
+
+          while (length(indexes) && !all(indexes %in% nb_ind)) {
+            nb_ind <- unique(c(nb_ind, indexes))
+            idx_iter <- indexes
+            for (index in idx_iter){
+              idx <- which(nb[, index] == TRUE)
+              if (!all(idx %in% indexes)){
+                indexes <- unique(c(indexes, idx))
+              }
+            }
+          }
+          if (length(indexes) > 0){
+            nb[indexes,] <<- FALSE
+            nb[,indexes] <<- FALSE
+          }
+          done_shapes <<- c(done_shapes, indexes)
+
+          nb_union <- sf::st_union(class_patches[indexes, ])
+          nb_union <- sf::st_sf(geometry = nb_union)
+          nb_union$class <- class_i
+          nb_union$patch <- patch_i
+          nb_union
+        }
       }, class_i)
 
-      # for(class_i in seq_len(ncol(nb))) {
-      #
-      #   nb_ind <- which(nb[, class_i] == TRUE)
-      #   if(length(nb_ind) != 0) landscape_nb[nb_ind] <- NULL
-      #
-      # }
       landscape_nb
     })
     landscape_nb = purrr::flatten(landscape_nb)
@@ -48,12 +65,3 @@ get_patches.sf <- function(landscape, class, direction = 8){
     return(result)
   }
 }
-
-# r4 = get_patches(vector_landscape, class, direction = 4)
-# r8 = get_patches(vector_landscape, class)
-#
-# r4$patch = as.factor(r4$patch)
-# r8$patch = as.factor(r8$patch)
-#
-# plot(r4[2])
-# plot(r8[2])
