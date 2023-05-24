@@ -6,11 +6,12 @@ get_patches.sf <- function(landscape, class, direction = 8){
     sf::st_cast("POLYGON", warn = FALSE)
 
   if (direction == 4) {
-    class <- rlang::enquo(class)
     result <- landscape_cast |>
-      dplyr::group_by(!!class) |>
+      dplyr::group_by_at(class) |>
       dplyr::mutate(patch = seq_len(dplyr::n()))
     result$patch = as.factor(result$patch)
+    class(result) = class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
+    result = result |> dplyr::select(class, patch, geometry)
     return(result)
 
   } else if (direction == 8){
