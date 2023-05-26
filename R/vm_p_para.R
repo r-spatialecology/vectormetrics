@@ -29,7 +29,8 @@ vm_p_para <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(area$class),
-    id = as.integer(1:nrow(area)),
+    id = landscape$patch,
+    #id = as.integer(1:nrow(area)),
     metric = "para",
     value = as.double(para)
   )

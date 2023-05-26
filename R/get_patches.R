@@ -1,8 +1,20 @@
-get_patches <- function(landscape, class, direction = 8){
+#' @title Get patches from polygon landscape
+#'
+#' @description Convert multipolygons to seperate polygons based on chosen neighbourhood type.
+#' @param landscape the input landscape image,
+#' @param class the name of the class column of the input landscape
+#' @param direction 4 or 8
+#' @return sf object with exploded polygons
+#' @examples
+#' get_patches(vector_landscape, "class", direction = 4)
+#' @export
+get_patches <- function(landscape, class, direction = 4){
   UseMethod("get_patches")
 }
 
-get_patches.sf <- function(landscape, class, direction = 8){
+#' @name get_patches
+#' @export
+get_patches.sf <- function(landscape, class, direction = 4){
 
   landscape_cast <- landscape |>
     sf::st_cast("POLYGON", warn = FALSE)

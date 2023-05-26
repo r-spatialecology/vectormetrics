@@ -50,7 +50,7 @@ vm_p_core.sf <- function(landscape, class, edge_depth) {
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
+  landscape <- get_patches.sf(landscape, class, 4)
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
   core_area <- sf::st_buffer(landscape, dist = -edge_depth)
@@ -68,7 +68,8 @@ vm_p_core.sf <- function(landscape, class, edge_depth) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
+    id = landscape$patch,
+    #id = as.integer(1:nrow(landscape)),
     metric = "core",
     value = as.double(landscape$core)
   )

@@ -36,7 +36,7 @@
 #' @name vm_p_area
 #' @export
 
-vm_p_area <- function(landscape, class, direction = 4) {
+vm_p_area <- function(landscape, class) {
 
   # check if x argument is a multipolygon or polygon
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
@@ -46,7 +46,7 @@ vm_p_area <- function(landscape, class, direction = 4) {
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, direction)
+  landscape <- get_patches.sf(landscape, class, 4)
 
   # compute area and divide by 10000 to get hectare
   landscape$area <- sf::st_area(landscape) / 10000

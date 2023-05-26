@@ -10,7 +10,7 @@
 #' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_perim <- function(landscape, class, direction = 4) {
+vm_p_perim <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
@@ -21,7 +21,7 @@ vm_p_perim <- function(landscape, class, direction = 4) {
   # the classes
   landscape <- landscape[, c(class, "geometry")]
   # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, direction)
+  landscape <- get_patches.sf(landscape, class, 4)
 
   # cast then to multilinestring
   landscape_cast_2 <- sf::st_cast(landscape, "MULTILINESTRING", warn = FALSE)

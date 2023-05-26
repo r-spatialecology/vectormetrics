@@ -25,7 +25,7 @@ vm_p_enn <- function(landscape, class) {
 
 
   # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
+  landscape <- get_patches.sf(landscape, class, 4)
 
   # cast then to MULTILINESTRING
   landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=F)
@@ -62,7 +62,8 @@ vm_p_enn <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape_poly)),
+    id = landscape$patch,
+    #id = as.integer(1:nrow(landscape_poly)),
     metric = "enn",
     value = as.double(enn)
   )

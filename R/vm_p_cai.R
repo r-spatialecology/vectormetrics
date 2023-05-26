@@ -29,7 +29,8 @@ vm_p_cai <- function(landscape, class, edge_depth) {
   tibble::tibble(
     level = "patch",
     class = as.integer(core$class),
-    id = as.integer(1:nrow(core)),
+    id = landscape$patch,
+    #id = as.integer(1:nrow(core)),
     metric = "cai",
     value = as.double(cai)
   )

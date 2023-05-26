@@ -53,13 +53,13 @@ vm_p_circle.sf <- function(landscape, class) {
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
+  landscape <- get_patches.sf(landscape, class, 4)
 
   # cast then to MULTIPOINT
   landscape_cast <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split = FALSE)
 
   # compute max distant for each MULTIPOINT, which is the diameter of a circle around each patch
-  dis_max <- sapply(seq_along(dis_max), function(i){
+  dis_max <- sapply(seq_along(1:nrow(landscape_cast)), function(i){
     landscape_point <- sf::st_cast(landscape_cast[i, ], "POINT", warn = FALSE)
     dis <- sf::st_distance(landscape_point, by_element = F)
     max(dis)
@@ -80,7 +80,8 @@ vm_p_circle.sf <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape_cast)),
+    id = landscape$patch,
+    #id = as.integer(1:nrow(landscape_cast)),
     metric = "circle",
     value = as.double(landscape_cast$circle)
   )
@@ -92,6 +93,6 @@ vm_p_circle.sf <- function(landscape, class) {
 vm_p_circle.SpatialPolygonsDataFrame <- function(landscape, class) {
 
   vm_p_circle <- sf::st_as_sf(landscape)
-  vm_p_circle(landscape, class, edge_depth)
+  vm_p_circle(landscape, class)
 
 }
