@@ -1,7 +1,9 @@
+#' @aliases get_patches
+#' @rdname get_patches
 get_patches <- function(landscape, class, direction = 8){
   UseMethod("get_patches")
 }
-
+#' @name get_patches
 get_patches.sf <- function(landscape, class, direction = 8){
 
   landscape_cast <- landscape |>
