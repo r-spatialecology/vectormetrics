@@ -8,12 +8,13 @@
 #' @examples
 #' get_patches(vector_landscape, "class", direction = 4)
 #' @export
+#' @aliases get_patches
+#' @rdname get_patches
 get_patches <- function(landscape, class, direction = 4){
   UseMethod("get_patches")
 }
 
 #' @name get_patches
-#' @export
 get_patches.sf <- function(landscape, class, direction = 4){
 
   landscape_cast <- landscape |>
