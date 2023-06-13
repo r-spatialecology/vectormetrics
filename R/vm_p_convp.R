@@ -18,6 +18,7 @@ vm_p_convp <- function(landscape, class) {
   # the classes
   landscape <- landscape[, c(class, "geometry")]
 
+  # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
   convex = sf::st_convex_hull(landscape)

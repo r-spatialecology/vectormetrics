@@ -31,8 +31,9 @@ vm_p_ncore <- function(landscape, class, edge_depth){
   # the number of polygons(Disjunct core areas) in each patch
   core_area$core_area_number <- sapply(core_area$geometry, length)
 
-  class_ids <-dplyr::pull(sf::st_set_geometry(landscape, NULL), !!class)
+  class_ids <- dplyr::pull(sf::st_set_geometry(landscape, NULL), !!class)
 
+  # get class ids and if factor, coerce to numeric
   if (class(class_ids) == "factor"){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }

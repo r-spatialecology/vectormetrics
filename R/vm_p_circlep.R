@@ -14,8 +14,7 @@ vm_p_circlep <- function(landscape, class) {
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)

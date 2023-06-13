@@ -9,21 +9,17 @@
 #' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_detour <- function(landscape, class) {
+vm_p_detour_idx <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
-
-  # area of polygons
-  landscape$area <- vm_p_area(landscape, class)$value * 10000
 
   # calculate the length of each perimeter hull
   landscape$convex_perim <- vm_p_convp(landscape, class)$value

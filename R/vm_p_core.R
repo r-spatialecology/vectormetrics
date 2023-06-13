@@ -56,7 +56,7 @@ vm_p_core.sf <- function(landscape, class, edge_depth) {
   core_area <- sf::st_buffer(landscape, dist = -edge_depth)
 
   # calculate the area of each core area
-  landscape$core <- sf::st_area(core_area)/10000
+  landscape$core <- sf::st_area(core_area) / 10000
 
   # get class ids and if factor, coerce to numeric
   class_ids <-  sf::st_set_geometry(landscape, NULL)[, class]

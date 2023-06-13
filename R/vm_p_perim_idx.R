@@ -9,14 +9,13 @@
 #' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_pi <- function(landscape, class) {
+vm_p_perim_idx <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, c(class, "geometry")]
 
   # extract the multipolygon, cast to single polygons (patch level)

@@ -14,10 +14,10 @@ vm_p_conva <- function(landscape, class) {
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, c(class, "geometry")]
 
+  # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
   convex = sf::st_convex_hull(landscape)

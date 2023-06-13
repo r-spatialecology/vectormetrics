@@ -17,10 +17,12 @@ get_patches <- function(landscape, class, direction = 4){
 #' @name get_patches
 get_patches.sf <- function(landscape, class, direction = 4){
 
+  # cast multipolygons to polygons
   landscape_cast <- landscape |>
     sf::st_cast("POLYGON", warn = FALSE)
 
   if (direction == 4) {
+    # merge by nieghbourhood type based on touching edges
     result <- landscape_cast |>
       dplyr::group_by_at(class) |>
       dplyr::mutate(patch = seq_len(dplyr::n()))
@@ -30,16 +32,19 @@ get_patches.sf <- function(landscape, class, direction = 4){
     return(result)
 
   } else if (direction == 8){
+    # merge by nieghbourhood type based on touching vertices
     nb_string <- "F***T****"
     lsc_classes <- unique(dplyr::pull(landscape, !!class))
 
     landscape_nb <- purrr::map(lsc_classes, function(class_i) {
+      # create neighbourhood matrix for each class
       class_patches <- dplyr::filter(landscape_cast, class == class_i)
       nb <- sf::st_relate(class_patches, class_patches, pattern = nb_string, sparse = FALSE)
       done_shapes = c()
 
       landscape_nb <- purrr::map(seq_len(ncol(nb)), .f = function(patch_i, class_i) {
         if (!(patch_i %in% done_shapes)){
+          # find neighbours of each patch
           nb_ind <- which(nb[, patch_i] == TRUE)
           nb_ind <- c(nb_ind, patch_i)
           indexes <- nb_ind
@@ -61,6 +66,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
           }
           done_shapes <<- c(done_shapes, indexes)
 
+          # merge chosen neighbours
           nb_union <- sf::st_union(class_patches[indexes, ])
           nb_union <- sf::st_sf(geometry = nb_union)
           nb_union$class <- class_i

@@ -31,8 +31,6 @@ vm_p_shape <- function(landscape, class) {
 
   # shape metric is the ratio between actual perimeter and the hypothetical minimum perimeter of the patch
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
-  # pi * R^2 = area, R = sqrt(area/pi), hypothetical minimum perimeter = 2 * pi * R
-  area <- vm_p_area(landscape, class)$value * 10000
   shape <- peri$value / vm_p_circlep(landscape, class)$value
 
   class_ids <- sf::st_set_geometry(landscape, NULL)

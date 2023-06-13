@@ -67,8 +67,8 @@ vm_p_circle.sf <- function(landscape, class) {
 
   # calculate circle metric
   circle_area <- vm_p_area(landscape, class)
-  circum_area <- pi * (dis_max / 2)^2
-  landscape_cast$circle <- 1 - (circle_area$value*10000/ circum_area)
+  circum_area <- pi * (dis_max / 2) ^ 2
+  landscape_cast$circle <- 1 - (circle_area$value * 10000 / circum_area)
 
   # get class ids and if factor, coerce to numeric
   class_ids <-  sf::st_set_geometry(landscape, NULL)[, class]

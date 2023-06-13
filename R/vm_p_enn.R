@@ -19,10 +19,8 @@ vm_p_enn <- function(landscape, class) {
     stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, c("class", "geometry")]
-
 
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
@@ -43,15 +41,16 @@ vm_p_enn <- function(landscape, class) {
     # create another vector to storage all the output of this "for" loop
     min_dis <- c()
     for (k in 1:nrow(landscape_point_1)) {
-
       # obtain the distance of each point of the processing patch(polygon)
       # to all the points of other polygons belonging to the same class
       dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2$landcover == c, ])
 
-      min_dis[k] <- min(dis) # the closest distance of each point of the patch to all the points of other patches
+      # the closest distance of each point of the patch to all the points of other patches
+      min_dis[k] <- min(dis)
     }
 
-    enn[i] <- min(min_dis) # the distance of a patch to the nearest patch belonging to the same class
+    # the distance of a patch to the nearest patch belonging to the same class
+    enn[i] <- min(min_dis)
   }
 
   # return results tibble

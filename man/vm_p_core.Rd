@@ -2,27 +2,49 @@
 % Please edit documentation in R/vm_p_core.R
 \name{vm_p_core}
 \alias{vm_p_core}
-\title{core area(vector data)}
+\alias{vm_p_core.sf}
+\alias{vm_p_core.SpatialPolygonsDataFrame}
+\title{CORE (patch level)}
 \usage{
 vm_p_core(landscape, class, edge_depth)
+
+\method{vm_p_core}{sf}(landscape, class, edge_depth)
+
+\method{vm_p_core}{SpatialPolygonsDataFrame}(landscape, class, edge_depth)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
+\item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class}{Name of the class column of the input landscape}
 
-\item{edge_depth}{the fixed distance to the edge of the patch}
-}
-\value{
-the returned calculated core areas of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+\item{edge_depth}{Distance (in map units) a location has the be away from the patch edge to be considered as core location}
 }
 \description{
-This function allows you to calculate the core area of all patches in square meters
-Core area is defined as an area that within the patch and its edge is a fixed value from the boundary of the patch.
+Core area (Core area metric)
+}
+\details{
+\deqn{CORE = a_{ij}^{core}}
+where \eqn{a_{ij}^{core}} is the core area in square meters
+
+CORE is a 'Core area metric' and equals the area within a patch that is not
+on the edge of it. A location is defined as core area if the location has no
+neighbour with a different value than itself. It describes patch area
+and shape simultaneously (more core area when the patch is large and the shape is
+rather compact, i.e. a square).
+
+\subsection{Units}{Hectares}
+\subsection{Range}{CORE >= 0}
+\subsection{Behaviour}{Increases, without limit, as the patch area increases
+and the patch shape simplifies (more core area). CORE = 0 when every location in
+the patch is an edge.}
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_p_core(vector_landscape, "class", edge_depth = 0.8)
+
+}
+\references{
+McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
+Program for Categorical and Continuous Maps. Computer software program produced by
+the authors at the University of Massachusetts, Amherst. Available at the following
+web site: http://www.umass.edu/landeco/research/fragstats/fragstats.html
 }

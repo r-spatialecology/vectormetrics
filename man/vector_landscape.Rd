@@ -4,7 +4,9 @@
 \name{vector_landscape}
 \alias{vector_landscape}
 \title{Example map (random cluster neutral landscape model).}
-\format{A sf object.}
+\format{
+A sf object.
+}
 \source{
 Simulated neutral landscape model with R. https://github.com/ropensci/NLMR/
 }
