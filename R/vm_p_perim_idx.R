@@ -29,11 +29,11 @@ vm_p_perim_idx <- function(landscape, class) {
   perim_index <- landscape$circle_perim / landscape$perim
 
   # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
 
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids[, 1]),
+    class = as.integer(class_ids),
     id = landscape$patch,
     #id = as.integer(1:nrow(landscape)),
     metric = "perim_index",

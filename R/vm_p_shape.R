@@ -33,10 +33,10 @@ vm_p_shape <- function(landscape, class) {
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
   shape <- peri$value / vm_p_circlep(landscape, class)$value
 
-  class_ids <- sf::st_set_geometry(landscape, NULL)
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids[, 1]),
+    class = as.integer(class_ids),
     id = landscape$patch,
     #id = as.integer(1:nrow(landscape)),
     metric = "shape",

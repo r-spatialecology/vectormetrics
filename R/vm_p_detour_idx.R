@@ -28,11 +28,11 @@ vm_p_detour_idx <- function(landscape, class) {
   detour_index <- vm_p_circlep(landscape, class)$value / landscape$convex_perim
 
   # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
 
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids[, 1]),
+    class = as.integer(class_ids),
     id = landscape$patch,
     #id = as.integer(1:nrow(landscape)),
     metric = "detour_index",

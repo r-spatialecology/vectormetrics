@@ -51,11 +51,11 @@ vm_p_area <- function(landscape, class) {
   # compute area and divide by 10000 to get hectare
   landscape$area <- sf::st_area(landscape) / 10000
 
-  class_ids <- sf::st_set_geometry(landscape, NULL)
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
   # return results tibble
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids[, 1]),
+    class = as.integer(class_ids),
     id = landscape$patch,
     #id = as.integer(seq_len(nrow(landscape_cast))),
     metric = "area",

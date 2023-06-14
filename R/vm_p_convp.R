@@ -25,11 +25,11 @@ vm_p_convp <- function(landscape, class) {
   convex_perim = vm_p_perim(convex, class)$value
 
   # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
 
   tibble::tibble(
     level = "patch",
-    class = as.integer(class_ids[, 1]),
+    class = as.integer(class_ids),
     id = as.integer(1:nrow(landscape)),
     metric = "convex_area",
     value = as.double(convex_perim)
