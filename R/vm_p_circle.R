@@ -55,20 +55,13 @@ vm_p_circle.sf <- function(landscape, class) {
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
-  # cast then to MULTIPOINT
-  landscape_cast <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split = FALSE)
-
-  # compute max distant for each MULTIPOINT, which is the diameter of a circle around each patch
-  dis_max <- sapply(seq_along(1:nrow(landscape_cast)), function(i){
-    landscape_point <- sf::st_cast(landscape_cast[i, ], "POINT", warn = FALSE)
-    dis <- sf::st_distance(landscape_point, by_element = F)
-    max(dis)
-  })
+  # calculate diameter of smallest circumscribing circle
+  dis_max = vm_p_circum(vector_landscape, "class")$value
 
   # calculate circle metric
   circle_area <- vm_p_area(landscape, class)
   circum_area <- pi * (dis_max / 2) ^ 2
-  landscape_cast$circle <- 1 - (circle_area$value * 10000 / circum_area)
+  landscape$circle <- 1 - (circle_area$value * 10000 / circum_area)
 
   # get class ids and if factor, coerce to numeric
   class_ids <-  sf::st_set_geometry(landscape, NULL)[, class]
@@ -81,9 +74,9 @@ vm_p_circle.sf <- function(landscape, class) {
     level = "patch",
     class = as.integer(class_ids),
     id = landscape$patch,
-    #id = as.integer(1:nrow(landscape_cast)),
+    #id = as.integer(1:nrow(landscape)),
     metric = "circle",
-    value = as.double(landscape_cast$circle)
+    value = as.double(landscape$circle)
   )
 
 }
