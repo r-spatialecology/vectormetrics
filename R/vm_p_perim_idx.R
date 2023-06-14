@@ -21,8 +21,10 @@ vm_p_perim_idx <- function(landscape, class) {
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
-  # calculate the length of each perimeter
+  # calculate the perimeter of polygons
   landscape$perim <- vm_p_perim(landscape, class)$value
+
+  # calculate the perimeter of equal-area circle
   landscape$circle_perim <- vm_p_circlep(landscape, class)$value
 
   # ratio of perimeter of equal-area circle and polygon perimeters
