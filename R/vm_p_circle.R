@@ -56,7 +56,7 @@ vm_p_circle.sf <- function(landscape, class) {
   landscape <- get_patches.sf(landscape, class, 4)
 
   # calculate diameter of smallest circumscribing circle
-  dis_max = vm_p_circum(vector_landscape, "class")$value
+  dis_max <- vm_p_circum(vector_landscape, "class")$value
 
   # calculate circle metric
   circle_area <- vm_p_area(landscape, class)

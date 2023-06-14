@@ -26,9 +26,9 @@ get_patches.sf <- function(landscape, class, direction = 4){
     result <- landscape_cast |>
       dplyr::group_by_at(class) |>
       dplyr::mutate(patch = seq_len(dplyr::n()))
-    result$patch = as.factor(result$patch)
-    class(result) = class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
-    result = result |> dplyr::select(class, patch, geometry)
+    result$patch <- as.factor(result$patch)
+    class(result) <- class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
+    result <- result |> dplyr::select(class, patch, geometry)
     return(result)
 
   } else if (direction == 8){
@@ -77,7 +77,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
 
       landscape_nb
     })
-    landscape_nb = purrr::flatten(landscape_nb)
+    landscape_nb <- purrr::flatten(landscape_nb)
 
     result <- do.call(rbind, landscape_nb)
     result <- sf::st_collection_extract(result, "POLYGON")

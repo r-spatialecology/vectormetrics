@@ -20,8 +20,8 @@ vm_p_conva <- function(landscape, class) {
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
-  convex = sf::st_convex_hull(landscape)
-  convex_area = vm_p_area(convex, class)$value * 10000
+  convex <- sf::st_convex_hull(landscape)
+  convex_area <- vm_p_area(convex, class)$value * 10000
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class]

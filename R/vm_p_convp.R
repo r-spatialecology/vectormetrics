@@ -21,8 +21,8 @@ vm_p_convp <- function(landscape, class) {
   # extract the multipolygon, cast to single polygons (patch level)
   landscape <- get_patches.sf(landscape, class, 4)
 
-  convex = sf::st_convex_hull(landscape)
-  convex_perim = vm_p_perim(convex, class)$value
+  convex <- sf::st_convex_hull(landscape)
+  convex_perim <- vm_p_perim(convex, class)$value
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class]

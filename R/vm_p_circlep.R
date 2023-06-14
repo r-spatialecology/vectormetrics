@@ -23,7 +23,7 @@ vm_p_circlep <- function(landscape, class) {
   # area of polygons
   landscape$area <- vm_p_area(landscape, class)$value * 10000
 
-  circle_perims = sqrt(landscape$area / pi) * 2 * pi
+  circle_perims <- sqrt(landscape$area / pi) * 2 * pi
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
