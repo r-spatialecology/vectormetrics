@@ -21,7 +21,7 @@
 #' \subsection{Behaviour}{CIRCLE = 0 for a circular patch and approaches CIRCLE = 1 for
 #' a linear patch.}
 #'
-#' @examples-
+#' @examples
 #' vm_p_circle(vector_landscape, "class")
 #'
 #' @aliases vm_p_circle
@@ -36,13 +36,10 @@
 #' Baker, W. L., and Y. Cai. 1992. The r.le programs for multiscale analysis of
 #' landscape structure using the GRASS geographical information system.
 #' Landscape Ecology 7: 291-302.
-#'
-#' @export
-vm_p_circle <- function(landscape, class) UseMethod("vm_p_circle")
 
 #' @name vm_p_circle
 #' @export
-vm_p_circle.sf <- function(landscape, class) {
+vm_p_circle <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
@@ -78,14 +75,5 @@ vm_p_circle.sf <- function(landscape, class) {
     metric = "circle",
     value = as.double(landscape$circle)
   )
-
-}
-
-#' @name vm_p_circle
-#' @export
-vm_p_circle.SpatialPolygonsDataFrame <- function(landscape, class) {
-
-  vm_p_circle <- sf::st_as_sf(landscape)
-  vm_p_circle(landscape, class)
 
 }
