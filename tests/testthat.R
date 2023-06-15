@@ -10,6 +10,7 @@ library(testthat)
 library(vectormetrics)
 
 square = list(cbind(c(0,1,1,0,0), c(0,0,1,1,0))) |> sf::st_polygon() |>
-  sf::st_sfc() |> sf::st_sf(class = 1, geometry = _, crs = "EPSG:2180")
+  sf::st_sfc() |> sf::st_sf(crs = "EPSG:2180")
+square$class = 1
 
 test_check("vectormetrics")

@@ -2,15 +2,9 @@
 % Please edit documentation in R/vm_p_core.R
 \name{vm_p_core}
 \alias{vm_p_core}
-\alias{vm_p_core.sf}
-\alias{vm_p_core.SpatialPolygonsDataFrame}
 \title{CORE (patch level)}
 \usage{
 vm_p_core(landscape, class, edge_depth)
-
-\method{vm_p_core}{sf}(landscape, class, edge_depth)
-
-\method{vm_p_core}{SpatialPolygonsDataFrame}(landscape, class, edge_depth)
 }
 \arguments{
 \item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
