@@ -15,6 +15,7 @@ get_patches <- function(landscape, class, direction = 4){
 }
 
 #' @name get_patches
+#' @export
 get_patches.sf <- function(landscape, class, direction = 4){
 
   # cast multipolygons to polygons
@@ -23,13 +24,9 @@ get_patches.sf <- function(landscape, class, direction = 4){
 
   if (direction == 4) {
     # merge by nieghbourhood type based on touching edges
-    result <- landscape_cast |>
-      dplyr::group_by_at(class) |>
-      dplyr::mutate(patch = seq_len(dplyr::n()))
-    result$patch <- as.factor(result$patch)
+    result <- landscape_cast
     class(result) <- class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
-    result <- result |> dplyr::select(class, patch, geometry)
-    return(result)
+    result <- result |> dplyr::select(class, geometry)
 
   } else if (direction == 8){
     # merge by nieghbourhood type based on touching vertices
@@ -81,6 +78,12 @@ get_patches.sf <- function(landscape, class, direction = 4){
 
     result <- do.call(rbind, landscape_nb)
     result <- sf::st_collection_extract(result, "POLYGON")
-    return(result)
+
   }
+  result$patch <- seq_len(nrow(result))
+  rownames(result) <- NULL
+
+  message("Number of patches before conversion: ", nrow(landscape))
+  message("Number of patches after conversion: ", nrow(result))
+  return(result)
 }
