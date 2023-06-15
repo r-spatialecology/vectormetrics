@@ -2,15 +2,9 @@
 % Please edit documentation in R/vm_p_circle.R
 \name{vm_p_circle}
 \alias{vm_p_circle}
-\alias{vm_p_circle.sf}
-\alias{vm_p_circle.SpatialPolygonsDataFrame}
 \title{CIRCLE (patch level)}
 \usage{
 vm_p_circle(landscape, class)
-
-\method{vm_p_circle}{sf}(landscape, class)
-
-\method{vm_p_circle}{SpatialPolygonsDataFrame}(landscape, class)
 }
 \arguments{
 \item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
@@ -37,7 +31,6 @@ of the patch and is comparable among patches with different area.
 a linear patch.}
 }
 \examples{
--
 vm_p_circle(vector_landscape, "class")
 
 }

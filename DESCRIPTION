@@ -27,5 +27,8 @@ Imports:
     rlang,
     sf,
     tibble
-Suggests: sp
-RoxygenNote: 7.1.2
+Suggests: 
+    sp,
+    testthat (>= 3.0.0)
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3
