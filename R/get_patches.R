@@ -82,6 +82,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
   }
   result$patch <- seq_len(nrow(result))
   rownames(result) <- NULL
+  result <- result |> dplyr::select(class, patch, geometry)
 
   message("Number of patches before conversion: ", nrow(landscape))
   message("Number of patches after conversion: ", nrow(result))
