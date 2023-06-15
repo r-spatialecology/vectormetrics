@@ -19,13 +19,13 @@ vm_p_shape <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
-  landscape <- landscape[, c(class, "geometry")]
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, 4)
+  # select geometry column for spatial operations and the column that identifies the classes
+  landscape <- landscape[, class]
 
   peri <- vm_p_perim(landscape, class)
 
@@ -33,12 +33,14 @@ vm_p_shape <- function(landscape, class) {
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
   shape <- peri$value / vm_p_circlep(landscape, class)$value
 
-  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
+    class_ids <- as.numeric(levels(class_ids))[class_ids]
+  }
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(landscape)),
+    id = as.integer(1:nrow(landscape)),
     metric = "shape",
     value = as.double(shape)
   )

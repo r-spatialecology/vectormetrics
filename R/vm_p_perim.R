@@ -14,30 +14,31 @@ vm_p_perim <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- landscape[, c(class, "geometry")]
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, 4)
+  landscape <- landscape[, class]
 
   # cast then to multilinestring
-  landscape_cast_2 <- sf::st_cast(landscape, "MULTILINESTRING", warn = FALSE)
+  landscape_cast <- sf::st_cast(landscape, "MULTILINESTRING", warn = FALSE)
 
   # calculate the length of each multilinestring, that is the perimeter of each polygon as well
-  landscape_cast_2$perim <- sf::st_length(landscape_cast_2)
+  landscape_cast$perim <- sf::st_length(landscape_cast)
 
   # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)[, class]
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
+    class_ids <- as.numeric(levels(class_ids))[class_ids]
+  }
 
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = landscape_cast_2$patch,
-    #id = as.integer(1:nrow(landscape_cast_2)),
+    id = as.integer(1:nrow(landscape_cast)),
     metric = "perim",
-    value = as.double(landscape_cast_2$perim)
+    value = as.double(landscape_cast$perim)
   )
 }

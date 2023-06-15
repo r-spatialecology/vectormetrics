@@ -17,13 +17,12 @@
 vm_p_ncore <- function(landscape, class, edge_depth){
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
-  landscape <- dplyr::select(landscape, !!class, "geometry")
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, 4)
+  landscape <- landscape[, class]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
   core_area <- sf::st_buffer(landscape, dist = -edge_depth)
@@ -31,18 +30,15 @@ vm_p_ncore <- function(landscape, class, edge_depth){
   # the number of polygons(Disjunct core areas) in each patch
   core_area$core_area_number <- sapply(core_area$geometry, length)
 
-  class_ids <- dplyr::pull(sf::st_set_geometry(landscape, NULL), !!class)
-
-  # get class ids and if factor, coerce to numeric
-  if (class(class_ids) == "factor"){
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(core_area)),
+    id = as.integer(1:nrow(core_area)),
     metric = "ncore",
     value = as.double(core_area$core_area_number)
   )

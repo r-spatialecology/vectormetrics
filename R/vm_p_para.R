@@ -15,8 +15,13 @@ vm_p_para <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
+
+  # select geometry column for spatial operations and the column that identifies the classes
+  landscape <- landscape[, class]
 
   # calculate the metric para, and assign this to a dataframe including the column "landcover"
   area <- vm_p_area(landscape, class)
@@ -25,12 +30,16 @@ vm_p_para <- function(landscape, class) {
 
   para <- peri$value / area$value
 
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
+    class_ids <- as.numeric(levels(class_ids))[class_ids]
+  }
+
   # return results tibble
   tibble::tibble(
     level = "patch",
-    class = as.integer(area$class),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(area)),
+    class = as.integer(class_ids),
+    id = as.integer(1:nrow(landscape)),
     metric = "para",
     value = as.double(para)
   )

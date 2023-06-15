@@ -38,19 +38,23 @@
 
 vm_p_area <- function(landscape, class) {
 
-  # check if x argument is a multipolygon or polygon
+  # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
+  # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, class]
 
   # compute area and divide by 10000 to get hectare
   landscape$area <- sf::st_area(landscape) / 10000
 
-  class_ids <- sf::st_drop_geometry(landscape)[, class, drop = TRUE]
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
+    class_ids <- as.numeric(levels(class_ids))[class_ids]
+  }
   # return results tibble
   tibble::tibble(
     level = "patch",

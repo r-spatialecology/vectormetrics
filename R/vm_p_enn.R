@@ -16,14 +16,13 @@
 vm_p_enn <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- landscape[, c("class", "geometry")]
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, 4)
+  landscape <- landscape[, class]
 
   # cast then to MULTILINESTRING
   landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=F)
@@ -61,8 +60,7 @@ vm_p_enn <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(landscape_poly)),
+    id = as.integer(1:nrow(landscape_poly)),
     metric = "enn",
     value = as.double(enn)
   )

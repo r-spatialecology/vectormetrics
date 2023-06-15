@@ -18,19 +18,25 @@ vm_p_cai <- function(landscape, class, edge_depth) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
   area <- vm_p_area(landscape, class)
   core <- vm_p_core(landscape, class, edge_depth)
   cai <- core$value / area$value * 100
 
+  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
+    class_ids <- as.numeric(levels(class_ids))[class_ids]
+  }
+
   # return results tibble
   tibble::tibble(
     level = "patch",
-    class = as.integer(core$class),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(core)),
+    class = as.integer(class_ids),
+    id = as.integer(1:nrow(core)),
     metric = "cai",
     value = as.double(cai)
   )

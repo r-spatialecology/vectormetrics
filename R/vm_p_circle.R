@@ -43,14 +43,13 @@ vm_p_circle <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- landscape[, c(class, "geometry")]
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- get_patches.sf(landscape, class, 4)
+  landscape <- landscape[, class]
 
   # calculate diameter of smallest circumscribing circle
   dis_max <- vm_p_circum(vector_landscape, "class")$value
@@ -61,8 +60,8 @@ vm_p_circle <- function(landscape, class) {
   landscape$circle <- 1 - (circle_area$value * 10000 / circum_area)
 
   # get class ids and if factor, coerce to numeric
-  class_ids <-  sf::st_set_geometry(landscape, NULL)[, class]
-  if (class(class_ids) == "factor"){
+  class_ids <-  sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
+  if (is(class_ids, "factor")){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
@@ -70,8 +69,7 @@ vm_p_circle <- function(landscape, class) {
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
-    id = landscape$patch,
-    #id = as.integer(1:nrow(landscape)),
+    id = as.integer(1:nrow(landscape)),
     metric = "circle",
     value = as.double(landscape$circle)
   )
