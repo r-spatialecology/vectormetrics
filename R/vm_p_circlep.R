@@ -34,7 +34,7 @@ vm_p_circlep <- function(landscape, class) {
     level = "patch",
     class = as.integer(class_ids),
     id = as.integer(1:nrow(landscape)),
-    metric = "convex_area",
+    metric = "circle_perim",
     value = as.double(circle_perims)
   )
 }
