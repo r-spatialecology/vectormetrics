@@ -26,7 +26,7 @@ vm_p_frac <- function(landscape, class) {
   landscape <- landscape[, class]
 
   # calculating the metric frac
-  area <- vm_p_area(landscape, class)
+  area <- vm_p_area(landscape, class) * 10000
   peri <- vm_p_perim(landscape, class)
   frac <- 2 * log(peri$value) / log(area$value)
 
