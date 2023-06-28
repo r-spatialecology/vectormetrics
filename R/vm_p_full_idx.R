@@ -3,18 +3,22 @@
 #' @description Calculate Fullness Index
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of local neighbourhoods to consider in calculating fullness
 #' @return  ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
 #' vm_p_full_idx(vector_landscape, "class")
 #' @export
 
-vm_p_full_idx <- function(landscape, class) {
+vm_p_full_idx <- function(landscape, class, n = 10000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
+  }
+  if (n < 1000){
+    warning("Low number of local neighbourhoods, result might be biased.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
@@ -29,11 +33,11 @@ vm_p_full_idx <- function(landscape, class) {
     neigh_area = geom$area * 0.01
     radius = sqrt(neigh_area / pi)
     buffers = geom %>%
-      st_sample(size = 10000, type = "regular") %>%
-      st_set_crs(st_crs(geom)) %>%
-      st_buffer(radius)
+      sf::st_sample(size = n, type = "regular") %>%
+      sf::st_set_crs(sf::st_crs(geom)) %>%
+      sf::st_buffer(radius)
 
-    buffers$fullness = (st_intersection(buffers, geom) %>% st_area()) / neigh_area
+    buffers$fullness = (sf::st_intersection(buffers, geom) %>% sf::st_area()) / neigh_area
     landscape$fullness[i] = mean(buffers$fullness)
     setTxtProgressBar(progress_bar, value = i)
   }
