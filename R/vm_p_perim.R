@@ -23,7 +23,7 @@ vm_p_perim <- function(landscape, class) {
   landscape <- landscape[, class]
 
   # cast then to multilinestring
-  landscape_cast <- sf::st_cast(landscape, "MULTILINESTRING", warn = FALSE)
+  landscape_cast <- sf::st_boundary(landscape)
 
   # calculate the length of each multilinestring, that is the perimeter of each polygon as well
   landscape_cast$perim <- sf::st_length(landscape_cast)
