@@ -1,5 +1,9 @@
-range_index = vm_p_range_idx(square, "class")$value
+sq_range = vm_p_range_idx(square, "class")$value
+cir_range = vm_p_range_idx(circle, "class")$value
+diam_range = vm_p_range_idx(diamond, "class")$value
 
 testthat::test_that("check vm_p_range_idx value", {
-  expect_equal(range_index, 0.7978, tolerance = 0.001)
+  expect_equal(sq_range, 0.7978, tolerance = 0.001)
+  expect_equal(diam_range, 0.564, tolerance = 0.001)
+  expect_equal(cir_range, 1, tolerance = 0.001)
 })
