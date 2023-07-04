@@ -26,7 +26,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
     # merge by nieghbourhood type based on touching edges
     result <- landscape_cast
     class(result) <- class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
-    result <- result |> dplyr::select(class, geometry)
+    result <- result |> dplyr::select(class)
 
   } else if (direction == 8){
     # merge by nieghbourhood type based on touching vertices
@@ -82,7 +82,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
   }
   result$patch <- seq_len(nrow(result))
   rownames(result) <- NULL
-  result <- result |> dplyr::select(class, patch, geometry)
+  result <- result |> dplyr::select(class, patch)
 
   message("Number of patches before conversion: ", nrow(landscape))
   message("Number of patches after conversion: ", nrow(result))
