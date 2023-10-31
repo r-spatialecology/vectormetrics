@@ -23,7 +23,6 @@ vm_p_elong_idx <- function(landscape, class) {
   # calculate the length of polygon's axes
   axes <- get_axes(landscape, class)
 
-  # ratio of area of polygon and its MABR
   elong_index <- 1 - (axes$minor / axes$major)
 
   # return results tibble

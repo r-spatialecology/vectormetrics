@@ -18,9 +18,14 @@ get_axes <- function(landscape, class){
   }
 
   for (row in 1:nrow(landscape)) {
-    points <- landscape[row, ] |> sf::st_minimum_rotated_rectangle() |> sf::st_cast("POINT")
-    landscape$first_axis[row] <- sf::st_distance(points[1,], points[2,])
-    landscape$second_axis[row] <- sf::st_distance(points[2,], points[3,])
+    coords <- landscape[row, ] |> sf::st_coordinates()
+    elipsoid <- coords[, 1:2] |> cluster::ellipsoidhull()
+    el_pts <- predict(elipsoid)
+    distances <- dist(rbind(t(elipsoid$loc), el_pts)) |> as.matrix()
+    distances <- distances[1,]
+    distances[distances == 0] <- NA
+    landscape$major_axis[row] <- round(max(distances, na.rm = TRUE), 2)
+    landscape$minor_axis[row] <- round(min(distances, na.rm = TRUE), 2)
   }
 
   # return results tibble
@@ -29,13 +34,12 @@ get_axes <- function(landscape, class){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  axes = landscape[c("first_axis", "second_axis")] |> sf::st_drop_geometry()
   tibble::tibble(
     level = "patch",
     class = as.integer(class_ids),
     id = as.integer(1:nrow(landscape)),
     metric = "main_axes",
-    major = as.double(apply(axes, 1, max)),
-    minor = as.double(apply(axes, 1, min))
+    major = landscape$major_axis * 2,
+    minor = landscape$minor_axis * 2
   )
 }
