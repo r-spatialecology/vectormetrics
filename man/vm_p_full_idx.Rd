@@ -4,12 +4,14 @@
 \alias{vm_p_full_idx}
 \title{Fullness Index(vector data)}
 \usage{
-vm_p_full_idx(landscape, class)
+vm_p_full_idx(landscape, class, n = 10000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{n}{number of local neighbourhoods to consider in calculating fullness}
 }
 \value{
 ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle

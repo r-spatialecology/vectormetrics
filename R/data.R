@@ -7,3 +7,24 @@
 #' @format A sf object.
 #' @source Simulated neutral landscape model with R. https://github.com/ropensci/NLMR/
 "vector_landscape"
+
+#' CORINE Land Cover for Poznan.
+#'
+#'
+#' @format A sf object.
+#' @source Copernicus
+"clc"
+
+#' Buildings in Poznan
+#'
+#'
+#' @format A sf object.
+#' @source BDOT
+"poz_buildings"
+
+#' Land use and land cover from Urban Atlas 2018
+#'
+#'
+#' @format A sf object.
+#' @source Urban Atlas 2018
+"urban_atlas"
