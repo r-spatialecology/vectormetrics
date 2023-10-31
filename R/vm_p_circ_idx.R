@@ -20,7 +20,7 @@ vm_p_circ_idx <- function(landscape, class) {
   # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, class]
 
-  # calculate the perimeter of polygons
+  # calculate the area of polygons
   landscape$area <- vm_p_area(landscape, class)$value * 10000
 
   # calculate the perimeter of convex hull

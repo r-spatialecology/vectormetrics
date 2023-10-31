@@ -24,9 +24,6 @@
 #' @examples
 #' vm_p_circle(vector_landscape, "class")
 #'
-#' @aliases vm_p_circle
-#' @rdname vm_p_circle
-#'
 #' @references
 #' McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
 #' Program for Categorical and Continuous Maps. Computer software program produced by
@@ -36,9 +33,8 @@
 #' Baker, W. L., and Y. Cai. 1992. The r.le programs for multiscale analysis of
 #' landscape structure using the GRASS geographical information system.
 #' Landscape Ecology 7: 291-302.
-
-#' @name vm_p_circle
 #' @export
+
 vm_p_circle <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON
@@ -55,9 +51,9 @@ vm_p_circle <- function(landscape, class) {
   dis_max <- vm_p_circum(landscape, "class")$value
 
   # calculate circle metric
-  circle_area <- vm_p_area(landscape, class) * 10000
+  circle_area <- vm_p_area(landscape, class)$value * 10000
   circum_area <- pi * (dis_max / 2) ^ 2
-  landscape$circle <- 1 - (circle_area$value / circum_area)
+  landscape$circle <- 1 - (circle_area / circum_area)
 
   # get class ids and if factor, coerce to numeric
   class_ids <-  sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]

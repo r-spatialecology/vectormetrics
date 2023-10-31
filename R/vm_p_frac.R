@@ -26,9 +26,9 @@ vm_p_frac <- function(landscape, class) {
   landscape <- landscape[, class]
 
   # calculating the metric frac
-  area <- vm_p_area(landscape, class) * 10000
+  area <- vm_p_area(landscape, class)$value * 10000
   peri <- vm_p_perim(landscape, class)
-  frac <- 2 * log(peri$value) / log(area$value)
+  frac <- 2 * log(peri$value) / log(area)
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
   if (is(class_ids, "factor")){

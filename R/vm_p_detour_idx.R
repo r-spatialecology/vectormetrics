@@ -6,7 +6,7 @@
 #' @return  ratio between perimeter of equal-area circle and perimeter of convex hull of polygon
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' st_p_area(vector_landscape, "class")
+#' vm_p_detour_idx(vector_landscape, "class")
 #' @export
 
 vm_p_detour_idx <- function(landscape, class) {
