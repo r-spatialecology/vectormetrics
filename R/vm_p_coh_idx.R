@@ -25,21 +25,18 @@ vm_p_coh_idx <- function(landscape, class, n = 1000) {
   landscape$area <- vm_p_area(landscape, class)$value * 10000
 
   # calculate average distance-squared among points in equal-area circle
-  eac_sq_dist = sqrt(landscape$area / pi)
+  eac_sq_dist <- sqrt(landscape$area / pi)
 
   for (i in 1:nrow(landscape)) {
-    geom = landscape[i, ]
-    print(geom)
-    points = geom %>%
-      sf::st_sample(size = n, type = "regular") %>%
-      sf::st_set_crs(sf::st_crs(geom))
+    geom <- landscape[i, ]
+    points <- get_igp(geom, n)
 
-    m = sf::st_distance(points, points) |> units::drop_units()
-    m[m == 0] = NA
-    landscape$avg_distance = mean(m, na.rm = TRUE)
+    m <- sf::st_distance(points, points) |> units::drop_units()
+    m[m == 0] <- NA
+    landscape$avg_distance <- mean(m, na.rm = TRUE)
   }
-  cohesion_index = eac_sq_dist / landscape$avg_distance
-  cohesion_index = ifelse(cohesion_index > 1, 1, cohesion_index)
+  cohesion_index <- eac_sq_dist / landscape$avg_distance
+  cohesion_index <- ifelse(cohesion_index > 1, 1, cohesion_index)
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]

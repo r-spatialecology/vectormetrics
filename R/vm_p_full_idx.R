@@ -25,20 +25,17 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
   landscape <- landscape[, class]
 
   # caluclate area of polygons
-  landscape$area = vm_p_area(landscape, class)$value * 10000
+  landscape$area <- vm_p_area(landscape, class)$value * 10000
 
-  progress_bar = txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
+  progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
   for (i in 1:nrow(landscape)) {
-    geom = landscape[i, ]
-    neigh_area = geom$area * 0.01
-    radius = sqrt(neigh_area / pi)
-    buffers = geom %>%
-      sf::st_sample(size = n, type = "regular") %>%
-      sf::st_set_crs(sf::st_crs(geom)) %>%
-      sf::st_buffer(radius)
+    geom <- landscape[i, ]
+    neigh_area <- geom$area * 0.01
+    radius <- sqrt(neigh_area / pi)
+    buffers <- get_igp(geom, n) |> sf::st_buffer(radius)
 
-    buffers$fullness = (sf::st_intersection(buffers, geom) %>% sf::st_area()) / neigh_area
-    landscape$fullness[i] = mean(buffers$fullness)
+    buffers$fullness <- (sf::st_intersection(buffers, geom) |> sf::st_area()) / neigh_area
+    landscape$fullness[i] <- mean(buffers$fullness)
     setTxtProgressBar(progress_bar, value = i)
   }
   close(progress_bar)
