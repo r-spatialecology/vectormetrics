@@ -1,6 +1,6 @@
 #' @title Roughness index(vector data)
 #'
-#' @description Calculate Equivalent rectangular index (RI)
+#' @description Calculate Roughness index (RI)
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
 #' @return HERE WRITE DESCRIPTION OF METRIC
@@ -20,14 +20,17 @@ vm_p_ri <- function(landscape, class, n = 100){
   # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, class]
 
+  progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
   for (i in 1:nrow(landscape)){
     shape <- landscape[i, ]
     ibp <- get_ibp(shape, n)
-    cent <- sf::st_centroid(shape)
+    cent <- geos::geos_centroid(shape)
 
-    ibp_dist <- sf::st_distance(ibp, cent)
+    ibp_dist <- geos::geos_distance(ibp, cent)
     landscape$ibp_dist[i] <- mean(ibp_dist)
+    setTxtProgressBar(progress_bar, value = i)
   }
+  close(progress_bar)
 
   perim <- vm_p_perim(landscape, class)$value
   area <- vm_p_area(landscape, class)$value * 10000

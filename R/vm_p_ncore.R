@@ -25,7 +25,7 @@ vm_p_ncore <- function(landscape, class, edge_depth){
   landscape <- landscape[, class]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
-  core_area <- sf::st_buffer(landscape, dist = -edge_depth)
+  core_area <- geos::geos_buffer(landscape, dist = -edge_depth) |> sf::st_as_sf()
 
   # the number of polygons(Disjunct core areas) in each patch
   core_area$core_area_number <- sapply(core_area$geometry, length)

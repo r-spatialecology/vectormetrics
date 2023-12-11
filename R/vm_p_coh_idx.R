@@ -29,9 +29,13 @@ vm_p_coh_idx <- function(landscape, class, n = 1000) {
 
   for (i in 1:nrow(landscape)) {
     geom <- landscape[i, ]
-    points <- get_igp(geom, n)
+    points <- get_igp(geom, n) |> sf::st_as_sf()
 
-    m <- sf::st_distance(points, points) |> units::drop_units()
+    m <- c()
+    for (j in 1:length(points)){
+      point = points[j,]
+      m <- c(m, geos::geos_distance(point, points))
+    }
     m[m == 0] <- NA
     landscape$avg_distance <- mean(m, na.rm = TRUE)
   }

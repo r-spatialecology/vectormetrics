@@ -32,9 +32,12 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
     geom <- landscape[i, ]
     neigh_area <- geom$area * 0.01
     radius <- sqrt(neigh_area / pi)
-    buffers <- get_igp(geom, n) |> sf::st_buffer(radius)
+    buffers <- get_igp(geom, n) |> geos::geos_buffer(radius)
 
-    buffers$fullness <- (sf::st_intersection(buffers, geom) |> sf::st_area()) / neigh_area
+    buffers$fullness <- (
+      buffers |>
+        geos::geos_intersection(geos::as_geos_geometry(geom)) |> geos::geos_area()
+    ) / neigh_area
     landscape$fullness[i] <- mean(buffers$fullness)
     setTxtProgressBar(progress_bar, value = i)
   }

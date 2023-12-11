@@ -25,10 +25,11 @@ vm_p_exchange_idx <- function(landscape, class) {
 
   # create equal-area circles around centroid
   radius <- sqrt(landscape$area / pi)
-  circles <- landscape |> sf::st_centroid() |> sf::st_buffer(radius)
+  circles <- landscape |> geos::geos_centroid() |> geos::geos_buffer(radius) |> sf::st_as_sf()
 
   exchange_index <- sapply(seq_along(1:nrow(landscape)), function(i){
-    circle_intsc <- circles[i, ] |> sf::st_intersection(landscape[i, ])
+    circle_intsc <- circles[i, ] |> geos::geos_intersection(landscape[i, ]) |> sf::st_as_sf()
+    circle_intsc[, class] = landscape[i, class]
     circle_intsc$area <- sum(vm_p_area(circle_intsc, class)$value * 10000)
     circle_intsc$area / landscape$area[i]
   })

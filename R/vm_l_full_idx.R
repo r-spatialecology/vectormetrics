@@ -22,7 +22,7 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- sf::st_union(landscape) |> sf::st_as_sf()
+  landscape <- geos::geos_union(landscape) |> sf::st_as_sf()
   landscape$class = 1
 
   # caluclate area of polygons
@@ -30,8 +30,11 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
 
   neigh_area <- landscape$area * 0.01
   radius <- sqrt(neigh_area / pi)
-  buffers <- get_igp(landscape, n) |> sf::st_buffer(radius)
-  buffers$fullness <- (sf::st_intersection(buffers, landscape) |> sf::st_area()) / neigh_area
+  buffers <- get_igp(landscape, n) |> geos::geos_buffer(radius)
+  buffers$fullness <- (
+      buffers |>
+        geos::geos_intersection(geos::as_geos_geometry(geom)) |> geos::geos_area()
+    ) / neigh_area
   landscape$fullness <- mean(buffers$fullness)
 
   # return results tibble
