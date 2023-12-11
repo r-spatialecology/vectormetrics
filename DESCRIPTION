@@ -27,7 +27,8 @@ Imports:
     rlang,
     sf,
     tibble,
-    units
+    units,
+    geos
 Suggests: 
     sp,
     testthat (>= 3.0.0)
