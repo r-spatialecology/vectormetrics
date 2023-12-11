@@ -12,7 +12,6 @@
 #' vm_p_frac(vector_landscape, "class")
 #' @export
 
-# frac
 vm_p_frac <- function(landscape, class) {
 
   # check whether the input is a MULTIPOLYGON or a POLYGON

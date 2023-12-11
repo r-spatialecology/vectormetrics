@@ -23,11 +23,11 @@ vm_p_circ_idx <- function(landscape, class) {
   # calculate the area of polygons
   landscape$area <- vm_p_area(landscape, class)$value * 10000
 
-  # calculate the perimeter of convex hull
+  # calculate the perimeter of equal-area circle
   perim <- vm_p_perim(landscape, class)$value
   landscape$epc_area <- (perim / (2 * pi)) ^ 2 * pi
 
-  # ratio of perimeter of convex hull and polygon perimeters
+  # ratio of perimeter of equal-area circle and polygon perimeter
   circ_index <- landscape$area / landscape$epc_area
 
   # return results tibble
