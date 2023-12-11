@@ -10,7 +10,7 @@
 #' vm_p_full_idx(vector_landscape, "class")
 #' @export
 
-vm_l_full_idx <- function(landscape, class, n = 10000) {
+vm_l_full_idx_geos <- function(landscape, class, n = 10000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -30,8 +30,8 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
 
   neigh_area <- landscape$area * 0.01
   radius <- sqrt(neigh_area / pi)
-  buffers <- get_igp(landscape, n) |> sf::st_buffer(radius)
-  buffers$fullness <- (sf::st_intersection(buffers, landscape) |> sf::st_area()) / neigh_area
+  buffers <- get_igp(landscape, n) |> geos::geos_buffer(radius)
+  buffers$fullness <- (geos::geos_intersection(buffers, landscape) |> geos::geos_area()) / neigh_area
   landscape$fullness <- mean(buffers$fullness)
 
   # return results tibble
