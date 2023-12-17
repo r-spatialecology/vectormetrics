@@ -8,7 +8,7 @@
 #' ## then write landcover in a double quotation marks as the second parameter.
 #' @export
 
-vm_p_circum <- function(landscape, class) {
+vm_p_circum_sf <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
