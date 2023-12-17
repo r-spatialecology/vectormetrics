@@ -12,8 +12,8 @@
 #' vm_p_frac(vector_landscape, "class")
 #' @export
 
-vm_l_frac_mn <- function(landscape, class, edge_depth){
-  frac <- vm_p_frac(landscape, class, edge_depth)
+vm_l_frac_mn <- function(landscape, class){
+  frac <- vm_p_frac(landscape, class)
   frac_l <- mean(frac$value)
   # return results tibble
   tibble::tibble(
