@@ -4,7 +4,7 @@
 \alias{vm_l_frac_mn}
 \title{fractal dimension index(vector data)}
 \usage{
-vm_l_frac_mn(landscape, class, edge_depth)
+vm_l_frac_mn(landscape, class)
 }
 \arguments{
 \item{landscape}{the input landscape image,}

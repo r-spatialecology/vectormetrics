@@ -11,10 +11,9 @@
 #' @name vm_cv
 #' @export
 
-vm_cv <- function(x, na.rm = FALSE){
-
-  x_mean <- mean(x, na.rm = na.rm)
-  x_sd   <- sd(x, na.rm = na.rm)
+vm_cv <- function(x, na_rm = FALSE){
+  x_mean <- mean(x, na.rm = na_rm)
+  x_sd   <- sd(x, na.rm = na_rm)
 
   cv <- (x_sd / x_mean) * 100
 
