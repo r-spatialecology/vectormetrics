@@ -13,11 +13,11 @@ vm_l_girth_idx_mn <- function(landscape, class){
   girth <- vm_p_girth_idx(landscape, class)
   girth_l <- mean(girth$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "girth_mn",
     value = as.double(girth_l)
-  )
+  ))
 }

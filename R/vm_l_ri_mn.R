@@ -13,11 +13,11 @@ vm_l_ri_mn <- function(landscape, class, n = 100){
   ri <- vm_p_ri(landscape, class, n)
   ri_l <- mean(ri$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "ri_mn",
     value = as.double(ri_l)
-  )
+  ))
 }

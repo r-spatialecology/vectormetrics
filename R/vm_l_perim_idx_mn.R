@@ -13,11 +13,11 @@ vm_l_perim_idx_mn <- function(landscape, class){
   perim <- vm_p_perim_idx(landscape, class)
   perim_l <- mean(perim$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "perim_mn",
     value = as.double(perim_l)
-  )
+  ))
 }

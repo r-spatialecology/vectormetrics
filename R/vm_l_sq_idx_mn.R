@@ -13,11 +13,11 @@ vm_l_sq_idx_mn <- function(landscape, class){
   sq <- vm_p_sq_idx(landscape, class)
   sq_l <- mean(sq$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "sq_mn",
     value = as.double(sq_l)
-  )
+  ))
 }

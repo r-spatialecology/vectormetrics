@@ -17,12 +17,13 @@
 vm_l_area_mn <- function(landscape, class){
   area <- vm_p_area(landscape, class)
   area_l <- mean(area$value * 10000)
+
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "area_mn",
     value = as.double(area_l)
-  )
+  ))
 }

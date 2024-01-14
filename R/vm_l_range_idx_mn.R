@@ -13,11 +13,11 @@ vm_l_range_idx_mn <- function(landscape, class){
   range <- vm_p_range_idx(landscape, class)
   range_l <- mean(range$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "range_mn",
     value = as.double(range_l)
-  )
+  ))
 }

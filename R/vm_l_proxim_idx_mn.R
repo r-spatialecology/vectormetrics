@@ -13,11 +13,11 @@ vm_l_proxim_idx_mn <- function(landscape, class){
   proxim <- vm_p_proxim_idx(landscape, class)
   proxim_l <- mean(proxim$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "proxim_mn",
     value = as.double(proxim_l)
-  )
+  ))
 }

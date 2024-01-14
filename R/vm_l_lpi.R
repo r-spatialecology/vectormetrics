@@ -23,11 +23,11 @@ vm_l_lpi <- function(landscape, class){
 
   lpi <- area_max * 10000 / sum_landscape * 100
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "lpi",
     value = as.double(lpi)
-  )
+  ))
 }

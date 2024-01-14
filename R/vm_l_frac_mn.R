@@ -15,12 +15,13 @@
 vm_l_frac_mn <- function(landscape, class){
   frac <- vm_p_frac(landscape, class)
   frac_l <- mean(frac$value)
+
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "frac_mn",
     value = as.double(frac_l)
-  )
+  ))
 }

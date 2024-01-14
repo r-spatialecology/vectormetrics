@@ -13,11 +13,11 @@ vm_l_solid_idx_mn <- function(landscape, class){
   solid <- vm_p_solid_idx(landscape, class)
   solid_l <- mean(solid$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "solid_mn",
     value = as.double(solid_l)
-  )
+  ))
 }

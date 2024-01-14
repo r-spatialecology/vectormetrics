@@ -13,11 +13,11 @@ vm_l_circ_idx_mn <- function(landscape, class){
   circ <- vm_p_circ_idx(landscape, class)
   circ_l <- mean(circ$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "circ_mn",
     value = as.double(circ_l)
-  )
+  ))
 }

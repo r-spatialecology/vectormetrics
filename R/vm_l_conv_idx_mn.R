@@ -13,11 +13,11 @@ vm_l_conv_idx_mn <- function(landscape, class){
   conv <- vm_p_conv_idx(landscape, class)
   conv_l <- mean(conv$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "conv_mn",
     value = as.double(conv_l)
-  )
+  ))
 }

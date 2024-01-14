@@ -14,11 +14,11 @@ vm_l_coh_idx_mn <- function(landscape, class, n = 1000){
   coh <- vm_p_coh_idx(landscape, class, n)
   coh_l <- mean(coh$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "coh_mn",
     value = as.double(coh_l)
-  )
+  ))
 }

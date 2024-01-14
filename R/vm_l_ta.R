@@ -17,12 +17,13 @@ vm_l_ta <- function(landscape, class){
   area <- vm_p_area(landscape, class)
   area$value <- area$value
   ca <- sum(area$value)
+
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "ta",
     value = as.double(ca)
-  )
+  ))
 }

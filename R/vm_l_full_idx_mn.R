@@ -14,11 +14,11 @@ vm_l_full_idx_mn <- function(landscape, class, n = 10000){
   full <- vm_p_full_idx(landscape, class, n)
   full_l <- mean(full$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "full_mn",
     value = as.double(full_l)
-  )
+  ))
 }

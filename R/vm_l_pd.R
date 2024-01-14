@@ -16,14 +16,15 @@
 vm_l_pd <- function(landscape, class){
   area <- vm_p_area(landscape, class)
   pa_num <- length(area$class)
-  A <- sum(area$value*10000)
-  pd <- pa_num / A * 10000 * 100
+  area_sum <- sum(area$value * 10000)
+  pd <- pa_num / area_sum * 10000 * 100
+
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "pd",
     value = as.double(pd)
-  )
+  ))
 }

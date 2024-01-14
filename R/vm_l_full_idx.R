@@ -48,11 +48,11 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "full_index",
     value = as.double(landscape$fullness / 0.958)
-  )
+  ))
 }

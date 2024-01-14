@@ -13,11 +13,11 @@ vm_l_eri_mn <- function(landscape, class){
   eri <- vm_p_eri(landscape, class)
   eri_l <- mean(eri$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "eri_mn",
     value = as.double(eri_l)
-  )
+  ))
 }

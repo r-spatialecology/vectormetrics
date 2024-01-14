@@ -13,11 +13,11 @@ vm_l_rect_idx_mn <- function(landscape, class){
   rect <- vm_p_rect_idx(landscape, class)
   rect_l <- mean(rect$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "rect_mn",
     value = as.double(rect_l)
-  )
+  ))
 }

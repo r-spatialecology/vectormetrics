@@ -13,11 +13,11 @@ vm_l_exchange_idx_mn <- function(landscape, class){
   exchange <- vm_p_exchange_idx(landscape, class)
   exchange_l <- mean(exchange$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "exchange_mn",
     value = as.double(exchange_l)
-  )
+  ))
 }

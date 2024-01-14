@@ -13,11 +13,11 @@ vm_l_comp_idx_mn <- function(landscape, class){
   comp <- vm_p_comp_idx(landscape, class)
   comp_l <- mean(comp$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "comp_mn",
     value = as.double(comp_l)
-  )
+  ))
 }

@@ -13,11 +13,11 @@ vm_l_elong_idx_mn <- function(landscape, class){
   elong <- vm_p_elong_idx(landscape, class)
   elong_l <- mean(elong$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "elong_mn",
     value = as.double(elong_l)
-  )
+  ))
 }

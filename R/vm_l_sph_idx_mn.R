@@ -13,11 +13,11 @@ vm_l_sph_idx_mn <- function(landscape, class){
   sph <- vm_p_sph_idx(landscape, class)
   sph_l <- mean(sph$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "sph_mn",
     value = as.double(sph_l)
-  )
+  ))
 }

@@ -13,11 +13,11 @@ vm_l_detour_idx_mn <- function(landscape, class){
   detour <- vm_p_detour_idx(landscape, class)
   detour_l <- mean(detour$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "detour_mn",
     value = as.double(detour_l)
-  )
+  ))
 }

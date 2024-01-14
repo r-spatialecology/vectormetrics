@@ -16,11 +16,11 @@ vm_l_para_idx_mn <- function(landscape, class){
   para <- vm_p_para_idx(landscape, class)
   para_l <- mean(para$value)
 
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "para_mn",
     value = as.double(para_l)
-  )
+  ))
 }
