@@ -27,9 +27,9 @@ vm_p_exchange_idx <- function(landscape, class) {
   radius <- sqrt(landscape$area / pi)
   circles <- landscape |> geos::geos_centroid() |> geos::geos_buffer(radius) |> sf::st_as_sf()
 
-  exchange_index <- sapply(seq_along(nrow(landscape)), function(i){
+  exchange_index <- sapply(1:nrow(landscape), function(i){
     circle_intsc <- circles[i, ] |> geos::geos_intersection(landscape[i, ]) |> sf::st_as_sf()
-    circle_intsc[, class] = landscape[i, class]
+    circle_intsc[, class] <- landscape[i, class, drop = TRUE]
     circle_intsc$area <- sum(vm_p_area(circle_intsc, class)$value * 10000)
     circle_intsc$area / landscape$area[i]
   })
@@ -37,7 +37,7 @@ vm_p_exchange_idx <- function(landscape, class) {
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
   if (is(class_ids, "factor")){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
+    class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 
   tibble::new_tibble(list(

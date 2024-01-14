@@ -29,7 +29,7 @@ vm_p_cai <- function(landscape, class, edge_depth) {
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
   if (is(class_ids, "factor")){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
+    class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 
   # return results tibble

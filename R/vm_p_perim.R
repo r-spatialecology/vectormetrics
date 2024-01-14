@@ -31,7 +31,7 @@ vm_p_perim <- function(landscape, class) {
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
   if (is(class_ids, "factor")){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
+    class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 
   tibble::new_tibble(list(
