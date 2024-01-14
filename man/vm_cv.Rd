@@ -4,7 +4,7 @@
 \alias{vm_cv}
 \title{Coefficient of variation}
 \usage{
-vm_cv(x, na.rm = FALSE)
+vm_cv(x, na_rm = FALSE)
 }
 \arguments{
 \item{x}{numeric vector}

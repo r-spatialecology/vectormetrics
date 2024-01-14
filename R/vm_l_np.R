@@ -14,12 +14,12 @@
 #' @export
 vm_l_np <- function(landscape, class){
   area <- vm_p_area(landscape, class)
-  np <- length(area$class)# return results tibble
-  tibble::tibble(
+  np <- length(area$class)
+  tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
     metric = "np",
     value = as.double(np)
-  )
+  ))
 }
