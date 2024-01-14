@@ -33,11 +33,11 @@ vm_p_cai <- function(landscape, class, edge_depth) {
   }
 
   # return results tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(core)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(core)),
-    metric = "cai",
+    id = as.integer(seq_len(nrow(core))),
+    metric = rep("cai", nrow(core)),
     value = as.double(cai)
-  )
+  ))
 }

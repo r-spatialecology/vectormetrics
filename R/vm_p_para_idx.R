@@ -37,11 +37,11 @@ vm_p_para_idx <- function(landscape, class) {
   }
 
   # return results tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "para_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("para_index", nrow(landscape)),
     value = as.double(para)
-  )
+  ))
 }

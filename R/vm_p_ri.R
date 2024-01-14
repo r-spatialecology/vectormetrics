@@ -20,7 +20,7 @@ vm_p_ri <- function(landscape, class, n = 100){
   # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape[, class]
 
-  for (i in 1:nrow(landscape)){
+  for (i in seq_len(nrow(landscape))){
     shape <- landscape[i, ]
     ibp <- get_ibp(shape, n)
     cent <- geos::geos_centroid(shape)
@@ -40,11 +40,11 @@ vm_p_ri <- function(landscape, class, n = 100){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "roughness",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("roughness", nrow(landscape)),
     value = as.double(roughness)
-  )
+  ))
 }

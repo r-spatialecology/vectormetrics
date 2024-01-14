@@ -30,11 +30,11 @@ vm_p_circlep <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "circle_perim",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("circle_perim", nrow(landscape)),
     value = as.double(circle_perims)
-  )
+  ))
 }

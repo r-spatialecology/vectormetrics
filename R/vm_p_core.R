@@ -61,11 +61,11 @@ vm_p_core <- function(landscape, class, edge_depth) {
   }
 
   # return result tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "core",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("core", nrow(landscape)),
     value = as.double(landscape$core)
-  )
+  ))
 }

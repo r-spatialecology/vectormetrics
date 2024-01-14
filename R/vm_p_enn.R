@@ -29,7 +29,7 @@ vm_p_enn <- function(landscape, class) {
 
   # create a vector to storage all the output of  "for" loop
   enn <- c()
-  for (i in 1:nrow(landscape_poly)) {
+  for (i in seq_len(nrow(landscape_poly))) {
 
     c <- sf::st_set_geometry(landscape_poly[i, ], NULL)
     c <- as.numeric(c)
@@ -39,7 +39,7 @@ vm_p_enn <- function(landscape, class) {
 
     # create another vector to storage all the output of this "for" loop
     min_dis <- c()
-    for (k in 1:nrow(landscape_point_1)) {
+    for (k in seq_len(nrow(landscape_point_1))) {
       # obtain the distance of each point of the processing patch(polygon)
       # to all the points of other polygons belonging to the same class
       dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2$landcover == c, ])
@@ -57,11 +57,11 @@ vm_p_enn <- function(landscape, class) {
   if (class(class_ids) == "factor"){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape_poly)),
-    metric = "enn",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("enn", nrow(landscape)),
     value = as.double(enn)
-  )
+  ))
 }

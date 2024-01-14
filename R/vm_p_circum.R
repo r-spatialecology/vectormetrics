@@ -23,11 +23,11 @@ vm_p_circum <- function(landscape, class) {
 
   # compute max distant for each MULTIPOINT, which is the diameter of a circle around each patch
   dis <- c()
-  dis_max <- sapply(seq_along(1:nrow(landscape)), function(i){
+  dis_max <- sapply(seq_along(nrow(landscape)), function(i){
     landscape_point <- sf::st_cast(landscape[i, ], "POINT", warn = FALSE)
 
-    for (i in 1:length(landscape_point)){
-      point = landscape_point[i,]
+    for (i in seq_along(length(landscape_point))){
+      point <- landscape_point[i,]
       dis <- c(dis, geos::geos_distance(point, landscape_point))
     }
     max(dis)
@@ -38,11 +38,11 @@ vm_p_circum <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
   # return result tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "circum_diam",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("circum_diam", nrow(landscape)),
     value = as.double(dis_max)
-  )
+  ))
 }

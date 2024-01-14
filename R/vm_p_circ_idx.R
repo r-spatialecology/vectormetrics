@@ -36,11 +36,11 @@ vm_p_circ_idx <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "circ_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("circ_index", nrow(landscape)),
     value = as.double(circ_index)
-  )
+  ))
 }

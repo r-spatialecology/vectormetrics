@@ -35,12 +35,12 @@ vm_p_ncore <- function(landscape, class, edge_depth){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(core_area)),
-    metric = "ncore",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("ncore", nrow(landscape)),
     value = as.double(core_area$core_area_number)
-  )
+  ))
 
 }

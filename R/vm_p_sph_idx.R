@@ -36,11 +36,11 @@ vm_p_sph_idx <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "sph_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("sph_index", nrow(landscape)),
     value = as.double(sph_index)
-  )
+  ))
 }

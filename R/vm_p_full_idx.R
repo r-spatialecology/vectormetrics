@@ -25,20 +25,20 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
   landscape <- landscape[, class]
 
   # caluclate area of polygons
-  landscape$area <- vm_p_area(landscape, class)$value * 10000
+  area <- vm_p_area(landscape, class)$value * 10000
+  landscape_geos <- geos::as_geos_geometry(landscape)
 
   progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
-  for (i in 1:nrow(landscape)) {
-    geom <- landscape[i, ]
-    neigh_area <- geom$area * 0.01
+  for (i in seq_len(nrow(landscape))) {
+    geom <- landscape_geos[i]
+    neigh_area <- area[i] * 0.01
     radius <- sqrt(neigh_area / pi)
-    buffers <- get_igp(geom, n) |> geos::geos_buffer(radius)
+    buffers <- get_igp(geom |> sf::st_as_sf(), n) |> geos::geos_buffer(radius)
 
-    buffers$fullness <- (
-      buffers |>
-        geos::geos_intersection(geos::as_geos_geometry(geom)) |> geos::geos_area()
+    fullness <- (
+      buffers |> geos::geos_intersection(geom) |> geos::geos_area()
     ) / neigh_area
-    landscape$fullness[i] <- mean(buffers$fullness)
+    landscape$fullness[i] <- mean(fullness)
     setTxtProgressBar(progress_bar, value = i)
   }
   close(progress_bar)
@@ -49,11 +49,11 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "full_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("full_index", nrow(landscape)),
     value = as.double(landscape$fullness / 0.958)
-  )
+  ))
 }

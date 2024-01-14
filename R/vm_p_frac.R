@@ -34,11 +34,11 @@ vm_p_frac <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
   # return results tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "frac",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("frac", nrow(landscape)),
     value = as.double(frac)
-  )
+  ))
 }

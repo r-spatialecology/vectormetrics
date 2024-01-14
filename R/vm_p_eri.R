@@ -34,11 +34,11 @@ vm_p_eri <- function(landscape, class){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "ERI",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("ERI", nrow(landscape)),
     value = as.double(eri)
-  )
+  ))
 }

@@ -62,12 +62,12 @@ vm_p_circle <- function(landscape, class) {
   }
 
   # return result tibble
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "circle",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("circle", nrow(landscape)),
     value = as.double(landscape$circle)
-  )
+  ))
 
 }

@@ -21,7 +21,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
   landscape <- landscape[, class]
 
   progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
-  for (i in 1:nrow(landscape)){
+  for (i in seq_len(nrow(landscape))){
     shape <- landscape[i, ]
     igp <- get_igp(shape, n)
     cent <- geos::geos_centroid(shape)
@@ -41,11 +41,11 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "proximity_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("proximity_index", nrow(landscape)),
     value = as.double(proximity)
-  )
+  ))
 }

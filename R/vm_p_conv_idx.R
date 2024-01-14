@@ -11,9 +11,9 @@
 
 vm_p_conv_idx <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
-  if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
+  if (!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))) {
     stop("Please provide POLYGON or MULTIPOLYGON")
-  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")) {
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
@@ -35,11 +35,11 @@ vm_p_conv_idx <- function(landscape, class) {
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 
-  tibble::tibble(
-    level = "patch",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape)),
-    metric = "conv_index",
+    id = as.integer(seq_len(nrow(landscape))),
+    metric = rep("conv_index", nrow(landscape)),
     value = as.double(conv_index)
-  )
+  ))
 }
