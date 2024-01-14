@@ -17,11 +17,11 @@ vm_c_circ_idx_mn <- function(landscape, class){
   circ_mn <- stats::aggregate(circ_idx$value, by = list(circ_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(circ_mn)),
     class = as.integer(circ_mn[, 1]),
     id = as.integer(NA),
-    metric = "circ_mn",
+    metric = rep("circ_mn", nrow(circ_mn)),
     value = as.double(circ_mn[, 2])
-  )
+  ))
 }

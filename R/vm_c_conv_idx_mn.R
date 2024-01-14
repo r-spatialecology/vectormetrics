@@ -17,11 +17,11 @@ vm_c_conv_idx_mn <- function(landscape, class){
   conv_mn <- stats::aggregate(conv_idx$value, by = list(conv_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(conv_mn)),
     class = as.integer(conv_mn[, 1]),
     id = as.integer(NA),
-    metric = "conv_mn",
+    metric = rep("conv_mn", nrow(conv_mn)),
     value = as.double(conv_mn[, 2])
-  )
+  ))
 }

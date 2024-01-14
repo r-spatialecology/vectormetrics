@@ -22,18 +22,14 @@ vm_c_area_mn <- function(landscape, class){
   area <- vm_p_area(landscape, class)
 
   # grouped by the class, and then calculate the mean value
-  area_mn <- stats::aggregate(area$value,
-                       by= list(area$class),
-                       mean,
-                       na.rm = FALSE)
+  area_mn <- stats::aggregate(area$value, by= list(area$class), mean, na.rm = FALSE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(area_mn)),
     class = as.integer(area_mn[,1]),
     id = as.integer(NA),
-    metric = "area_mn",
-    value = as.double(area_mn[,2])
-  )
-
+    metric = rep("area_mn", nrow(area_mn)),
+    value = as.double(area_mn[, 2])
+  ))
 }

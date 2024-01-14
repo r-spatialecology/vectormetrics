@@ -20,13 +20,13 @@ vm_c_area_cv <- function(landscape, class){
 
   # grouped by the class, and then calculate the Coefficient Of Variation of area in each class,
   area_cv <- stats::aggregate(area$value, by = list(area$class), vm_cv)
-
+  
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(area_cv)),
     class = as.integer(area_cv[, 1]),
     id = as.integer(NA),
-    metric = "area_cv",
+    metric = rep("area_cv", nrow(area_cv)),
     value = as.double(area_cv[, 2])
-  )
+  ))
 }

@@ -17,11 +17,11 @@ vm_c_proxim_idx_mn <- function(landscape, class){
   proxim_mn <- stats::aggregate(proxim_idx$value, by = list(proxim_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(proxim_mn)),
     class = as.integer(proxim_mn[, 1]),
     id = as.integer(NA),
-    metric = "proxim_mn",
+    metric = rep("proxim_mn", nrow(proxim_mn)),
     value = as.double(proxim_mn[, 2])
-  )
+  ))
 }

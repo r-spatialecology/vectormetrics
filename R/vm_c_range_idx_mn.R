@@ -17,11 +17,11 @@ vm_c_range_idx_mn <- function(landscape, class){
   range_mn <- stats::aggregate(range_idx$value, by = list(range_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(range_mn)),
     class = as.integer(range_mn[, 1]),
     id = as.integer(NA),
-    metric = "range_mn",
+    metric = rep("range_mn", nrow(range_mn)),
     value = as.double(range_mn[, 2])
-  )
+  ))
 }

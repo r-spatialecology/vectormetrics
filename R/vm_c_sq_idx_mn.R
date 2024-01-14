@@ -17,11 +17,11 @@ vm_c_sq_idx_mn <- function(landscape, class){
   sq_mn <- stats::aggregate(sq_idx$value, by = list(sq_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(sq_mn)),
     class = as.integer(sq_mn[, 1]),
     id = as.integer(NA),
-    metric = "sq_mn",
+    metric = rep("sq_mn", nrow(sq_mn)),
     value = as.double(sq_mn[, 2])
-  )
+  ))
 }

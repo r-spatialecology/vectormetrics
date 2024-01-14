@@ -17,11 +17,11 @@ vm_c_perim_idx_mn <- function(landscape, class){
   perim_mn <- stats::aggregate(perim_idx$value, by = list(perim_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(perim_mn)),
     class = as.integer(perim_mn[, 1]),
     id = as.integer(NA),
-    metric = "perim_mn",
+    metric = rep("perim_mn", nrow(perim_mn)),
     value = as.double(perim_mn[, 2])
-  )
+  ))
 }

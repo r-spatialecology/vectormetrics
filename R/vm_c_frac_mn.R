@@ -20,11 +20,11 @@ vm_c_frac_mn <- function(landscape, class){
   frac_mn <- stats::aggregate(frac$value, by = list(frac$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(frac_mn)),
     class = as.integer(frac_mn[, 1]),
     id = as.integer(NA),
-    metric = "frac_mn",
+    metric = rep("frac_mn", nrow(frac_mn)),
     value = as.double(frac_mn[, 2])
-  )
+  ))
 }

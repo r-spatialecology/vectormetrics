@@ -17,11 +17,11 @@ vm_c_girth_idx_mn <- function(landscape, class){
   girth_mn <- stats::aggregate(girth_idx$value, by = list(girth_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(girth_mn)),
     class = as.integer(girth_mn[, 1]),
     id = as.integer(NA),
-    metric = "girth_mn",
+    metric = rep("girth_mn", nrow(girth_mn)),
     value = as.double(girth_mn[, 2])
-  )
+  ))
 }

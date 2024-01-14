@@ -17,11 +17,11 @@ vm_c_ri_mn <- function(landscape, class, n = 100){
   ri_mn <- stats::aggregate(ri$value, by = list(ri$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(ri_mn)),
     class = as.integer(ri_mn[, 1]),
     id = as.integer(NA),
-    metric = "ri_mn",
+    metric = rep("ri_mn", nrow(ri_mn)),
     value = as.double(ri_mn[, 2])
-  )
+  ))
 }

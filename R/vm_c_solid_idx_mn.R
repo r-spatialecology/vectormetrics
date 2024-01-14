@@ -17,11 +17,11 @@ vm_c_solid_idx_mn <- function(landscape, class){
   solid_mn <- stats::aggregate(solid_idx$value, by = list(solid_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(solid_mn)),
     class = as.integer(solid_mn[, 1]),
     id = as.integer(NA),
-    metric = "solid_mn",
+    metric = rep("solid_mn", nrow(solid_mn)),
     value = as.double(solid_mn[, 2])
-  )
+  ))
 }

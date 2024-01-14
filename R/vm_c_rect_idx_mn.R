@@ -17,11 +17,11 @@ vm_c_rect_idx_mn <- function(landscape, class){
   rect_mn <- stats::aggregate(rect_idx$value, by = list(rect_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(rect_mn)),
     class = as.integer(rect_mn[, 1]),
     id = as.integer(NA),
-    metric = "rect_mn",
+    metric = rep("rect_mn", nrow(rect_mn)),
     value = as.double(rect_mn[, 2])
-  )
+  ))
 }

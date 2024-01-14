@@ -17,11 +17,11 @@ vm_c_elong_idx_mn <- function(landscape, class){
   elong_mn <- stats::aggregate(elong_idx$value, by = list(elong_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(elong_mn)),
     class = as.integer(elong_mn[, 1]),
     id = as.integer(NA),
-    metric = "elong_mn",
+    metric = rep("elong_mn", nrow(elong_mn)),
     value = as.double(elong_mn[, 2])
-  )
+  ))
 }

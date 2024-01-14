@@ -17,11 +17,11 @@ vm_c_comp_idx_mn <- function(landscape, class){
   comp_mn <- stats::aggregate(comp_idx$value, by = list(comp_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(comp_mn)),
     class = as.integer(comp_mn[, 1]),
     id = as.integer(NA),
-    metric = "comp_mn",
+    metric = rep("comp_mn", nrow(comp_mn)),
     value = as.double(comp_mn[, 2])
-  )
+  ))
 }

@@ -17,11 +17,11 @@ vm_c_exchange_idx_mn <- function(landscape, class){
   exchange_mn <- stats::aggregate(exchange_idx$value, by = list(exchange_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(exchange_mn)),
     class = as.integer(exchange_mn[, 1]),
     id = as.integer(NA),
-    metric = "exchange_mn",
+    metric = rep("exchange_mn", nrow(exchange_mn)),
     value = as.double(exchange_mn[, 2])
-  )
+  ))
 }

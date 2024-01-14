@@ -20,11 +20,11 @@ vm_c_para_idx_mn <- function(landscape, class){
   para_mn <- stats::aggregate(para_idx$value, by = list(para_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(para_mn)),
     class = as.integer(para_mn[, 1]),
     id = as.integer(NA),
-    metric = "para_mn",
+    metric = rep("para_mn", nrow(para_mn)),
     value = as.double(para_mn[, 2])
-  )
+  ))
 }

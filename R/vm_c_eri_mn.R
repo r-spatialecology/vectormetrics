@@ -17,11 +17,11 @@ vm_c_eri_mn <- function(landscape, class){
   eri_mn <- stats::aggregate(eri$value, by = list(eri$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(eri_mn)),
     class = as.integer(eri_mn[, 1]),
     id = as.integer(NA),
-    metric = "eri_mn",
+    metric = rep("eri_mn", nrow(eri_mn)),
     value = as.double(eri_mn[, 2])
-  )
+  ))
 }

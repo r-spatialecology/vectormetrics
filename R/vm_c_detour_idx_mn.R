@@ -17,11 +17,11 @@ vm_c_detour_idx_mn <- function(landscape, class){
   detour_mn <- stats::aggregate(detour_idx$value, by = list(detour_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(detour_mn)),
     class = as.integer(detour_mn[, 1]),
     id = as.integer(NA),
-    metric = "detour_mn",
+    metric = rep("detour_mn", nrow(detour_mn)),
     value = as.double(detour_mn[, 2])
-  )
+  ))
 }

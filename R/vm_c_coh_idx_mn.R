@@ -18,11 +18,11 @@ vm_c_coh_idx_mn <- function(landscape, class, n = 1000){
   coh_mn <- stats::aggregate(coh_idx$value, by = list(coh_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(coh_mn)),
     class = as.integer(coh_mn[, 1]),
     id = as.integer(NA),
-    metric = "coh_mn",
+    metric = rep("coh_mn", nrow(coh_mn)),
     value = as.double(coh_mn[, 2])
-  )
+  ))
 }

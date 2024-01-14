@@ -18,11 +18,11 @@ vm_c_full_idx_mn <- function(landscape, class, n = 10000){
   full_mn <- stats::aggregate(full_idx$value, by = list(full_idx$class), mean, na.rm = TRUE)
 
   # return results tibble
-  tibble::tibble(
-    level = "class",
+  tibble::new_tibble(list(
+    level = rep("class", nrow(full_mn)),
     class = as.integer(full_mn[, 1]),
     id = as.integer(NA),
-    metric = "full_mn",
+    metric = rep("full_mn", nrow(full_mn)),
     value = as.double(full_mn[, 2])
-  )
+  ))
 }
