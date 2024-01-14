@@ -1,5 +1,6 @@
 poz_buildings <- sf::st_read("./testing_sets/buildings.gpkg")
 sf::st_geometry(poz_buildings) <- "geometry"
+poz_buildings$building <- factor(poz_buildings$building)
 usethis::use_data(poz_buildings, overwrite = TRUE)
 
 clc <- sf::st_read("./testing_sets/clc.gpkg")
