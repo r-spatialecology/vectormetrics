@@ -29,7 +29,7 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
     }
     landscape <- sf::st_as_sf(union)
   }
-  landscape$class <- 1
+  landscape[class] <- 1
 
   # caluclate area of polygons
   landscape$area <- vm_p_area(landscape, class)$value * 10000

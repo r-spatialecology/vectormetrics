@@ -33,7 +33,7 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
     geom <- landscape_geos[i]
     neigh_area <- area[i] * 0.01
     radius <- sqrt(neigh_area / pi)
-    buffers <- get_igp(landscape[i], n) |> geos::geos_buffer(radius)
+    buffers <- get_igp(landscape[i,], n) |> geos::geos_buffer(radius)
 
     fullness <- (
       buffers |> geos::geos_intersection(geom) |> geos::geos_area()
