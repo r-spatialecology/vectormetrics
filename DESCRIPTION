@@ -28,7 +28,8 @@ Imports:
     sf,
     tibble,
     units,
-    geos
+    geos,
+    cluster
 Suggests: 
     sp,
     testthat (>= 3.0.0)
