@@ -17,6 +17,7 @@ vm_p_circum <- function(landscape, class) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   landscape <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split = FALSE)

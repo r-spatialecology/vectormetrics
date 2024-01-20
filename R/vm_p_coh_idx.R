@@ -19,6 +19,7 @@ vm_p_coh_idx <- function(landscape, class, n = 1000) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   # calculate the area of polygons

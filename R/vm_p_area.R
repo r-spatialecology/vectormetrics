@@ -46,6 +46,7 @@ vm_p_area <- function(landscape, class) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   # compute area and divide by 10000 to get hectare

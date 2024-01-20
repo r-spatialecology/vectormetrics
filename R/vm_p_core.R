@@ -46,6 +46,7 @@ vm_p_core <- function(landscape, class, edge_depth) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons

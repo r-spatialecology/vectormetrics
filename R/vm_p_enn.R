@@ -22,6 +22,7 @@ vm_p_enn <- function(landscape, class) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   # cast then to MULTILINESTRING

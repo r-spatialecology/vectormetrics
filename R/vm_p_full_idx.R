@@ -22,6 +22,7 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   # caluclate area of polygons

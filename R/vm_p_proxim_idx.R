@@ -18,6 +18,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")

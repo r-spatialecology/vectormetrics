@@ -22,6 +22,7 @@ vm_p_cai <- function(landscape, class, edge_depth) {
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
 
   area <- vm_p_area(landscape, class)
   core <- vm_p_core(landscape, class, edge_depth)

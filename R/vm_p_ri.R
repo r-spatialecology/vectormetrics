@@ -18,6 +18,7 @@ vm_p_ri <- function(landscape, class, n = 100){
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   for (i in seq_len(nrow(landscape))){

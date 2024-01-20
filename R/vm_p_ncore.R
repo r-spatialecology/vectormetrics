@@ -22,6 +22,8 @@ vm_p_ncore <- function(landscape, class, edge_depth){
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
+  # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons

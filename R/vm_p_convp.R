@@ -16,8 +16,8 @@ vm_p_convp <- function(landscape, class) {
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
+  # select geometry column for spatial operations and the column that identifies the classes
+  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
   convex <- sf::st_convex_hull(landscape)
