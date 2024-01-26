@@ -1,6 +1,6 @@
 Package: vectormetrics
 Title: Landscape Metrics for Categorical Map Patterns in Vector Data
-Version: 0.1
+Version: 0.2
 Authors@R: 
     c(person("Marco", "Sciaini", 
              email = "sciaini.marco@gmail.com",
@@ -14,11 +14,17 @@ Authors@R:
              email = "nowosad.jakub@gmail.com", 
              comment = c(ORCID = "0000-0002-1057-3721")),
       person("Yunyao", "Ma", role = "aut",
-             email = "yunyao.ma@stud.uni-goettingen.de"))
-Description: What the package does (one paragraph).
+             email = "yunyao.ma@stud.uni-goettingen.de"),
+      person("Tomasz", "Matuszek", role = "aut",
+             email = "tom.mateuszek@gmail.com"))
+Description: Package calculates landscape and shape metrics for categorical landscape patterns in 
+    a tidy workflow. 'vectormetrics' reimplements the most common landscapemetrics from
+    'FRAGSTATS' (<https://www.fragstats.org/>) and 'landscapemetrics' (<https://r-spatialecology.github.io/landscapemetrics/>) and 
+    adds many new metrics relating to shape of polygons, based on literature. This package supports Simple Feature objects 
+    as input arguments. It further provides utility functions to break multipolygon patches or calculate main axes of the shape.
 License: GPL-3
 Depends: 
-    R (>= 3.1)
+    R (>= 4.1)
 Encoding: UTF-8
 LazyData: true
 Imports: 
