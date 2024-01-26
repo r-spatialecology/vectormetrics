@@ -24,10 +24,10 @@ vm_p_circum <- function(landscape, class) {
 
   # compute max distant for each MULTIPOINT, which is the diameter of a circle around each patch
   dis <- c()
-  dis_max <- sapply(1:nrow(landscape), function(i){
+  dis_max <- sapply(seq_len(nrow(landscape)), function(i){
     landscape_point <- sf::st_cast(landscape[i, ], "POINT", warn = FALSE)
 
-    for (i in seq_along(length(landscape_point))){
+    for (i in seq_len(nrow(landscape_point))){
       point <- landscape_point[i,]
       dis <- c(dis, geos::geos_distance(point, landscape_point))
     }
