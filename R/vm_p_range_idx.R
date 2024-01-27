@@ -9,7 +9,7 @@
 #' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_range_idx <- function(landscape, class) {
+vm_p_range_idx <- function(landscape, class, patch_id = NA) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -18,8 +18,12 @@ vm_p_range_idx <- function(landscape, class) {
   }
 
   # select geometry column for spatial operations and the column that identifies the classes
+  if (is.na(patch_id)){
+    patch_id <- "id"
+    landscape[, patch_id] <- seq_len(nrow(landscape))
+  }
   landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
-  landscape <- landscape[, class]
+  landscape <- landscape[, c(class, patch_id)]
 
   # calculate the diameter of equal-area circle
   landscape$circle_diam <- vm_p_circlep(landscape, class)$value / pi
@@ -40,6 +44,7 @@ vm_p_range_idx <- function(landscape, class) {
     level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
     id = as.integer(seq_len(nrow(landscape))),
+    #id = landscape[, patch_id, drop = TRUE],
     metric = rep("range_index", nrow(landscape)),
     value = as.double(range_index)
   ))

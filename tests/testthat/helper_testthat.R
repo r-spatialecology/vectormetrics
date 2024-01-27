@@ -19,3 +19,4 @@ sf::st_geometry(squaretxt) <- "geometry"
 squaretxt$class <- "text"
 
 vector_patches = get_patches(vector_landscape, "class")
+sf::st_agr(vector_patches) <- "constant"

@@ -1,5 +1,3 @@
-sf::st_agr(vector_patches) <- "constant"
-
 testthat::test_that("check vm_p_range_idx value", {
   expect_equal(vm_p_range_idx(square, "class")$value, 0.7978, tolerance = 0.001)
   expect_equal(vm_p_range_idx(diamond, "class")$value, 0.564, tolerance = 0.001)
@@ -11,7 +9,7 @@ testthat::test_that("check vm_p_range_idx result assertions", {
   expect_message(vm_p_range_idx(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
 })
 
-testthat::test_that("check vm_p_range_idx result strcuture", {
+testthat::test_that("check vm_p_range_idx result structure", {
   expect_s3_class(vm_p_range_idx(square, "class"), "tbl_df")
   expect_equal(ncol(vm_p_range_idx(square, "class")), 5)
   expect_equal(nrow(vm_p_range_idx(vector_patches, "class")), nrow(vector_patches))
