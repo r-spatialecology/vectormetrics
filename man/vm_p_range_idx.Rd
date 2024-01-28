@@ -4,7 +4,7 @@
 \alias{vm_p_range_idx}
 \title{Range Index(vector data)}
 \usage{
-vm_p_range_idx(landscape, class)
+vm_p_range_idx(landscape, class, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
