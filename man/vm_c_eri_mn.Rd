@@ -15,7 +15,7 @@ vm_c_eri_mn(landscape, class)
 ratio between perimeter of equal-area rectangle of shape and perimeter of shape
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_sq_idx(vector_landscape, "class")
+vm_p_square(vector_landscape, "class")
 }
 \description{
 Calculate Equivalent rectangular index (ERI)

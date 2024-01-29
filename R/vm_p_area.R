@@ -19,7 +19,8 @@
 #' \subsection{Range}{AREA > 0}
 #' \subsection{Behaviour}{Increases, without limit, as the patch size increases.}
 #'
-#' @return tibble
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #'
 #' @examples
 #' vm_p_area(vector_landscape, "class")

@@ -10,7 +10,7 @@
 #' @export
 
 vm_l_detour_idx_mn <- function(landscape, class){
-  detour <- vm_p_detour_idx(landscape, class)
+  detour <- vm_p_detour(landscape, class)
   detour_l <- mean(detour$value)
 
   tibble::new_tibble(list(

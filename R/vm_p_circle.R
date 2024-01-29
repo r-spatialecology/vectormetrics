@@ -20,7 +20,8 @@
 #' \subsection{Range}{0 <= CIRCLE < 1}
 #' \subsection{Behaviour}{CIRCLE = 0 for a circular patch and approaches CIRCLE = 1 for
 #' a linear patch.}
-#'
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
 #' vm_p_circle(vector_landscape, "class")
 #'

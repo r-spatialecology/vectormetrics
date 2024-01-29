@@ -15,7 +15,7 @@ vm_c_solid_idx_mn(landscape, class)
 ratio between area of convex hull and area of polygon
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_solid_idx(vector_landscape, "class")
+vm_p_solid(vector_landscape, "class")
 }
 \description{
 Solidity convexity

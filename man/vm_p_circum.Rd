@@ -12,10 +12,15 @@ vm_p_circum(landscape, class)
 \item{class}{the name of the class column of the input landscape}
 }
 \value{
-diameter of equal-area circle
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 Calculate diameter of smallest circumscribing circle
+}
+\details{
+diameter of smallest circumscribing circle
+}
+\examples{
+vm_p_circum(vector_landscape, "class")
 }

@@ -9,7 +9,7 @@
 #' st_p_area(vector_landscape, "class")
 #' @export
 
-vm_p_exchange_idx <- function(landscape, class) {
+vm_p_exchange <- function(landscape, class) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")

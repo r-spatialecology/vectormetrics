@@ -10,7 +10,7 @@
 #' @export
 
 vm_l_range_idx_mn <- function(landscape, class){
-  range <- vm_p_range_idx(landscape, class)
+  range <- vm_p_range(landscape, class)
   range_l <- mean(range$value)
 
   tibble::new_tibble(list(

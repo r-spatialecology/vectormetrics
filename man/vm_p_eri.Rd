@@ -12,11 +12,19 @@ vm_p_eri(landscape, class)
 \item{class}{the name of the class column of the input landscape}
 }
 \value{
-ratio between perimeter of equal-area rectangle of shape and perimeter of shape
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_p_sq_idx(vector_landscape, "class")
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 Calculate Equivalent rectangular index (ERI)
+}
+\details{
+ratio between perimeter of equal-area rectangle of shape and perimeter of shape
+}
+\examples{
+vm_p_eri(vector_landscape, "class")
+}
+\references{
+Basaraner, M., & Cetinkaya, S. (2017). Performance of shape indices and classification schemes for characterising perceptual shape complexity of building footprints in GIS.
+International Journal of Geographical Information Science, 31(10), 1952–1977. https://doi.org/10.1080/13658816.2017.1346257
 }

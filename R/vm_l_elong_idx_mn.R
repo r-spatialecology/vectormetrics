@@ -6,11 +6,11 @@
 #' @return  ratio between major and minor axis length
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_elong_idx(vector_landscape, "class")
+#' vm_p_elong(vector_landscape, "class")
 #' @export
 
 vm_l_elong_idx_mn <- function(landscape, class){
-  elong <- vm_p_elong_idx(landscape, class)
+  elong <- vm_p_elong(landscape, class)
   elong_l <- mean(elong$value)
 
   tibble::new_tibble(list(

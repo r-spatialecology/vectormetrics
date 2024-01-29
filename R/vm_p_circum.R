@@ -1,11 +1,13 @@
 #' @title Diameter of smallest circumscribing circle(vector data)
 #'
 #' @description Calculate diameter of smallest circumscribing circle
+#' @details diameter of smallest circumscribing circle
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @return  diameter of equal-area circle
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
+#' @examples
+#' vm_p_circum(vector_landscape, "class")
 #' @export
 
 vm_p_circum <- function(landscape, class) {

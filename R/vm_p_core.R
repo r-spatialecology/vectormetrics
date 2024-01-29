@@ -21,7 +21,8 @@
 #' \subsection{Behaviour}{Increases, without limit, as the patch area increases
 #' and the patch shape simplifies (more core area). CORE = 0 when every location in
 #' the patch is an edge.}
-#'
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
 #' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 #'
@@ -36,8 +37,8 @@
 
 #' @name vm_p_core
 #' @export
-vm_p_core <- function(landscape, class, edge_depth) {
 
+vm_p_core <- function(landscape, class, edge_depth) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")

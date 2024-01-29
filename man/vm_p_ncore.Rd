@@ -14,8 +14,8 @@ vm_p_ncore(landscape, class, edge_depth)
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
-the returned calculated core areasnumber of disjunct core areas of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 This function allows you to calculate the number of disjunct core areas of all patches
@@ -23,7 +23,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 Disjunct core area is defined as a new discrete area(patch), which is a sub-part of core area
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_p_core(vector_landscape, "class", edge_depth = 0.8)
 }

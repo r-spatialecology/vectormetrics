@@ -6,10 +6,10 @@
 #' @return  ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_proxim_idx(vector_landscape, "class")
+#' vm_p_proxim(vector_landscape, "class")
 #' @export
 
-vm_p_proxim_idx <- function(landscape, class, n = 1000) {
+vm_p_proxim <- function(landscape, class, n = 1000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -32,7 +32,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
   }
   close(progress_bar)
 
-  radiuses = vm_p_circlep(landscape, class)$value / (2 * pi) * 0.66
+  radiuses = vm_p_eac_perim(landscape, class)$value / (2 * pi) * 0.66
   proximity = radiuses / landscape$igp_dist
 
   # return results tibble

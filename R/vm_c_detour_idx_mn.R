@@ -11,7 +11,7 @@
 
 vm_c_detour_idx_mn <- function(landscape, class){
   # calculate the detour index for all patches
-  detour_idx <- vm_p_detour_idx(landscape, class)
+  detour_idx <- vm_p_detour(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   detour_mn <- stats::aggregate(detour_idx$value, by = list(detour_idx$class), mean, na.rm = TRUE)

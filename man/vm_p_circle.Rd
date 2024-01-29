@@ -11,6 +11,10 @@ vm_p_circle(landscape, class)
 
 \item{class}{Name of the class column of the input landscape}
 }
+\value{
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
+}
 \description{
 Related Circumscribing Circle (Shape metric)
 }

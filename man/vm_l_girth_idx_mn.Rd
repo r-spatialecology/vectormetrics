@@ -15,7 +15,7 @@ vm_l_girth_idx_mn(landscape, class)
 ratio between radius of maximum inscribed circle and radius of equal-area circle
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_girth_idx(vector_landscape, "class")
+vm_p_girth(vector_landscape, "class")
 }
 \description{
 Calculate Girth Index

@@ -1,17 +1,15 @@
-#' @title The perimeter of each patches(vector data)
+#' @title The perimeter of patch(vector data)
 #'
-#' @description This function allows you to calculate the perimeter of each patches in a categorical landscape in vector data format
+#' @description This function allows you to calculate the perimeter of each patch in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @return  the returned calculated perimeter of all patches is in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
-#' st_p_area(vector_landscape, "class")
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
+#' @examples
+#' vm_p_perim(vector_landscape, "class")
 #' @export
 
 vm_p_perim <- function(landscape, class) {
-
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")

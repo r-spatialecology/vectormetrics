@@ -7,10 +7,10 @@
 #' @return  ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_full_idx(vector_landscape, "class")
+#' vm_p_fullness(vector_landscape, "class")
 #' @export
 
-vm_p_full_idx <- function(landscape, class, n = 10000) {
+vm_p_fullness <- function(landscape, class, n = 10000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")

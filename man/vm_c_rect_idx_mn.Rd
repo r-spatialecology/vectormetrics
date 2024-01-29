@@ -15,7 +15,7 @@ vm_c_rect_idx_mn(landscape, class)
 ratio between area of shape and its minimum area bounding rectangle (MABR)
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_rect_idx(vector_landscape, "class")
+vm_p_rect(vector_landscape, "class")
 }
 \description{
 Calculate rectangularity

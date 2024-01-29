@@ -14,8 +14,8 @@ vm_p_cai(landscape, class, edge_depth)
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
-the returned calculated indices of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 This function allows you to calculate the ratio of the core area and the area in square meters.
@@ -23,7 +23,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 The index describes the percentage of a patch that is core area.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_p_cai(vector_landscape, "class", edge_depth = 0.8)
 }

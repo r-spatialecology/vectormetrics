@@ -2,7 +2,7 @@
 % Please edit documentation in R/vm_p_frac.R
 \name{vm_p_frac}
 \alias{vm_p_frac}
-\title{fractal dimension index(vector data)}
+\title{Fractal Dimension Index(vector data)}
 \usage{
 vm_p_frac(landscape, class)
 }
@@ -12,15 +12,16 @@ vm_p_frac(landscape, class)
 \item{class}{the name of the class column of the input landscape}
 }
 \value{
-the returned calculated indice of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 This function allows you to calculate index fractal dimension index.
 The index is based on the patch perimeter and the patch area and describes the patch complexity.
 }
+\details{
+2 * log(perimeter) / log(area)
+}
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_p_frac(vector_landscape, "class")
 }

@@ -7,11 +7,11 @@
 #' @return  ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_full_idx(vector_landscape, "class")
+#' vm_p_fullness(vector_landscape, "class")
 #' @export
 
 vm_l_full_idx_mn <- function(landscape, class, n = 10000){
-  full <- vm_p_full_idx(landscape, class, n)
+  full <- vm_p_fullness(landscape, class, n)
   full_l <- mean(full$value)
 
   tibble::new_tibble(list(

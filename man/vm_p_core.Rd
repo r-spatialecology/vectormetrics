@@ -13,6 +13,10 @@ vm_p_core(landscape, class, edge_depth)
 
 \item{edge_depth}{Distance (in map units) a location has the be away from the patch edge to be considered as core location}
 }
+\value{
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
+}
 \description{
 Core area (Core area metric)
 }

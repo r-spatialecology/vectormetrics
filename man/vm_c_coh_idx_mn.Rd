@@ -18,7 +18,7 @@ ratio of the average distance-squared among all points in an equalarea circle
 and the average distance-squared among all points in the shape
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_coh_idx(vector_landscape, "class")
+vm_p_coh(vector_landscape, "class")
 }
 \description{
 Calculate Cohesion Index

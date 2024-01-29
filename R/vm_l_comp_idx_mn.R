@@ -6,11 +6,11 @@
 #' @return sqrt(4 * area / pi) / perimeter
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_comp_idx(vector_landscape, "class")
+#' vm_p_comp(vector_landscape, "class")
 #' @export
 
 vm_l_comp_idx_mn <- function(landscape, class){
-  comp <- vm_p_comp_idx(landscape, class)
+  comp <- vm_p_comp(landscape, class)
   comp_l <- mean(comp$value)
 
   tibble::new_tibble(list(

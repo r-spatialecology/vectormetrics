@@ -7,11 +7,11 @@
 #' @return HERE WRITE DESCRIPTION OF METRIC
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_sq_idx(vector_landscape, "class")
+#' vm_p_square(vector_landscape, "class")
 #' @export
 
 vm_l_ri_mn <- function(landscape, class, n = 100){
-  ri <- vm_p_ri(landscape, class, n)
+  ri <- vm_p_rough(landscape, class, n)
   ri_l <- mean(ri$value)
 
   tibble::new_tibble(list(

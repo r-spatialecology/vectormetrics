@@ -6,10 +6,10 @@
 #' @return HERE WRITE DESCRIPTION OF METRIC
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_sq_idx(vector_landscape, "class")
+#' vm_p_square(vector_landscape, "class")
 #' @export
 
-vm_p_ri <- function(landscape, class, n = 100){
+vm_p_rough <- function(landscape, class, n = 100){
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")

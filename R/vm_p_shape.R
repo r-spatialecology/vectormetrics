@@ -6,17 +6,13 @@
 #' the perimeter of a circle with the same area of the patch.
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @return  the returned calculated indices of all patches are in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
 #' vm_p_shape(vector_landscape, "class")
 #' @export
 
-# shape
 vm_p_shape <- function(landscape, class) {
-
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -32,7 +28,7 @@ vm_p_shape <- function(landscape, class) {
 
   # shape metric is the ratio between actual perimeter and the hypothetical minimum perimeter of the patch
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
-  shape <- peri$value / vm_p_circlep(landscape, class)$value
+  shape <- peri$value / vm_p_eac_perim(landscape, class)$value
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
   if (methods::is(class_ids, "factor")){

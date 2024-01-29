@@ -11,7 +11,7 @@
 
 vm_c_exchange_idx_mn <- function(landscape, class){
   # calculate the detour index for all patches
-  exchange_idx <- vm_p_exchange_idx(landscape, class)
+  exchange_idx <- vm_p_exchange(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   exchange_mn <- stats::aggregate(exchange_idx$value, by = list(exchange_idx$class), mean, na.rm = TRUE)

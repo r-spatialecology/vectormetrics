@@ -10,7 +10,7 @@
 #' @export
 
 vm_l_exchange_idx_mn <- function(landscape, class){
-  exchange <- vm_p_exchange_idx(landscape, class)
+  exchange <- vm_p_exchange(landscape, class)
   exchange_l <- mean(exchange$value)
 
   tibble::new_tibble(list(

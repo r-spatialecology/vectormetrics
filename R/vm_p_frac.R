@@ -1,19 +1,17 @@
-#' @title fractal dimension index(vector data)
+#' @title Fractal Dimension Index(vector data)
 #'
 #' @description This function allows you to calculate index fractal dimension index.
 #' The index is based on the patch perimeter and the patch area and describes the patch complexity.
+#' @details 2 * log(perimeter) / log(area)
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
-#' @return  the returned calculated indice of all patches are in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
 #' vm_p_frac(vector_landscape, "class")
 #' @export
 
 vm_p_frac <- function(landscape, class) {
-
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -34,6 +32,7 @@ vm_p_frac <- function(landscape, class) {
   if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
+  
   # return results tibble
   tibble::new_tibble(list(
     level = rep("patch", nrow(landscape)),

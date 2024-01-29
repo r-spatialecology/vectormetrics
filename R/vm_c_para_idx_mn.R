@@ -9,12 +9,12 @@
 #' @examples
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_para_idx(vector_landscape, "class")
+#' vm_p_perarea(vector_landscape, "class")
 #' @export
 
 vm_c_para_idx_mn <- function(landscape, class){
   # calculate the detour index for all patches
-  para_idx <- vm_p_para_idx(landscape, class)
+  para_idx <- vm_p_perarea(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   para_mn <- stats::aggregate(para_idx$value, by = list(para_idx$class), mean, na.rm = TRUE)

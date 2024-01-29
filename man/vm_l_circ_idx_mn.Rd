@@ -15,7 +15,7 @@ vm_l_circ_idx_mn(landscape, class)
 ratio between area of polygon and area of equal-perimeter circle
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_circ_idx(vector_landscape, "class")
+vm_p_circ(vector_landscape, "class")
 }
 \description{
 Circularity convexity

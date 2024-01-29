@@ -17,7 +17,7 @@ vm_c_ri_mn(landscape, class, n = 100)
 HERE WRITE DESCRIPTION OF METRIC
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_sq_idx(vector_landscape, "class")
+vm_p_square(vector_landscape, "class")
 }
 \description{
 Calculate Roughness index (RI)

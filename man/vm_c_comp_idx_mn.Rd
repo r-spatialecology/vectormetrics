@@ -15,7 +15,7 @@ vm_c_comp_idx_mn(landscape, class)
 sqrt(4 * area / pi) / perimeter
 ## if the class name of input landscape is landcover,
 ## then write landcover in a double quotation marks as the second parameter.
-vm_p_comp_idx(vector_landscape, "class")
+vm_p_comp(vector_landscape, "class")
 }
 \description{
 Calculate form factor or compactness

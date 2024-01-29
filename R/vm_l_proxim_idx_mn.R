@@ -7,11 +7,11 @@
 #' @return  ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_proxim_idx(vector_landscape, "class")
+#' vm_p_proxim(vector_landscape, "class")
 #' @export
 
 vm_l_proxim_idx_mn <- function(landscape, class, n = 1000){
-  proxim <- vm_p_proxim_idx(landscape, class)
+  proxim <- vm_p_proxim(landscape, class)
   proxim_l <- mean(proxim$value)
 
   tibble::new_tibble(list(
