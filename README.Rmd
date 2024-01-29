@@ -12,8 +12,10 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-[![Travis build status](https://travis-ci.org/marcosci/vectormetrics.svg?branch=master)](https://travis-ci.org/marcosci/vectormetrics)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/marcosci/vectormetrics?branch=master&svg=true)](https://ci.appveyor.com/project/marcosci/vectormetrics)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
+<!-- badges: end -->
 
 # vectormetrics
 
