@@ -29,7 +29,7 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
   area <- vm_p_area(landscape, class)$value * 10000
   landscape_geos <- geos::as_geos_geometry(landscape)
 
-  progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
+  progress_bar <- utils::txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
   for (i in seq_len(nrow(landscape))) {
     geom <- landscape_geos[i]
     neigh_area <- area[i] * 0.01
@@ -40,13 +40,13 @@ vm_p_full_idx <- function(landscape, class, n = 10000) {
       buffers |> geos::geos_intersection(geom) |> geos::geos_area()
     ) / neigh_area
     landscape$fullness[i] <- mean(fullness)
-    setTxtProgressBar(progress_bar, value = i)
+    utils::setTxtProgressBar(progress_bar, value = i)
   }
   close(progress_bar)
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 

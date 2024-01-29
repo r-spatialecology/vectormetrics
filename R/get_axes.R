@@ -21,8 +21,8 @@ get_axes <- function(landscape, class){
   for (row in seq_len(nrow(landscape))) {
     coords <- landscape[row, ] |> sf::st_coordinates()
     elipsoid <- coords[, 1:2] |> cluster::ellipsoidhull()
-    el_pts <- predict(elipsoid)
-    distances <- dist(rbind(t(elipsoid$loc), el_pts)) |> as.matrix()
+    el_pts <- stats::predict(elipsoid)
+    distances <- stats::dist(rbind(t(elipsoid$loc), el_pts)) |> as.matrix()
     distances <- distances[1,]
     distances[distances == 0] <- NA
     landscape$major_axis[row] <- round(max(distances, na.rm = TRUE), 2)
@@ -31,7 +31,7 @@ get_axes <- function(landscape, class){
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 

@@ -3,6 +3,7 @@
 #' @description Calculate Roughness index (RI)
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of boundary points to generate
 #' @return HERE WRITE DESCRIPTION OF METRIC
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
@@ -37,7 +38,7 @@ vm_p_ri <- function(landscape, class, n = 100){
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 

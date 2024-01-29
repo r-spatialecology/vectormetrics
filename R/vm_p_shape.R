@@ -35,7 +35,7 @@ vm_p_shape <- function(landscape, class) {
   shape <- peri$value / vm_p_circlep(landscape, class)$value
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
   

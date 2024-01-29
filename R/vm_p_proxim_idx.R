@@ -3,6 +3,7 @@
 #' @description Calculate Proximity Index
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of grid points to generate
 #' @return  ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
@@ -21,7 +22,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
   landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
   landscape <- landscape[, class]
 
-  progress_bar <- txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
+  progress_bar <- utils::txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
   for (i in seq_len(nrow(landscape))){
     shape <- landscape[i, ]
     igp <- get_igp(shape, n)
@@ -29,7 +30,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
 
     igp_dist <- geos::geos_distance(igp, cent)
     landscape$igp_dist[i] <- mean(igp_dist)
-    setTxtProgressBar(progress_bar, value = i)
+    utils::setTxtProgressBar(progress_bar, value = i)
   }
   close(progress_bar)
 
@@ -38,7 +39,7 @@ vm_p_proxim_idx <- function(landscape, class, n = 1000) {
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 

@@ -4,12 +4,14 @@
 \alias{vm_p_range_idx}
 \title{Range Index(vector data)}
 \usage{
-vm_p_range_idx(landscape, class)
+vm_p_range_idx(landscape, class, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 ratio between diameter of equal-area circle and diameter of smallest circumscribing circle

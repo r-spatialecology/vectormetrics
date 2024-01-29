@@ -35,7 +35,8 @@ Imports:
     tibble,
     units,
     geos,
-    cluster
+    cluster,
+    methods
 Suggests: 
     sp,
     testthat (>= 3.0.0)

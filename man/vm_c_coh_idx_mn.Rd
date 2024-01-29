@@ -10,6 +10,8 @@ vm_c_coh_idx_mn(landscape, class, n = 1000)
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{n}{number of grid points to generate}
 }
 \value{
 ratio of the average distance-squared among all points in an equalarea circle

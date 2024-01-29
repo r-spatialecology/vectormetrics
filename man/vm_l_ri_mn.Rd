@@ -10,6 +10,8 @@ vm_l_ri_mn(landscape, class, n = 100)
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{n}{number of boundary points to generate}
 }
 \value{
 HERE WRITE DESCRIPTION OF METRIC

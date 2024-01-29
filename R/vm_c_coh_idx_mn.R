@@ -3,6 +3,7 @@
 #' @description Calculate Cohesion Index
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of grid points to generate
 #' @return  ratio of the average distance-squared among all points in an equalarea circle
 #' and the average distance-squared among all points in the shape
 #' ## if the class name of input landscape is landcover,

@@ -31,7 +31,7 @@ vm_p_frac <- function(landscape, class) {
   frac <- 2 * log(peri$value) / log(area)
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
   # return results tibble

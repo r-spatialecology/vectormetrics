@@ -4,12 +4,14 @@
 \alias{vm_l_proxim_idx_mn}
 \title{Proximity Index(vector data)}
 \usage{
-vm_l_proxim_idx_mn(landscape, class)
+vm_l_proxim_idx_mn(landscape, class, n = 1000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{n}{number of grid points to generate}
 }
 \value{
 ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center

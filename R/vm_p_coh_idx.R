@@ -3,6 +3,7 @@
 #' @description Calculate Cohesion Index
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of grid points to generate
 #' @return  ratio of the average distance-squared among all points in an equalarea circle
 #' and the average distance-squared among all points in the shape
 #' ## if the class name of input landscape is landcover,
@@ -45,7 +46,7 @@ vm_p_coh_idx <- function(landscape, class, n = 1000) {
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 

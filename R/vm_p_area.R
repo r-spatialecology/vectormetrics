@@ -53,7 +53,7 @@ vm_p_area <- function(landscape, class) {
   landscape$area <- sf::st_area(landscape) / 10000
 
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
   # return results tibble

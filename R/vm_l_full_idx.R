@@ -44,7 +44,7 @@ vm_l_full_idx <- function(landscape, class, n = 10000) {
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(levels(class_ids))[class_ids]
   }
 

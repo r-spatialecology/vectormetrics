@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 
-/testing_sets
 .lintr
+/R/sf_versions

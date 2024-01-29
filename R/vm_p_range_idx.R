@@ -3,6 +3,7 @@
 #' @description Calculate Range Index
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param patch_id the name of the id column of the input landscape
 #' @return  ratio between diameter of equal-area circle and diameter of smallest circumscribing circle
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.
@@ -36,7 +37,7 @@ vm_p_range_idx <- function(landscape, class, patch_id = NA) {
 
   # return results tibble
   class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (is(class_ids, "factor")){
+  if (methods::is(class_ids, "factor")){
     class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
   }
 
