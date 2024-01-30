@@ -13,16 +13,12 @@ vm_c_area_cv(landscape, class)
 }
 \value{
 the returned calculated coefficient of variation of areas of each class is in column "value",
-and this function returns also some important information such as level, class number and metric name.
-Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
-at class level should correspond to patch level one by one, and then it is more convinient to combine metric values at different levels and compare them.
+this function returns also some important information such as level, class number and metric name.
 }
 \description{
 This function allows you to calculate the coefficient of variation
 of all patch areas belonging to one class in a categorical landscape in vector data format
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_area_cv(vector_landscape, "class")
 }

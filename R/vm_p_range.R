@@ -49,6 +49,7 @@ vm_p_range <- function(landscape, class, patch_id = NA) {
     level = rep("patch", nrow(landscape)),
     class = as.integer(class_ids),
     id = as.integer(seq_len(nrow(landscape))),
+    #class = landscape[, class, drop = TRUE],
     #id = landscape[, patch_id, drop = TRUE],
     metric = rep("range_index", nrow(landscape)),
     value = as.double(range_index)
