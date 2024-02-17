@@ -1,4 +1,4 @@
-#' @title Sphrecity(vector data)
+#' @title Sphercity(vector data)
 #'
 #' @description Calculate sphercity
 #' @details ratio between radius of maximum inscribed circle and minimum circumscribing circle

@@ -14,14 +14,11 @@ vm_l_area_mn(landscape, class)
 \value{
 the returned calculated mean value of areas is in column "value",
 and this function returns also some important information such as level and metric name,
-Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 }
 \description{
 This function allows you to calculate the mean value
 of all patch areas in a categorical landscape in vector data format
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_l_area_mn(vector_landscape, "class")
 }

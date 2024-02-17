@@ -1,27 +1,28 @@
-#' @title Perimeter Index(vector data)
+#' @title Fullness Index(vector data)
 #'
-#' @description Calculate Perimeter Index
-#' @details ratio between perimeter of equal-area circle and perimeter of polygon
+#' @description Calculate Fullness Index
+#' @details ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' @param landscape the input landscape image,
 #' @param class the name of the class column of the input landscape
+#' @param n number of local neighbourhoods to consider in calculating fullness
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_l_perim_idx_mn(vector_landscape, "class")
+#' vm_l_fullness_mn(vector_landscape, "class", 1000)
 #' @references
 #' Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_l_perim_idx_mn <- function(landscape, class){
-  perim <- vm_p_perim_idx(landscape, class)
-  perim_l <- mean(perim$value)
+vm_l_fullness_mn <- function(landscape, class, n = 10000){
+  full <- vm_p_fullness(landscape, class, n)
+  full_l <- mean(full$value)
 
   tibble::new_tibble(list(
     level = "landscape",
     class = as.integer(NA),
     id = as.integer(NA),
-    metric = "perim_mn",
-    value = as.double(perim_l)
+    metric = "full_mn",
+    value = as.double(full_l)
   ))
 }

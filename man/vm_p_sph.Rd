@@ -2,7 +2,7 @@
 % Please edit documentation in R/vm_p_sph.R
 \name{vm_p_sph}
 \alias{vm_p_sph}
-\title{Sphrecity(vector data)}
+\title{Sphercity(vector data)}
 \usage{
 vm_p_sph(landscape, class)
 }
