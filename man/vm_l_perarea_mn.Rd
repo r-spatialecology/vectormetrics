@@ -2,7 +2,7 @@
 % Please edit documentation in R/vm_l_perarea_mn.R
 \name{vm_l_perarea_mn}
 \alias{vm_l_perarea_mn}
-\title{Perimeter-Area ratio.}
+\title{The mean value of all patches Perimeter-Area ratio index at landscape level(vector data)}
 \usage{
 vm_l_perarea_mn(landscape, class)
 }
@@ -12,12 +12,13 @@ vm_l_perarea_mn(landscape, class)
 \item{class}{the name of the class column of the input landscape}
 }
 \value{
-the function returns the calculated ratio of all patches in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the returned calculated mean value is in column "value",
+and this function returns also some important information such as level and metric name,
+Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 }
 \description{
-This function allows you to calculate the ratio between the patch area and perimeter.
-The ratio describes the patch complexity in a straightforward way.
+This function allows you to calculate the mean value
+of all patch ratios in a categorical landscape in vector data format
 }
 \examples{
 vm_l_perarea_mn(vector_landscape, "class")

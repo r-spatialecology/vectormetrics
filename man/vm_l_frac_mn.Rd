@@ -2,7 +2,7 @@
 % Please edit documentation in R/vm_l_frac_mn.R
 \name{vm_l_frac_mn}
 \alias{vm_l_frac_mn}
-\title{fractal dimension index(vector data)}
+\title{The mean value of the fractal dimension index of landscape(vector data)}
 \usage{
 vm_l_frac_mn(landscape, class)
 }
@@ -12,15 +12,14 @@ vm_l_frac_mn(landscape, class)
 \item{class}{the name of the class column of the input landscape}
 }
 \value{
-the function returns tibble with the calculated values in column "value",
-this function returns also some important information such as level, class, patch id and metric name.
+the returned calculated mean value of the whole landscape is in column "value",
+and this function returns also some important information such as level and metric name,
+Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 }
 \description{
-This function allows you to calculate index fractal dimension index.
-The index is based on the patch perimeter and the patch area and describes the patch complexity.
-}
-\details{
-2 * log(perimeter) / log(area)
+This function allows you to calculate the mean value
+of fractal dimension index in a categorical landscape in vector data format
+The index is based on the patch perimeter and the patch area and describes the patch complexity
 }
 \examples{
 vm_l_frac_mn(vector_landscape, "class")
