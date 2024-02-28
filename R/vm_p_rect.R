@@ -30,7 +30,7 @@ vm_p_rect <- function(landscape, class) {
 
   # calculate the area of MABR
   mabr <- geos::geos_minimum_rotated_rectangle(landscape) |> sf::st_as_sf()
-  mabr[, class] <- landscape[, class]
+  mabr[, class] <- landscape[, class, drop = TRUE]
   landscape$mabr_area <- vm_p_area(mabr, class)$value * 10000
 
   # ratio of area of polygon and its MABR
