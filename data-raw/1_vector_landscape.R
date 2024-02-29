@@ -1,5 +1,5 @@
 # Create example datasets -------------------------------------------------
-set.seed(2018-05-12)
+set.seed(2024-02-29)
 single_landscape_create = function(x) {
   NLMR::nlm_randomcluster(
     ncol = 30,

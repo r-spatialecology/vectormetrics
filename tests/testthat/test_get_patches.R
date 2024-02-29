@@ -1,6 +1,6 @@
 testthat::test_that("check number of patches", {
-  expect_equal(nrow(get_patches(vector_landscape, "class", 4)), 35)
-  expect_equal(nrow(get_patches(vector_landscape, "class", 8)), 27)
+  expect_equal(nrow(get_patches(vector_landscape, "class", 4)), 40)
+  expect_equal(nrow(get_patches(vector_landscape, "class", 8)), 32)
 })
 
 testthat::test_that("check get_patches result structure", {
