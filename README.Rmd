@@ -4,6 +4,9 @@ output:
     html_preview: false
 ---
 
+<!-- To render, run:
+rmarkdown::render("README.Rmd")
+-->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -16,38 +19,106 @@ knitr::opts_chunk$set(
 ```
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
+[![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
 <!-- badges: end -->
 
 ## Overview
 
-The goal of vectormetrics is to ...
+`vectormetrics` is a R package for calculating landscape and shape metrics for vector layers.
+Its aim is to provide a set of metrics that can characterize landscape patterns and properties of the shapes defined as polygons and multipolygons.
+Whole package is based on Simple Feature geometry format provided by `sf` package.
+Every function can be used in a piped workflow, as it always takes the data as the first argument and returns a `tibble`.
 
-#### Citation
+### Citation
 
-how to cite
+how to cite this package
 
 ## Installation
 
-You can install the released version of vectormetrics from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
 
-``` r
+```{r install_cran, eval = FALSE}
 install.packages("vectormetrics")
+```
+
+You can also download most recent development version of the package from GitHub with:
+
+```{r install_github, eval = FALSE}
+remotes::install_github("Nowosad/vectormetrics")
 ```
 
 ## Using vectormetrics
 
-#### Function names structure
+### Function names structure
 
-The function names in the package are structured as follows:
+All functions in `landscapemetrics` start with *vm_* (for vector landscape metrics).
+The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
+The last part of the function name is the abbreviation of the corresponding metric (e.g. enn for the euclidean nearest-neighbor distance and rect for the rectangularity).
+Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (e.g. mean, sd).
 
-#### Examples
+```{r function_names, eval = FALSE}
+# Patch level
+## vm_p_"metric"
+vm_p_area()
+vm_p_square()
+
+# Class level
+## vm_c_"metric"[_"aggregation"]
+vm_c_np()
+vm_c_square_mn()
+
+# Landscape level
+## vm_l_"metric"[_"aggregation"]
+vm_l_lpi()
+vm_l_square_mn()
+```
+
+### Examples
 
 Some examples of calculating metrics on all levels and with different class and patch columns.
 
-#### Utility functions
+```{r vector_landscape}
+library(vectormetrics)
 
-get_patches, get_axes etc.
+vector_landscape = sf::st_as_sf(vector_landscape)
+plot(vector_landscape)
+```
+
+```{r simple_examples}
+## Shape index
+vm_p_shape(vector_landscape, "class")
+
+## Number of patches
+vm_c_np(vector_landscape, "class")
+
+## Largest patch index
+vm_l_lpi(vector_landscape, "class")
+
+## Mean squareness
+vm_l_square_mn(vector_landscape, "class")
+```
+
+### Utility functions
+
+Examples of usage of utility functions.
+
+```{r get_patches, message = FALSE}
+vector_patches = get_patches(vector_landscape, "class")
+vector_patches
+
+## Shape index
+vm_p_shape(vector_patches, "class")
+
+## Number of patches
+vm_c_np(vector_patches, "class")
+
+## Mean squareness
+vm_l_square_mn(vector_patches, "class")
+```
+
+```{r get_axes, message = FALSE}
+get_axes(vector_patches, "class")
+```
 
 ## Contributing
 
