@@ -4,12 +4,14 @@
 \alias{vm_p_perarea}
 \title{Perimeter-Area ratio.}
 \usage{
-vm_p_perarea(landscape, class)
+vm_p_perarea(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -20,5 +22,5 @@ This function allows you to calculate the ratio between the patch perimeter and 
 The ratio describes the patch complexity in a straightforward way.
 }
 \examples{
-vm_p_perarea(vector_landscape, "class")
+vm_p_perarea(vector_patches, "class", "patch")
 }

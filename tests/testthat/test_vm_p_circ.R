@@ -1,5 +1,3 @@
-sf::st_agr(vector_patches) <- "constant"
-
 testthat::test_that("check vm_p_circum value", {
   expect_equal(vm_p_circ(square, "class")$value, 0.787, tolerance = 0.01)
   expect_equal(vm_p_circ(diamond, "class")$value, 0.628, tolerance = 0.01)
@@ -17,12 +15,14 @@ testthat::test_that("check vm_p_circ result structure", {
   expect_equal(nrow(vm_p_circ(vector_patches, "class")), nrow(vector_patches))
   expect_true(!is.na(vm_p_circ(squaretxt, "class")$class))
   expect_equal(
-    nrow(vector_patches |> dplyr::inner_join(vm_p_circ(vector_patches, "class"), by = c("patch" = "id"))),
+    nrow(vector_patches |> dplyr::inner_join(vm_p_circ(vector_patches, "class", "patch"), by = c("patch" = "id"))),
     nrow(vector_patches)
   )
   expect_true(all(
-    vector_patches |> dplyr::inner_join(vm_p_circ(vector_patches, "class"), by = c("patch" = "id")) |> 
+    vector_patches |> dplyr::inner_join(vm_p_circ(vector_patches, "class", "patch"), by = c("patch" = "id")) |> 
       dplyr::mutate(same_class = class.x == class.y) |> dplyr::pull(same_class)
   ))
+  expect_type(vm_p_circ(square, "class")$class, "character")
+  expect_type(vm_p_circ(square, "class")$id, "character")
   expect_type(vm_p_circ(square, "class")$value, "double")
 })

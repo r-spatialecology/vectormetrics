@@ -4,12 +4,10 @@
 \alias{vm_l_pafrac}
 \title{Perimeter-Area Fractal Dimension(vector data)}
 \usage{
-vm_l_pafrac(landscape, class)
+vm_l_pafrac(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated slope is in column "value",
@@ -21,5 +19,5 @@ This function allows you to get the result of 2 divided by ß,
 ß is the slope of the regression of the area against the perimeter in logarithm of all patches in a categorical landscape in vector data format
 }
 \examples{
-vm_l_pafrac(vector_landscape, "class")
+vm_l_pafrac(vector_landscape)
 }

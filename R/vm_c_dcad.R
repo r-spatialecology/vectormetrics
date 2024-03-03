@@ -14,21 +14,24 @@
 #' @export
 
 vm_c_dcad <- function(landscape, class, edge_depth){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # the total landscape area
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   area_sum <- sum(area$value)
 
-  core_num <- vm_p_ncore(landscape, class, edge_depth)
+  core_num <- vm_p_ncore(landscape, class, edge_depth = edge_depth)
   # grouped by the class, and then calculate the sum of number of disjunct core area in each class
   core_num_sum <- stats::aggregate(core_num$value, list(core_num$class), sum)
-  core_num_sum$DCAD <- (core_num_sum[, 2]/area_sum)*10000*100
+  core_num_sum$DCAD <- (core_num_sum[, 2] / area_sum) * 10000 * 100
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(core_num_sum)),
-    class = as.integer(core_num_sum[, 1]),
-    id = as.integer(NA),
+    class = as.character(core_num_sum[, 1]),
+    id = as.character(NA),
     metric = rep("DCAD", nrow(core_num_sum)),
     value = as.double(core_num_sum$DCAD)
   ))

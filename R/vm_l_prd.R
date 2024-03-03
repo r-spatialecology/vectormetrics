@@ -12,16 +12,16 @@
 #' @export
 
 vm_l_prd <- function(landscape, class){
-  area <- vm_c_ca(landscape, class)
-  class_num <- length(area$class)
-  A <- sum(area$value * 10000)
-  prd <- class_num / A * 10000 * 100
+  n_class <- length(unique(landscape$class))
+  area <- vm_l_ta(landscape)$value
+  A <- sum(area * 10000)
+  prd <- n_class / A * 10000 * 100
 
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "prd",
     value = as.double(prd)
   ))

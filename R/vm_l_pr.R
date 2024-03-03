@@ -12,14 +12,13 @@
 #' @export
 
 vm_l_pr <- function(landscape, class){
-  np <- vm_c_np(landscape, class)
-  pr <- length(np$class)
+  pr <- length(unique(landscape$class))
 
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "pr",
     value = as.double(pr)
   ))

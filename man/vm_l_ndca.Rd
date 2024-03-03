@@ -4,12 +4,10 @@
 \alias{vm_l_ndca}
 \title{the number of disjunct core area in the whole landscape(vector data)}
 \usage{
-vm_l_ndca(landscape, class, edge_depth)
+vm_l_ndca(landscape, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
@@ -22,5 +20,5 @@ Moreover, class number and the "id" column, although both are "NA" here in the l
 This function allows you to calculate the number of disjunct core areas in a categorical landscape in vector data format
 }
 \examples{
-vm_l_ndca(vector_landscape, "class", edge_depth = 1)
+vm_l_ndca(vector_landscape, edge_depth = 1)
 }

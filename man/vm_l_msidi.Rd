@@ -7,7 +7,7 @@
 vm_l_msidi(landscape, class)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
+\item{landscape}{the input landscape image}
 
 \item{class}{the name of the class column of the input landscape}
 }

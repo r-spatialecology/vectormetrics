@@ -14,14 +14,17 @@
 #' @export
 
 vm_c_core_sd <- function(landscape, class, edge_depth){
-  core <- vm_p_core(landscape, class, edge_depth)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  core <- vm_p_core(landscape, class, edge_depth = edge_depth)
   core_sd <- stats::aggregate(core$value, by = list(core[, class, drop = TRUE]), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(core_sd)),
-    class = as.integer(core_sd[, 1]),
-    id = as.integer(NA),
+    class = as.character(core_sd[, 1]),
+    id = as.character(NA),
     metric = rep("core_sd", nrow(core_sd)),
     value = as.double(core_sd[, 2])
   ))

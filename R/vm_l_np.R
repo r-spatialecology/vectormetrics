@@ -1,22 +1,21 @@
-#' @title the number of patches in each class(vector data)
+#' @title the number of patches in landscape(vector data)
 #' 
-#' @description This function allows you to calculate the number of patches of each class in a categorical landscape in vector data format
+#' @description This function allows you to calculate the number of patches in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_l_np(vector_landscape, "class")
+#' vm_l_np(vector_landscape)
 #' @export
 
-vm_l_np <- function(landscape, class){
-  area <- vm_p_area(landscape, class)
-  np <- length(area$class)
-  
+vm_l_np <- function(landscape){
+  np <- nrow(landscape)
+
+  # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "np",
     value = as.double(np)
   ))

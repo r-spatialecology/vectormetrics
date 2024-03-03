@@ -2,7 +2,7 @@
 #'
 #' @description This function allows you to calculate the Modified Simpson's diversity index
 #' in a categorical landscape in vector data format, Modified Simpson's diversity index is diversity index
-#' @param landscape the input landscape image,
+#' @param landscape the input landscape image
 #' @param class the name of the class column of the input landscape
 #' @return  the returned calculated index is in column "value",
 #' and this function returns also some important information such as level and metric name,
@@ -21,8 +21,8 @@ vm_l_msidi <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "msidi",
     value = as.double(msidi)
   ))

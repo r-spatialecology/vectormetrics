@@ -14,20 +14,23 @@
 #' @export
 
 vm_c_cpland <- function(landscape, class, edge_depth){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   area <- vm_p_area(landscape, class)
   sum_landscape <- sum(area$value)
 
-  core <- vm_p_core(landscape, class, edge_depth)
+  core <- vm_p_core(landscape, class, edge_depth = edge_depth)
   core_sum <- stats::aggregate(core$value, by = list(core$class), sum, na.rm = FALSE)
 
   # calculate the core area percentage of landscape
-  core_sum$cpland <- (core_sum[, 2]/sum_landscape) * 100
+  core_sum$cpland <- (core_sum[, 2] / sum_landscape) * 100
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(core_sum)),
-    class = as.integer(core_sum[, 1]),
-    id = as.integer(NA),
+    class = as.character(core_sum[, 1]),
+    id = as.character(NA),
     metric = rep("cpland", nrow(core_sum)),
     value = as.double(core_sum$cpland)
   ))

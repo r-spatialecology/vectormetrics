@@ -13,6 +13,9 @@
 #' @export
 
 vm_c_pland <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   area <- vm_p_area(landscape, class)
   A <- sum(area$value) * 10000
   area_c <- stats::aggregate(area$value, by = list(area$class), sum, na.rm = FALSE)
@@ -23,8 +26,8 @@ vm_c_pland <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(area_c)),
-    class = as.integer(area_c[, 1]),
-    id = as.integer(NA),
+    class = as.character(area_c[, 1]),
+    id = as.character(NA),
     metric = rep("pland", nrow(area_c)),
     value = as.double(area_c$pland)
   ))

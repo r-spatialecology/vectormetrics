@@ -30,10 +30,8 @@ LazyData: true
 Imports: 
     dplyr,
     purrr,
-    rlang,
     sf,
     tibble,
-    units,
     geos,
     cluster,
     methods

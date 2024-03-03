@@ -14,14 +14,17 @@
 #' @export
 
 vm_c_cai_mn <- function(landscape, class, edge_depth){
-  cai <- vm_p_cai(landscape, class, edge_depth)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  
+  cai <- vm_p_cai(landscape, class, edge_depth = edge_depth)
   cai_mn <- stats::aggregate(cai$value, by = list(cai$class), mean, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(cai_mn)),
-    class = as.integer(cai_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(cai_mn[, 1]),
+    id = as.character(NA),
     metric = rep("cai_mn", nrow(cai_mn)),
     value = as.double(cai_mn[, 2])
   ))

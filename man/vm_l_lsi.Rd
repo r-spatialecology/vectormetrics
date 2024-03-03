@@ -4,18 +4,16 @@
 \alias{vm_l_lsi}
 \title{Landscape shape index (vector data)}
 \usage{
-vm_l_lsi(landscape, class)
+vm_l_lsi(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index are in column "value",
 and this function returns also some important information such as level and metric name,
 Moreover, class number and the "id" column, although both are "NA" here in the landscape level
-vm_l_lsi(vector_landscape, "class")
+vm_l_lsi(vector_landscape)
 }
 \description{
 This function allows you to calculate the ratio between the actual edge length of class i

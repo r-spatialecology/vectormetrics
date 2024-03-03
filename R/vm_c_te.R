@@ -12,14 +12,17 @@
 #' @export
 
 vm_c_te <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   perim <- vm_p_perim(landscape, class)
   perim_c <- stats::aggregate(perim$value, by = list(perim$class), sum, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(perim_c)),
-    class = as.integer(perim_c[, 1]),
-    id = as.integer(NA),
+    class = as.character(perim_c[, 1]),
+    id = as.character(NA),
     metric = rep("te", nrow(perim_c)),
     value = as.double(perim_c[, 2])
   ))

@@ -24,22 +24,18 @@ vm_c_fullness <- function(landscape, class, n = 10000) {
   if (n < 1000){
     warning("Low number of local neighbourhoods, result might be biased.")
   }
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
 
   # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape |> dplyr::group_by_at(class) |> dplyr::summarise(geometry = sf::st_union(geometry)) |> dplyr::ungroup()
-  fullness <- vm_p_fullness(landscape, class, n)$value
-
-  # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (methods::is(class_ids, "factor")){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
-  }
+  fullness <- vm_p_fullness(landscape, class, n = n)
 
   tibble::new_tibble(list(
     level = rep("class", nrow(landscape)),
-    class = as.integer(class_ids),
+    class = as.integer(fullness$class),
     id = as.integer(NA),
     metric = "full_index",
-    value = as.double(fullness / 0.958)
+    value = as.double(fullness$value / 0.958)
   ))
 }

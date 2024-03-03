@@ -4,12 +4,14 @@
 \alias{vm_p_circle}
 \title{CIRCLE (patch level)}
 \usage{
-vm_p_circle(landscape, class)
+vm_p_circle(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
 
 \item{class}{Name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -35,7 +37,7 @@ of the patch and is comparable among patches with different area.
 a linear patch.}
 }
 \examples{
-vm_p_circle(vector_landscape, "class")
+vm_p_circle(vector_patches, "class", "patch")
 
 }
 \references{

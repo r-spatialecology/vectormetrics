@@ -14,9 +14,12 @@
 #' @export
 
 vm_c_division <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   area <- vm_p_area(landscape, class)
   area_sum <- sum(area$value)
-  area$division <- (area$value/area_sum)^2
+  area$division <- (area$value / area_sum)^2
 
   c_division <- stats::aggregate(area$division, list(area$class), sum)
   c_division$division <- 1 - c_division[, 2]
@@ -24,8 +27,8 @@ vm_c_division <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(c_division)),
-    class = as.integer(c_division[, 1]),
-    id = as.integer(NA),
+    class = as.character(c_division[, 1]),
+    id = as.character(NA),
     metric = rep("division", nrow(c_division)),
     value = as.double(c_division$division)
   ))

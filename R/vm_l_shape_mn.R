@@ -6,23 +6,22 @@
 #' The minimum perimeter equals the perimeter if the patch would be maximally compact. That means,
 #' the perimeter of a circle with the same area of the patch.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
 #' @return  the returned calculated mean value of each class is in column "value",
 #' and this function returns also some important information such as level and metric name,
 #' Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 #' @examples
-#' vm_l_shape_mn(vector_landscape, "class")
+#' vm_l_shape_mn(vector_landscape)
 #' @export
 
-vm_l_shape_mn <- function(landscape, class){
-  shape <- vm_p_shape(landscape, class)
+vm_l_shape_mn <- function(landscape){
+  shape <- vm_p_shape(landscape)
   shape_mn <- mean(shape$value)
 
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "shape_mn",
     value = as.double(shape_mn)
   ))

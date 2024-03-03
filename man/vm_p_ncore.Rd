@@ -4,12 +4,14 @@
 \alias{vm_p_ncore}
 \title{the number of disjunct core area(vector data)}
 \usage{
-vm_p_ncore(landscape, class, edge_depth)
+vm_p_ncore(landscape, class = NA, patch_id = NA, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
@@ -23,5 +25,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 Disjunct core area is defined as a new discrete area(patch), which is a sub-part of core area
 }
 \examples{
-vm_p_core(vector_landscape, "class", edge_depth = 0.8)
+vm_p_core(vector_patches, "class", "patch", edge_depth = 0.8)
 }

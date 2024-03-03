@@ -2,14 +2,16 @@
 % Please edit documentation in R/vm_p_cai.R
 \name{vm_p_cai}
 \alias{vm_p_cai}
-\title{core area index(vector data)}
+\title{Core area index(vector data)}
 \usage{
-vm_p_cai(landscape, class, edge_depth)
+vm_p_cai(landscape, class = NA, patch_id = NA, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
@@ -23,5 +25,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 The index describes the percentage of a patch that is core area.
 }
 \examples{
-vm_p_cai(vector_landscape, "class", edge_depth = 0.8)
+vm_p_cai(vector_patches, "class", "patch", edge_depth = 0.8)
 }

@@ -4,12 +4,14 @@
 \alias{vm_p_convex}
 \title{Convexity(vector data)}
 \usage{
-vm_p_convex(landscape, class)
+vm_p_convex(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",

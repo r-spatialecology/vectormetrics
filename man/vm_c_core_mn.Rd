@@ -24,5 +24,5 @@ This function allows you to calculate the mean value
 of all core patch areas belonging to one class in a categorical landscape in vector data format
 }
 \examples{
-vm_c_core_mn(vector_landscape, "class", edge_depth= 1)
+vm_c_core_mn(vector_landscape, "class", edge_depth = 1)
 }

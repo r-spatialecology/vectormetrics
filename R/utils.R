@@ -34,3 +34,28 @@ get_igp <- function(shape, n = 1000){
     sf::st_set_crs(sf::st_crs(shape))
   points
 }
+
+#' Prepare class and patch ID columns
+#' @param landscape sf object
+#' @param class class column name
+#' @param patch_id patch ID column name
+#' @keywords internal
+#' @NoRd
+prepare_columns <- function(landscape, class, patch_id){
+  if (is.na(patch_id)){
+    patch_id <- "id"
+    landscape[, patch_id] <- as.character(seq_len(nrow(landscape)))
+  } else{
+    landscape[, patch_id] <- as.character(landscape[, patch_id, drop = TRUE])
+  }
+  if (is.na(class)){
+    class <- "class"
+    landscape[, class] <- "1"
+  } else{
+    landscape[, class] <- as.character(landscape[, class, drop = TRUE])
+  }
+
+  return(
+    list(landscape = landscape, class = class, patch_id = patch_id)
+  )
+}

@@ -21,8 +21,8 @@ vm_l_shdi <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "shdi",
     value = as.double(shdi)
   ))

@@ -14,7 +14,10 @@
 #' @export
 
 vm_c_girth_mn <- function(landscape, class){
-  # calculate the detour index for all patches
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the girth index for all patches
   girth_idx <- vm_p_girth(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
@@ -23,8 +26,8 @@ vm_c_girth_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(girth_mn)),
-    class = as.integer(girth_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(girth_mn[, 1]),
+    id = as.character(NA),
     metric = rep("girth_mn", nrow(girth_mn)),
     value = as.double(girth_mn[, 2])
   ))

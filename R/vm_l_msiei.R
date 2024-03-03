@@ -24,8 +24,8 @@ vm_l_msiei <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "msiei",
     value = as.double(msiei)
   ))

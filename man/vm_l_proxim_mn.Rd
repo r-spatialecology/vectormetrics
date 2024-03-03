@@ -4,12 +4,10 @@
 \alias{vm_l_proxim_mn}
 \title{Proximity Index(vector data)}
 \usage{
-vm_l_proxim_mn(landscape, class, n = 1000)
+vm_l_proxim_mn(landscape, n = 1000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{n}{number of grid points to generate}
 }
@@ -24,7 +22,7 @@ Calculate Proximity Index
 ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 }
 \examples{
-vm_l_proxim_mn(vector_landscape, "class", 1000)
+vm_l_proxim_mn(vector_landscape, n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

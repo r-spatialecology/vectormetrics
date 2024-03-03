@@ -4,7 +4,7 @@
 \alias{vm_p_range}
 \title{Range Index(vector data)}
 \usage{
-vm_p_range(landscape, class, patch_id = NA)
+vm_p_range(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
@@ -24,7 +24,7 @@ Calculate Range Index
 ratio between diameter of equal-area circle and diameter of smallest circumscribing circle
 }
 \examples{
-vm_p_range(vector_landscape, "class")
+vm_p_range(vector_patches, "class", "patch")
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

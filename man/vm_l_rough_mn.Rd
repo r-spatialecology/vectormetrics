@@ -4,12 +4,10 @@
 \alias{vm_l_rough_mn}
 \title{Roughness index(vector data)}
 \usage{
-vm_l_rough_mn(landscape, class, n = 100)
+vm_l_rough_mn(landscape, n = 100)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{n}{number of boundary points to generate}
 }
@@ -24,7 +22,7 @@ Calculate Roughness index (RI)
 to be added...
 }
 \examples{
-vm_l_rough_mn(vector_landscape, "class", 100)
+vm_l_rough_mn(vector_landscape, n = 100)
 }
 \references{
 Basaraner, M., & Cetinkaya, S. (2017). Performance of shape indices and classification schemes for characterising perceptual shape complexity of building footprints in GIS.

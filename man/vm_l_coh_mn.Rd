@@ -4,12 +4,10 @@
 \alias{vm_l_coh_mn}
 \title{Cohesion Index(vector data)}
 \usage{
-vm_l_coh_mn(landscape, class, n = 1000)
+vm_l_coh_mn(landscape, n = 1000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{n}{number of grid points to generate}
 }
@@ -25,7 +23,7 @@ ratio of the average distance-squared among all points in an equalarea circle
 and the average distance-squared among all points in the shape
 }
 \examples{
-vm_l_coh_mn(vector_landscape, "class", 1000)
+vm_l_coh_mn(vector_landscape, n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles. 

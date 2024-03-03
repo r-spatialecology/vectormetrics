@@ -4,12 +4,10 @@
 \alias{vm_l_rpr}
 \title{Relative patch richness (vector data)}
 \usage{
-vm_l_rpr(landscape, class, class_max)
+vm_l_rpr(landscape, class_max)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{class_max}{the maximal number of class in your input landscape image}
 }
@@ -23,5 +21,5 @@ This function allows you to calculate the Relative patch richness
 in a categorical landscape in vector data format, Relative patch richness is diversity index
 }
 \examples{
-vm_l_rpr(vector_landscape, "class", 3)
+vm_l_rpr(vector_landscape, class_max = 3)
 }

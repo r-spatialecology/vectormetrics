@@ -13,14 +13,17 @@
 #' @export
 
 vm_c_perarea_cv <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   para <- vm_p_perarea(landscape, class)
   para_cv <- stats::aggregate(para$value, by = list(para$class), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(para_cv)),
-    class = as.integer(para_cv[, 1]),
-    id = as.integer(NA),
+    class = as.character(para_cv[, 1]),
+    id = as.character(NA),
     metric = rep("para_cv", nrow(para_cv)),
     value = as.double(para_cv[, 2])
   ))

@@ -25,7 +25,7 @@ ratio of the average distance-squared among all points in an equalarea circle
 and the average distance-squared among all points in the shape
 }
 \examples{
-vm_c_coh_mn(vector_landscape, "class")
+vm_c_coh_mn(vector_landscape, "class", n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles. 

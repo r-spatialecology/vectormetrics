@@ -4,12 +4,14 @@
 \alias{vm_p_perim}
 \title{The perimeter of patch(vector data)}
 \usage{
-vm_p_perim(landscape, class)
+vm_p_perim(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -19,5 +21,5 @@ this function returns also some important information such as level, class, patc
 This function allows you to calculate the perimeter of each patch in a categorical landscape in vector data format
 }
 \examples{
-vm_p_perim(vector_landscape, "class")
+vm_p_perim(vector_patches, "class", "patch")
 }

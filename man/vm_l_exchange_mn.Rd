@@ -4,12 +4,10 @@
 \alias{vm_l_exchange_mn}
 \title{Exchange Index(vector data)}
 \usage{
-vm_l_exchange_mn(landscape, class)
+vm_l_exchange_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +20,7 @@ Calculate Exchange Index
 share of the total area of the shape that is inside the equal-area circle about its centroid
 }
 \examples{
-vm_l_exchange_mn(vector_landscape, "class")
+vm_l_exchange_mn(vector_landscape)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

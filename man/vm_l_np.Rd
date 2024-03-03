@@ -2,22 +2,20 @@
 % Please edit documentation in R/vm_l_np.R
 \name{vm_l_np}
 \alias{vm_l_np}
-\title{the number of patches in each class(vector data)}
+\title{the number of patches in landscape(vector data)}
 \usage{
-vm_l_np(landscape, class)
+vm_l_np(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
 this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
-This function allows you to calculate the number of patches of each class in a categorical landscape in vector data format
+This function allows you to calculate the number of patches in a categorical landscape in vector data format
 }
 \examples{
-vm_l_np(vector_landscape, "class")
+vm_l_np(vector_landscape)
 }

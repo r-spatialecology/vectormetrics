@@ -14,14 +14,17 @@
 #' @export
 
 vm_c_circle_sd <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   circle <- vm_p_circle(landscape, class)
   circle_sd <- stats::aggregate(circle$value, by = list(circle$class), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(circle_sd)),
-    class = as.integer(circle_sd[, 1]),
-    id = as.integer(NA),
+    class = as.character(circle_sd[, 1]),
+    id = as.character(NA),
     metric = rep("circle_sd", nrow(circle_sd)),
     value = as.double(circle_sd[, 2])
   ))

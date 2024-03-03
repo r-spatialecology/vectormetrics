@@ -9,15 +9,18 @@
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_c_coh_mn(vector_landscape, "class")
+#' vm_c_coh_mn(vector_landscape, "class", n = 1000)
 #' @references
 #' Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles. 
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
 vm_c_coh_mn <- function(landscape, class, n = 1000){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
-  coh_idx <- vm_p_coh(landscape, class, n)
+  coh_idx <- vm_p_coh(landscape, class, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   coh_mn <- stats::aggregate(coh_idx$value, by = list(coh_idx$class), mean, na.rm = TRUE)
@@ -25,8 +28,8 @@ vm_c_coh_mn <- function(landscape, class, n = 1000){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(coh_mn)),
-    class = as.integer(coh_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(coh_mn[, 1]),
+    id = as.character(NA),
     metric = rep("coh_mn", nrow(coh_mn)),
     value = as.double(coh_mn[, 2])
   ))

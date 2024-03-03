@@ -4,12 +4,10 @@
 \alias{vm_l_ta}
 \title{The total area of the whole landscape(vector data)}
 \usage{
-vm_l_ta(landscape, class)
+vm_l_ta(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -20,5 +18,5 @@ This function allows you to calculate the total area
 of the whole landscape in a categorical landscape in vector data format
 }
 \examples{
-vm_l_ta(vector_landscape, "class")
+vm_l_ta(vector_landscape)
 }

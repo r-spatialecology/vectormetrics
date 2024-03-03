@@ -13,6 +13,9 @@
 #' @export
 
 vm_c_pd <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   patch <- vm_c_np(landscape, class)
   area <- vm_p_area(landscape, class)
   A <- sum(area$value * 10000)
@@ -21,8 +24,8 @@ vm_c_pd <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(patch)),
-    class = as.integer(patch$class),
-    id = as.integer(NA),
+    class = as.character(patch$class),
+    id = as.character(NA),
     metric = rep("pd", nrow(patch)),
     value = as.double(patch$pd)
   ))

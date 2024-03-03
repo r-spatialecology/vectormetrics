@@ -4,12 +4,10 @@
 \alias{vm_l_te}
 \title{Total (class) edge(vector data)}
 \usage{
-vm_l_te(landscape, class)
+vm_l_te(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated length is in column "value",
@@ -20,5 +18,5 @@ Moreover, class number and the "id" column, although both are "NA" here in the l
 This function allows you to calculate the total length of edge of whole landscape in a categorical landscape in vector data format
 }
 \examples{
-vm_l_te(vector_landscape, "class")
+vm_l_te(vector_landscape)
 }

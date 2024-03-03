@@ -4,12 +4,14 @@
 \alias{vm_p_frac}
 \title{Fractal Dimension Index(vector data)}
 \usage{
-vm_p_frac(landscape, class)
+vm_p_frac(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -23,5 +25,5 @@ The index is based on the patch perimeter and the patch area and describes the p
 2 * log(perimeter) / log(area)
 }
 \examples{
-vm_p_frac(vector_landscape, "class")
+vm_p_frac(vector_patches, "class", "patch")
 }

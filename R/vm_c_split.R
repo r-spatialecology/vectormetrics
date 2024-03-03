@@ -14,19 +14,22 @@
 #' @export
 
 vm_c_split <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   A <- sum(area$value)
 
   area$square <- area$value ^2
   area_c <- stats::aggregate(area$square, by = list(area$class), sum, na.rm = FALSE)
-
   area_c$split <- A^2 / area_c[, 2]
+
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(area_c)),
-    class = as.integer(area_c[, 1]),
-    id = as.integer(NA),
+    class = as.character(area_c[, 1]),
+    id = as.character(NA),
     metric = rep("split", nrow(area_c)),
     value = as.double(area_c$split)
   ))

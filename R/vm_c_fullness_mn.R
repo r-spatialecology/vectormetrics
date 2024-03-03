@@ -15,8 +15,11 @@
 #' @export
 
 vm_c_fullness_mn <- function(landscape, class, n = 10000){
-  # calculate the detour index for all patches
-  full_idx <- vm_p_fullness(landscape, class, n)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the fullness index for all patches
+  full_idx <- vm_p_fullness(landscape, class, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   full_mn <- stats::aggregate(full_idx$value, by = list(full_idx$class), mean, na.rm = TRUE)
@@ -24,8 +27,8 @@ vm_c_fullness_mn <- function(landscape, class, n = 10000){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(full_mn)),
-    class = as.integer(full_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(full_mn[, 1]),
+    id = as.character(NA),
     metric = rep("full_mn", nrow(full_mn)),
     value = as.double(full_mn[, 2])
   ))

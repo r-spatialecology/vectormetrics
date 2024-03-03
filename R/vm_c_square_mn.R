@@ -14,7 +14,10 @@
 #' @export
 
 vm_c_square_mn <- function(landscape, class){
-  # calculate the detour index for all patches
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the squareness for all patches
   sq_idx <- vm_p_square(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
@@ -23,8 +26,8 @@ vm_c_square_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(sq_mn)),
-    class = as.integer(sq_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(sq_mn[, 1]),
+    id = as.character(NA),
     metric = rep("sq_mn", nrow(sq_mn)),
     value = as.double(sq_mn[, 2])
   ))

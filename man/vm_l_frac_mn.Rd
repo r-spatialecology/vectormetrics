@@ -4,12 +4,10 @@
 \alias{vm_l_frac_mn}
 \title{The mean value of the fractal dimension index of landscape(vector data)}
 \usage{
-vm_l_frac_mn(landscape, class)
+vm_l_frac_mn(landscape)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
+\item{landscape}{the input landscape image}
 }
 \value{
 the returned calculated mean value of the whole landscape is in column "value",
@@ -22,5 +20,5 @@ of fractal dimension index in a categorical landscape in vector data format
 The index is based on the patch perimeter and the patch area and describes the patch complexity
 }
 \examples{
-vm_l_frac_mn(vector_landscape, "class")
+vm_l_frac_mn(vector_landscape)
 }

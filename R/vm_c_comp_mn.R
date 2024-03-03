@@ -14,6 +14,9 @@
 #' @export
 
 vm_c_comp_mn <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
   comp_idx <- vm_p_comp(landscape, class)
 
@@ -23,8 +26,8 @@ vm_c_comp_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(comp_mn)),
-    class = as.integer(comp_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(comp_mn[, 1]),
+    id = as.character(NA),
     metric = rep("comp_mn", nrow(comp_mn)),
     value = as.double(comp_mn[, 2])
   ))

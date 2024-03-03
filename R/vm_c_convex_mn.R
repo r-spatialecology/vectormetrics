@@ -14,6 +14,9 @@
 #' @export
 
 vm_c_convex_mn <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
   conv_idx <- vm_p_convex(landscape, class)
 
@@ -23,8 +26,8 @@ vm_c_convex_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(conv_mn)),
-    class = as.integer(conv_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(conv_mn[, 1]),
+    id = as.character(NA),
     metric = rep("conv_mn", nrow(conv_mn)),
     value = as.double(conv_mn[, 2])
   ))

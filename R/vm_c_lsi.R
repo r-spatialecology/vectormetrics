@@ -14,23 +14,25 @@
 #' @export
 
 vm_c_lsi <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   peri <- vm_p_perim(landscape, class)
   peri_class <- stats::aggregate(peri$value, by = list(peri$class), sum, na.rm = FALSE)
 
-  # minimum edge length, is the total perimeter of a circle with the same area of this class
   area <- vm_p_area(landscape, class)
   area$value <- area$value * 10000
   area_c <- stats::aggregate(area$value, by = list(area$class), sum, na.rm = FALSE)
 
-  area_c$R <- sqrt(area_c[, 2]/pi)
+  area_c$R <- sqrt(area_c[, 2] / pi)
   area_c$mini <- 2 * pi * area_c$R
   lsi <- peri_class[, 2] / area_c$mini
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(area_c)),
-    class = as.integer(area_c[, 1]),
-    id = as.integer(NA),
+    class = as.character(area_c[, 1]),
+    id = as.character(NA),
     metric = rep("lsi", nrow(area_c)),
     value = as.double(lsi)
   ))

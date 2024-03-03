@@ -15,8 +15,11 @@
 #' @export
 
 vm_c_rough_mn <- function(landscape, class, n = 100){
-  # calculate the detour index for all patches
-  ri <- vm_p_rough(landscape, class, n)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the roughness for all patches
+  ri <- vm_p_rough(landscape, class, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   ri_mn <- stats::aggregate(ri$value, by = list(ri$class), mean, na.rm = TRUE)
@@ -24,9 +27,9 @@ vm_c_rough_mn <- function(landscape, class, n = 100){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(ri_mn)),
-    class = as.integer(ri_mn[, 1]),
-    id = as.integer(NA),
-    metric = rep("ri_mn", nrow(ri_mn)),
+    class = as.character(ri_mn[, 1]),
+    id = as.character(NA),
+    metric = rep("rough_mn", nrow(ri_mn)),
     value = as.double(ri_mn[, 2])
   ))
 }

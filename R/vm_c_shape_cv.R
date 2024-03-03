@@ -16,14 +16,17 @@
 #' @export
 
 vm_c_shape_cv <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   shape <- vm_p_shape(landscape, class)
-  shape_cv <- stats::aggregate(shape$value, by= list(shape$class), vm_cv)
+  shape_cv <- stats::aggregate(shape$value, by = list(shape$class), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(shape_cv)),
-    class = as.integer(shape_cv[, 1]),
-    id = as.integer(NA),
+    class = as.character(shape_cv[, 1]),
+    id = as.character(NA),
     metric = rep("shape_cv", nrow(shape_cv)),
     value = as.double(shape_cv[, 2])
   ))

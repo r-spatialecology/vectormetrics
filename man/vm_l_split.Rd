@@ -4,12 +4,10 @@
 \alias{vm_l_split}
 \title{Splitting index (vector data)}
 \usage{
-vm_l_split(landscape, class)
+vm_l_split(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated indices are in column "value",
@@ -22,5 +20,5 @@ and sum of square of all patch area in a categorical landscape in vector data fo
 it is a aggregation metric.
 }
 \examples{
-vm_l_split(vector_landscape, "class")
+vm_l_split(vector_landscape)
 }

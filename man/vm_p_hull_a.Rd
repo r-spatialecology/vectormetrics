@@ -4,12 +4,14 @@
 \alias{vm_p_hull_a}
 \title{Area of the convex hull(vector data)}
 \usage{
-vm_p_hull_a(landscape, class)
+vm_p_hull_a(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,5 +24,5 @@ Calculate area of the convex hull of the polygon
 area of the convex hull of the polygon
 }
 \examples{
-vm_p_hull_a(vector_landscape, "class")
+vm_p_hull_a(vector_patches, "class", "patch")
 }

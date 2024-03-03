@@ -24,5 +24,5 @@ This function allows you to calculate the standard deviation
 of all number of disjunct core areas belonging to one class in a categorical landscape in vector data format
 }
 \examples{
-vm_c_dcore_sd(vector_landscape, "class", edge_depth= 1)
+vm_c_dcore_sd(vector_landscape, "class", edge_depth = 1)
 }

@@ -4,12 +4,14 @@
 \alias{vm_p_circum}
 \title{Diameter of smallest circumscribing circle(vector data)}
 \usage{
-vm_p_circum(landscape, class)
+vm_p_circum(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,5 +24,5 @@ Calculate diameter of smallest circumscribing circle
 diameter of smallest circumscribing circle
 }
 \examples{
-vm_p_circum(vector_landscape, "class")
+vm_p_circum(vector_patches, "class", "patch")
 }

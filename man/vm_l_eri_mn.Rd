@@ -4,12 +4,10 @@
 \alias{vm_l_eri_mn}
 \title{Equivalent rectangular index(vector data)}
 \usage{
-vm_l_eri_mn(landscape, class)
+vm_l_eri_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +20,7 @@ Calculate Equivalent rectangular index (ERI)
 ratio between perimeter of equal-area rectangle of shape and perimeter of shape
 }
 \examples{
-vm_l_eri_mn(vector_landscape, "class")
+vm_l_eri_mn(vector_landscape)
 }
 \references{
 Basaraner, M., & Cetinkaya, S. (2017). Performance of shape indices and classification schemes for characterising perceptual shape complexity of building footprints in GIS.

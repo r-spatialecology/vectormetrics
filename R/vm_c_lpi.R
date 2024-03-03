@@ -13,17 +13,21 @@
 #' @export
 
 vm_c_lpi <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   area <- vm_p_area(landscape, class)
-  sum_landscape <- sum(area$value) * 10000
+  area$value <- area$value * 10000
+  sum_landscape <- sum(area$value)
   area_max <- stats::aggregate(area$value, by = list(area$class), max, na.rm = FALSE)
-  area_max$lpi <- area_max[, 2]*10000/sum_landscape * 100
+  area_max$lpi <- area_max[, 2] / sum_landscape * 100
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(area_max)),
-    class = as.integer(area_max[, 1]),
-    id = as.integer(NA),
+    class = as.character(area_max[, 1]),
+    id = as.character(NA),
     metric = rep("lpi", nrow(area_max)),
-    value = as.double(area_max[, 2])
+    value = as.double(area_max$lpi)
   ))
 }

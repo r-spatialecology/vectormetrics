@@ -4,6 +4,7 @@
 #'
 #' @param landscape *sf* MULTIPOLYGON or POLYGON feature
 #' @param class Name of the class column of the input landscape
+#' @param patch_id the name of the id column of the input landscape
 #' @param edge_depth Distance (in map units) a location has the be away from the patch edge to be considered as core location
 #'
 #' @details
@@ -24,7 +25,7 @@
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_p_core(vector_landscape, "class", edge_depth = 0.8)
+#' vm_p_core(vector_patches, "class", "patch", edge_depth = 0.8)
 #'
 #' @aliases vm_p_core
 #' @rdname vm_p_core
@@ -38,7 +39,7 @@
 #' @name vm_p_core
 #' @export
 
-vm_p_core <- function(landscape, class, edge_depth) {
+vm_p_core <- function(landscape, class = NA, patch_id = NA, edge_depth) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -46,9 +47,9 @@ vm_p_core <- function(landscape, class, edge_depth) {
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
 
-  # select geometry column for spatial operations and the column that identifies the classes
-  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
-  landscape <- landscape[, class]
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, patch_id) |> list2env(envir = environment())
+  landscape <- landscape[, c(class, patch_id)]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
   core_area <- sf::st_buffer(landscape, dist = -edge_depth)
@@ -56,17 +57,11 @@ vm_p_core <- function(landscape, class, edge_depth) {
   # calculate the area of each core area
   landscape$core <- sf::st_area(core_area) / 10000
 
-  # get class ids and if factor, coerce to numeric
-  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (methods::is(class_ids, "factor")){
-    class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
-  }
-
   # return result tibble
   tibble::new_tibble(list(
     level = rep("patch", nrow(landscape)),
-    class = as.integer(class_ids),
-    id = as.integer(seq_len(nrow(landscape))),
+    class = as.character(landscape[, class, drop = TRUE]),
+    id = as.character(landscape[, patch_id, drop = TRUE]),
     metric = rep("core", nrow(landscape)),
     value = as.double(landscape$core)
   ))

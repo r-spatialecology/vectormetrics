@@ -17,6 +17,3 @@ squaretxt <- list(cbind(c(0,1,1,0,0), c(0,0,1,1,0))) |> sf::st_polygon() |>
   sf::st_sfc() |> sf::st_sf(crs = "EPSG:2180")
 sf::st_geometry(squaretxt) <- "geometry"
 squaretxt$class <- "text"
-
-vector_patches = get_patches(vector_landscape, "class")
-sf::st_agr(vector_patches) <- "constant"

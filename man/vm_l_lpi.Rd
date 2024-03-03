@@ -4,12 +4,10 @@
 \alias{vm_l_lpi}
 \title{Largest patch index(vector data)}
 \usage{
-vm_l_lpi(landscape, class)
+vm_l_lpi(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -20,5 +18,5 @@ This function allows you to calculate the maximal patch area in relative to
 total landscape area in a categorical landscape in vector data format
 }
 \examples{
-vm_l_lpi(vector_landscape, "class")
+vm_l_lpi(vector_landscape)
 }

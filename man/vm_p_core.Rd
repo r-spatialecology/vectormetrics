@@ -4,12 +4,14 @@
 \alias{vm_p_core}
 \title{CORE (patch level)}
 \usage{
-vm_p_core(landscape, class, edge_depth)
+vm_p_core(landscape, class = NA, patch_id = NA, edge_depth)
 }
 \arguments{
 \item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
 
 \item{class}{Name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 
 \item{edge_depth}{Distance (in map units) a location has the be away from the patch edge to be considered as core location}
 }
@@ -37,7 +39,7 @@ and the patch shape simplifies (more core area). CORE = 0 when every location in
 the patch is an edge.}
 }
 \examples{
-vm_p_core(vector_landscape, "class", edge_depth = 0.8)
+vm_p_core(vector_patches, "class", "patch", edge_depth = 0.8)
 
 }
 \references{

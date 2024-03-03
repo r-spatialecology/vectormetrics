@@ -4,12 +4,14 @@
 \alias{vm_p_shape}
 \title{Shape index(vector data)}
 \usage{
-vm_p_shape(landscape, class)
+vm_p_shape(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,5 +24,5 @@ The minimum perimeter equals the perimeter if the patch would be maximally compa
 the perimeter of a circle with the same area of the patch.
 }
 \examples{
-vm_p_shape(vector_landscape, "class")
+vm_p_shape(vector_patches, "class", "patch")
 }

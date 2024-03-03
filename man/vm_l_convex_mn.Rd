@@ -4,12 +4,10 @@
 \alias{vm_l_convex_mn}
 \title{Convexity(vector data)}
 \usage{
-vm_l_convex_mn(landscape, class)
+vm_l_convex_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +20,7 @@ Calculate convexity
 ratio between perimeter of convex hull and perimeter of polygon
 }
 \examples{
-vm_l_convex_mn(vector_landscape, "class")
+vm_l_convex_mn(vector_landscape)
 }
 \references{
 Jiao, L., Liu, Y., & Li, H. (2012). Characterizing land-use classes in remote sensing imagery by shape metrics.

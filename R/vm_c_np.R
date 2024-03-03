@@ -12,19 +12,17 @@
 #' @export
 
 vm_c_np <- function(landscape, class){
-  area <- vm_p_area(landscape, class)
-  patch <- table(area$class)
-  patch <- as.data.frame(patch)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
 
-  if (class(patch$class) == "factor"){
-    patch$class <- as.numeric(levels(patch[, 1]))[patch[, 1]]
-  }
+  area <- vm_p_area(landscape, class)
+  patch <- table(area$class) |> as.data.frame()
   
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(patch)),
-    class = as.integer(patch[, 1]),
-    id = as.integer(NA),
+    class = as.character(patch[, 1]),
+    id = as.character(NA),
     metric = rep("np", nrow(patch)),
     value = as.integer(patch[, 2])
   ))

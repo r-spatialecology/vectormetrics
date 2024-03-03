@@ -14,6 +14,9 @@
 #' @export
 
 vm_c_circ_mn <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
   circ_idx <- vm_p_circ(landscape, class)
 
@@ -23,8 +26,8 @@ vm_c_circ_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(circ_mn)),
-    class = as.integer(circ_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(circ_mn[, 1]),
+    id = as.character(NA),
     metric = rep("circ_mn", nrow(circ_mn)),
     value = as.double(circ_mn[, 2])
   ))

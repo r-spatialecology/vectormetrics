@@ -14,6 +14,9 @@
 #' @export
 
 vm_c_exchange_mn <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
   exchange_idx <- vm_p_exchange(landscape, class)
 
@@ -23,8 +26,8 @@ vm_c_exchange_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(exchange_mn)),
-    class = as.integer(exchange_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(exchange_mn[, 1]),
+    id = as.character(NA),
     metric = rep("exchange_mn", nrow(exchange_mn)),
     value = as.double(exchange_mn[, 2])
   ))

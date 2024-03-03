@@ -14,14 +14,17 @@
 #' @export
 
 vm_c_frac_sd <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   frac <- vm_p_frac(landscape, class)
   frac_sd <- stats::aggregate(frac$value, by = list(frac$class), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(frac_sd)),
-    class = as.integer(frac_sd[, 1]),
-    id = as.integer(NA),
+    class = as.character(frac_sd[, 1]),
+    id = as.character(NA),
     metric = rep("frac_sd", nrow(frac_sd)),
     value = as.double(frac_sd[, 2])
   ))

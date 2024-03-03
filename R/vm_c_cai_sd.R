@@ -15,14 +15,17 @@
 #' @export
 
 vm_c_cai_sd <- function(landscape, class, edge_depth){
-  cai <- vm_p_cai(landscape, class, edge_depth)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  
+  cai <- vm_p_cai(landscape, class, edge_depth = edge_depth)
   cai_sd <- stats::aggregate(cai$value, by = list(cai$class), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(cai_sd)),
-    class = as.integer(cai_sd[, 1]),
-    id = as.integer(NA),
+    class = as.character(cai_sd[, 1]),
+    id = as.character(NA),
     metric = rep("cai_sd", nrow(cai_sd)),
     value = as.double(cai_sd[, 2])
   ))

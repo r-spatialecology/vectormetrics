@@ -4,12 +4,10 @@
 \alias{vm_l_pd}
 \title{the patch density in the whole landscape(vector data)}
 \usage{
-vm_l_pd(landscape, class)
+vm_l_pd(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -20,5 +18,5 @@ This metric is based on categorical landscape in vector data format. The density
 relative to the total landscape area. Then the number is standardised, so that the comparison among different landscape is possible.
 }
 \examples{
-vm_l_pd(vector_landscape, "class")
+vm_l_pd(vector_landscape)
 }

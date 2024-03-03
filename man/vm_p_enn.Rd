@@ -4,12 +4,14 @@
 \alias{vm_p_enn}
 \title{Euclidean Nearest-Neighbor Distance(vector data)}
 \usage{
-vm_p_enn(landscape, class)
+vm_p_enn(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -20,5 +22,5 @@ This function allows you to calculate the distance to the nearest neighbouring p
 The distance is measured from edge-to-edge.
 }
 \examples{
-vm_p_enn(vector_landscape, "class")
+vm_p_enn(vector_patches, "class", "patch")
 }

@@ -14,14 +14,17 @@
 #' @export
 
 vm_c_tca <- function(landscape, class, edge_depth){
-  core <- vm_p_core(landscape, class, edge_depth)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  core <- vm_p_core(landscape, class, edge_depth = edge_depth)
   core_sum <- stats::aggregate(core$value, by = list(core$class), sum, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(core_sum)),
-    class = as.integer(core_sum[, 1]),
-    id = as.integer(NA),
+    class = as.character(core_sum[, 1]),
+    id = as.character(NA),
     metric = rep("tca", nrow(core_sum)),
     value = as.double(core_sum[, 2])
   ))

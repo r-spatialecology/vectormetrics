@@ -4,12 +4,14 @@
 \alias{vm_p_solid}
 \title{Solidity(vector data)}
 \usage{
-vm_p_solid(landscape, class)
+vm_p_solid(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +24,7 @@ Calculate Solidity of shape
 ratio between area of convex hull and area of polygon
 }
 \examples{
-vm_p_solid(vector_landscape, "class")
+vm_p_solid(vector_patches, "class", "patch")
 }
 \references{
 Jiao, L., Liu, Y., & Li, H. (2012). Characterizing land-use classes in remote sensing imagery by shape metrics.

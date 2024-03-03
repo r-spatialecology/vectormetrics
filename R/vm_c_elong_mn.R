@@ -14,7 +14,10 @@
 #' @export
 
 vm_c_elong_mn <- function(landscape, class){
-  # calculate the detour index for all patches
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the elongation for all patches
   elong_idx <- vm_p_elong(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
@@ -23,8 +26,8 @@ vm_c_elong_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(elong_mn)),
-    class = as.integer(elong_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(elong_mn[, 1]),
+    id = as.character(NA),
     metric = rep("elong_mn", nrow(elong_mn)),
     value = as.double(elong_mn[, 2])
   ))

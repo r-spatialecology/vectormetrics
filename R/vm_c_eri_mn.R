@@ -14,6 +14,9 @@
 #' @export
 
 vm_c_eri_mn <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # calculate the detour index for all patches
   eri <- vm_p_eri(landscape, class)
 
@@ -23,8 +26,8 @@ vm_c_eri_mn <- function(landscape, class){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(eri_mn)),
-    class = as.integer(eri_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(eri_mn[, 1]),
+    id = as.character(NA),
     metric = rep("eri_mn", nrow(eri_mn)),
     value = as.double(eri_mn[, 2])
   ))

@@ -4,12 +4,14 @@
 \alias{vm_p_square}
 \title{Squareness(vector data)}
 \usage{
-vm_p_square(landscape, class)
+vm_p_square(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +24,7 @@ Calculate squareness
 ratio between perimeter of equal-area square of shape and perimeter of shape
 }
 \examples{
-vm_p_square(vector_landscape, "class")
+vm_p_square(vector_patches, "class", "patch")
 }
 \references{
 Basaraner, M., & Cetinkaya, S. (2017). Performance of shape indices and classification schemes for characterising perceptual shape complexity of building footprints in GIS.

@@ -4,12 +4,14 @@
 \alias{vm_p_rough}
 \title{Roughness index(vector data)}
 \usage{
-vm_p_rough(landscape, class, n = 100)
+vm_p_rough(landscape, class = NA, patch_id = NA, n = 100)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 
 \item{n}{number of boundary points to generate}
 }
@@ -24,7 +26,7 @@ Calculate Roughness index (RI)
 to be added...
 }
 \examples{
-vm_p_rough(vector_landscape, "class", n = 100)
+vm_p_rough(vector_patches, "class", "patch", n = 100)
 }
 \references{
 Basaraner, M., & Cetinkaya, S. (2017). Performance of shape indices and classification schemes for characterising perceptual shape complexity of building footprints in GIS.

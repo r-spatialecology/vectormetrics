@@ -13,14 +13,17 @@
 #' @export
 
 vm_c_ndca <- function(landscape, class, edge_depth){
-  dcore <- vm_p_ncore(landscape, class, edge_depth)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  dcore <- vm_p_ncore(landscape, class, edge_depth = edge_depth)
   dcore_c <- stats::aggregate(dcore$value, by = list(dcore$class), sum, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(dcore_c)),
-    class = as.integer(dcore_c[, 1]),
-    id = as.integer(NA),
+    class = as.character(dcore_c[, 1]),
+    id = as.character(NA),
     metric = rep("ndca", nrow(dcore_c)),
     value = as.double(dcore_c[, 2])
   ))

@@ -4,12 +4,10 @@
 \alias{vm_l_sph_mn}
 \title{Sphercity(vector data)}
 \usage{
-vm_l_sph_mn(landscape, class)
+vm_l_sph_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,5 +20,5 @@ Calculate sphercity
 ratio between radius of maximum inscribed circle and minimum circumscribing circle
 }
 \examples{
-vm_l_sph_mn(vector_landscape, "class")
+vm_l_sph_mn(vector_landscape)
 }

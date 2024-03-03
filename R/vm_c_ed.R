@@ -1,5 +1,5 @@
 #' @title The Edge density of each class(vector data)
-
+#' 
 #' @description This function allows you to calculate the total length of all patches
 #' in class i in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
@@ -13,20 +13,23 @@
 #' @export
 
 vm_c_ed <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   peri <- vm_p_perim(landscape, class)
   peri_sum <- stats::aggregate(peri$value, list(peri$class), sum)
 
   # total area in the landscape
   area <- vm_p_area(landscape, class)
-  area_sum <- sum(area$value)* 10000
+  area_sum <- sum(area$value) * 10000
 
-  peri_sum$ED <- peri_sum[, 2]/area_sum * 10000
+  peri_sum$ED <- peri_sum[, 2] / area_sum * 10000
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(peri_sum)),
-    class = as.integer(peri_sum[, 1]),
-    id = as.integer(NA),
+    class = as.character(peri_sum[, 1]),
+    id = as.character(NA),
     metric = rep("ED", nrow(peri_sum)),
     value = as.double(peri_sum[, 2])
   ))

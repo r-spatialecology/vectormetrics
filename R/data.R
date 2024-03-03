@@ -8,6 +8,13 @@
 #' @source Simulated neutral landscape model with R. https://github.com/ropensci/NLMR/
 "vector_landscape"
 
+#' vector_landscape object but with exploded multipolygons into polygons
+#'
+#'
+#' @format A sf object.
+#' @source Simulated neutral landscape model with R.
+"vector_patches"
+
 #' CORINE Land Cover for Poznan.
 #'
 #'

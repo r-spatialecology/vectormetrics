@@ -14,7 +14,10 @@
 #' @export
 
 vm_c_proxim_mn <- function(landscape, class, n = 1000){
-  # calculate the detour index for all patches
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
+  # calculate the proximity index for all patches
   proxim_idx <- vm_p_proxim(landscape, class)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
@@ -23,8 +26,8 @@ vm_c_proxim_mn <- function(landscape, class, n = 1000){
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(proxim_mn)),
-    class = as.integer(proxim_mn[, 1]),
-    id = as.integer(NA),
+    class = as.character(proxim_mn[, 1]),
+    id = as.character(NA),
     metric = rep("proxim_mn", nrow(proxim_mn)),
     value = as.double(proxim_mn[, 2])
   ))

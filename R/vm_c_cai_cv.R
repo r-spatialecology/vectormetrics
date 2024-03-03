@@ -14,16 +14,19 @@
 #' @export
 
 vm_c_cai_cv <- function(landscape, class, edge_depth){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   # Calculate core area index
-  cai <- vm_p_cai(landscape, class, edge_depth)
+  cai <- vm_p_cai(landscape, class, edge_depth = edge_depth)
   # and calculate cv for each class
   cai_cv <- stats::aggregate(cai$value, by = list(cai$class), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(cai_cv)),
-    class = as.integer(cai_cv[, 1]),
-    id = as.integer(NA),
+    class = as.character(cai_cv[, 1]),
+    id = as.character(NA),
     metric = rep("cai_cv", nrow(cai_cv)),
     value = as.double(cai_cv[, 2])
   ))

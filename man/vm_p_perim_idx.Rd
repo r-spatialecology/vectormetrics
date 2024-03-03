@@ -4,12 +4,14 @@
 \alias{vm_p_perim_idx}
 \title{Perimeter Index(vector data)}
 \usage{
-vm_p_perim_idx(landscape, class)
+vm_p_perim_idx(landscape, class = NA, patch_id = NA)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class}{the name of the class column of the input landscape}
+
+\item{patch_id}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -22,7 +24,7 @@ Calculate Perimeter Index
 ratio between perimeter of equal-area circle and perimeter of polygon
 }
 \examples{
-vm_p_perim_idx(vector_landscape, "class")
+vm_p_perim_idx(vector_patches, "class", "patch")
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

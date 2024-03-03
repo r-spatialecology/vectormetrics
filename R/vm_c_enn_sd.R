@@ -13,14 +13,17 @@
 #' @export
 
 vm_c_enn_sd <- function(landscape, class){
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+
   enn <- vm_p_enn(landscape, class)
   enn_sd <- stats::aggregate(enn$value, by = list(enn$class), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
     level = rep("class", nrow(enn_sd)),
-    class = as.integer(enn_sd[, 1]),
-    id = as.integer(NA),
+    class = as.character(enn_sd[, 1]),
+    id = as.character(NA),
     metric = rep("enn_sd", nrow(enn_sd)),
     value = as.double(enn_sd[, 2])
   ))
