@@ -1,5 +1,6 @@
 
 <!-- To render, run:
+Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")
 rmarkdown::render("README.Rmd")
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -46,10 +47,10 @@ remotes::install_github("Nowosad/vectormetrics")
 All functions in `landscapemetrics` start with *vm\_* (for vector
 landscape metrics). The second part of the name specifies the level
 (patch - *p*, class - *c* or landscape - *l*). The last part of the
-function name is the abbreviation of the corresponding metric (e.g. enn
-for the euclidean nearest-neighbor distance and rect for the
-rectangularity). Some landscape and class level functions have also a
-suffix at the end, that specifies the aggregation method (e.g. mean,
+function name is the abbreviation of the corresponding metric
+(e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for
+the rectangularity). Some landscape and class level functions have also
+a suffix at the end, that specifies the aggregation method (e.g. mean,
 sd).
 
 ``` r
@@ -61,7 +62,7 @@ vm_p_square()
 # Class level
 ## vm_c_"metric"[_"aggregation"]
 vm_c_np()
-vm_c_square_mn()
+vm_c_shape_sd()
 
 # Landscape level
 ## vm_l_"metric"[_"aggregation"]
@@ -85,120 +86,133 @@ plot(vector_landscape)
 
 ``` r
 ## Shape index
-vm_p_shape(vector_landscape, "class")
+vm_p_shape(vector_landscape, class = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> # A tibble: 3 x 5
-#>   level class    id metric value
-#>   <chr> <int> <int> <chr>  <dbl>
-#> 1 patch     1     1 shape   4.03
-#> 2 patch     2     2 shape   4.43
-#> 3 patch     3     3 shape   4.70
+#>   level class id    metric value
+#>   <chr> <chr> <chr> <chr>  <dbl>
+#> 1 patch 1     1     shape   5.06
+#> 2 patch 2     2     shape   4.76
+#> 3 patch 3     3     shape   4.80
 
 ## Number of patches
-vm_c_np(vector_landscape, "class")
+vm_c_np(vector_landscape, class = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> # A tibble: 3 x 5
-#>   level class    id metric value
-#>   <chr> <int> <int> <chr>  <int>
-#> 1 class     1    NA np         1
-#> 2 class     2    NA np         1
-#> 3 class     3    NA np         1
+#>   level class id    metric value
+#>   <chr> <chr> <chr> <chr>  <int>
+#> 1 class 1     <NA>  np         1
+#> 2 class 2     <NA>  np         1
+#> 3 class 3     <NA>  np         1
 
 ## Largest patch index
-vm_l_lpi(vector_landscape, "class")
+vm_l_lpi(vector_landscape)
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> # A tibble: 1 x 5
-#>   level     class    id metric value
-#>   <chr>     <int> <int> <chr>  <dbl>
-#> 1 landscape    NA    NA lpi     53.6
+#>   level     class id    metric value
+#>   <chr>     <chr> <chr> <chr>  <dbl>
+#> 1 landscape <NA>  <NA>  lpi     49.7
 
 ## Mean squareness
-vm_l_square_mn(vector_landscape, "class")
+vm_l_square_mn(vector_landscape)
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> # A tibble: 1 x 5
-#>   level     class    id metric value
-#>   <chr>     <int> <int> <chr>  <dbl>
-#> 1 landscape    NA    NA sq_mn  0.258
+#>   level     class id    metric value
+#>   <chr>     <chr> <chr> <chr>  <dbl>
+#> 1 landscape <NA>  <NA>  sq_mn  0.232
 ```
 
 ### Utility functions
 
+For now there are two utility functions available in the package. First
+one is `get_patches()` which breaks Multipolygon geometries into
+Polygons. There are two types of neighbourhood relations available: 4
+(edge) and 8 (vertex). This function enables user to create set of
+geometries from aggregated shapes and analyze each shape’s properties
+seperately.
+
 ``` r
-vector_patches = get_patches(vector_landscape, "class")
+vector_patches = get_patches(vector_landscape, class = "class", direction = 4)
 vector_patches
-#> Simple feature collection with 30 features and 2 fields
+#> Simple feature collection with 40 features and 2 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 30 ymax: 30
 #> CRS:           NA
 #> First 10 features:
 #>    class patch                       geometry
-#> 1      1     1 POLYGON ((5 1, 6 1, 6 0, 5 ...
-#> 2      1     2 POLYGON ((7 7, 8 7, 8 6, 7 ...
-#> 3      1     3 POLYGON ((8 9, 7 9, 6 9, 5 ...
-#> 4      1     4 POLYGON ((11 4, 12 4, 12 3,...
-#> 5      1     5 POLYGON ((14 10, 15 10, 15 ...
-#> 6      1     6 POLYGON ((26 4, 27 4, 27 3,...
-#> 7      1     7 POLYGON ((22 0, 21 0, 20 0,...
-#> 8      1     8 POLYGON ((19 2, 20 2, 20 1,...
-#> 9      1     9 POLYGON ((18 15, 17 15, 16 ...
-#> 10     1    10 POLYGON ((0 23, 1 23, 1 22,...
+#> 1      1     1 POLYGON ((1 2, 0 2, 0 3, 0 ...
+#> 2      1     2 POLYGON ((14 5, 15 5, 16 5,...
+#> 3      1     3 POLYGON ((12 18, 12 19, 12 ...
+#> 4      1     4 POLYGON ((10 19, 10 18, 9 1...
+#> 5      1     5 POLYGON ((5 20, 6 20, 6 19,...
+#> 6      1     6 POLYGON ((6 21, 7 21, 7 20,...
+#> 7      1     7 POLYGON ((3 16, 4 16, 4 15,...
+#> 8      1     8 POLYGON ((2 24, 2 23, 2 22,...
+#> 9      1     9 POLYGON ((10 20, 11 20, 11 ...
+#> 10     1    10 POLYGON ((13 24, 14 24, 14 ...
 
 ## Shape index
-vm_p_shape(vector_patches, "class")
-#> # A tibble: 30 x 5
-#>    level class    id metric value
-#>    <chr> <int> <int> <chr>  <dbl>
-#>  1 patch     1     1 shape   1.13
-#>  2 patch     1     2 shape   1.13
-#>  3 patch     1     3 shape   1.87
-#>  4 patch     1     4 shape   1.13
-#>  5 patch     1     5 shape   1.55
-#>  6 patch     1     6 shape   1.26
-#>  7 patch     1     7 shape   1.20
-#>  8 patch     1     8 shape   1.13
-#>  9 patch     1     9 shape   2.14
-#> 10 patch     1    10 shape   1.51
-#> # i 20 more rows
+vm_p_shape(vector_patches, class = "class", patch_id = "patch")
+#> # A tibble: 40 x 5
+#>    level class id    metric value
+#>    <chr> <chr> <chr> <chr>  <dbl>
+#>  1 patch 1     1     shape   1.66
+#>  2 patch 1     2     shape   1.37
+#>  3 patch 1     3     shape   1.51
+#>  4 patch 1     4     shape   1.41
+#>  5 patch 1     5     shape   1.13
+#>  6 patch 1     6     shape   1.13
+#>  7 patch 1     7     shape   1.13
+#>  8 patch 1     8     shape   1.15
+#>  9 patch 1     9     shape   1.13
+#> 10 patch 1     10    shape   1.13
+#> # i 30 more rows
 
 ## Number of patches
-vm_c_np(vector_patches, "class")
+vm_c_np(vector_patches, class = "class")
 #> # A tibble: 3 x 5
-#>   level class    id metric value
-#>   <chr> <int> <int> <chr>  <int>
-#> 1 class     1    NA np        11
-#> 2 class     2    NA np        13
-#> 3 class     3    NA np         6
+#>   level class id    metric value
+#>   <chr> <chr> <chr> <chr>  <int>
+#> 1 class 1     <NA>  np        19
+#> 2 class 2     <NA>  np        14
+#> 3 class 3     <NA>  np         7
 
 ## Mean squareness
-vm_l_square_mn(vector_patches, "class")
+vm_l_square_mn(vector_patches)
 #> # A tibble: 1 x 5
-#>   level     class    id metric value
-#>   <chr>     <int> <int> <chr>  <dbl>
-#> 1 landscape    NA    NA sq_mn  0.804
+#>   level     class id    metric value
+#>   <chr>     <chr> <chr> <chr>  <dbl>
+#> 1 landscape <NA>  <NA>  sq_mn  0.845
 ```
+
+Another utility function is `get_axes()` which calculates the length of
+the major and minor axes of the shape. It is used to calculate the
+elongation metric in `vm_p_elong()` but since length of axes might be
+useful information itself, `get_axes()` was exported as seperate
+function.
 
 ``` r
 get_axes(vector_patches, "class")
-#> # A tibble: 30 x 6
+#> # A tibble: 40 x 6
 #>    level class    id metric    major minor
 #>    <chr> <int> <int> <chr>     <dbl> <dbl>
-#>  1 patch     1     1 main_axes  1.42  1.42
-#>  2 patch     1     2 main_axes  1.42  1.42
-#>  3 patch     1     3 main_axes 17.0  11.5 
-#>  4 patch     1     4 main_axes  1.42  1.42
-#>  5 patch     1     5 main_axes  7.32  5.02
-#>  6 patch     1     6 main_axes  3.88  2.68
-#>  7 patch     1     7 main_axes  2.82  1.42
-#>  8 patch     1     8 main_axes  1.42  1.42
-#>  9 patch     1     9 main_axes 17.2  12.7 
-#> 10 patch     1    10 main_axes  4.78  2.62
-#> # i 20 more rows
+#>  1 patch     1     1 main_axes 10.8   5.28
+#>  2 patch     1     2 main_axes  9.64  7.84
+#>  3 patch     1     3 main_axes  8.38  5.16
+#>  4 patch     1     4 main_axes  3.6   2.22
+#>  5 patch     1     5 main_axes  1.42  1.42
+#>  6 patch     1     6 main_axes  1.42  1.42
+#>  7 patch     1     7 main_axes  1.42  1.42
+#>  8 patch     1     8 main_axes  4.24  2.82
+#>  9 patch     1     9 main_axes  1.42  1.42
+#> 10 patch     1    10 main_axes  1.42  1.42
+#> # i 30 more rows
 ```
 
 ## Contributing

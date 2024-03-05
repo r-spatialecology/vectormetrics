@@ -5,6 +5,7 @@ output:
 ---
 
 <!-- To render, run:
+Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")
 rmarkdown::render("README.Rmd")
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -53,7 +54,7 @@ remotes::install_github("Nowosad/vectormetrics")
 
 All functions in `landscapemetrics` start with *vm_* (for vector landscape metrics).
 The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
-The last part of the function name is the abbreviation of the corresponding metric (e.g. enn for the euclidean nearest-neighbor distance and rect for the rectangularity).
+The last part of the function name is the abbreviation of the corresponding metric (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for the rectangularity).
 Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (e.g. mean, sd).
 
 ```{r function_names, eval = FALSE}
@@ -65,7 +66,7 @@ vm_p_square()
 # Class level
 ## vm_c_"metric"[_"aggregation"]
 vm_c_np()
-vm_c_square_mn()
+vm_c_shape_sd()
 
 # Landscape level
 ## vm_l_"metric"[_"aggregation"]
@@ -86,35 +87,41 @@ plot(vector_landscape)
 
 ```{r simple_examples}
 ## Shape index
-vm_p_shape(vector_landscape, "class")
+vm_p_shape(vector_landscape, class = "class")
 
 ## Number of patches
-vm_c_np(vector_landscape, "class")
+vm_c_np(vector_landscape, class = "class")
 
 ## Largest patch index
-vm_l_lpi(vector_landscape, "class")
+vm_l_lpi(vector_landscape)
 
 ## Mean squareness
-vm_l_square_mn(vector_landscape, "class")
+vm_l_square_mn(vector_landscape)
 ```
 
 ### Utility functions
 
-Examples of usage of utility functions.
+For now there are two utility functions available in the package.
+First one is `get_patches()` which breaks Multipolygon geometries into Polygons.
+There are two types of neighbourhood relations available: 4 (edge) and 8 (vertex).
+This function enables user to create set of geometries from aggregated shapes and analyze each shape's properties seperately.
 
 ```{r get_patches, message = FALSE}
-vector_patches = get_patches(vector_landscape, "class")
+vector_patches = get_patches(vector_landscape, class = "class", direction = 4)
 vector_patches
 
 ## Shape index
-vm_p_shape(vector_patches, "class")
+vm_p_shape(vector_patches, class = "class", patch_id = "patch")
 
 ## Number of patches
-vm_c_np(vector_patches, "class")
+vm_c_np(vector_patches, class = "class")
 
 ## Mean squareness
-vm_l_square_mn(vector_patches, "class")
+vm_l_square_mn(vector_patches)
 ```
+
+Another utility function is `get_axes()` which calculates the length of the major and minor axes of the shape.
+It is used to calculate the elongation metric in `vm_p_elong()` but since length of axes might be useful information itself, `get_axes()` was exported as seperate function.
 
 ```{r get_axes, message = FALSE}
 get_axes(vector_patches, "class")
