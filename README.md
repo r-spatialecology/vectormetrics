@@ -157,7 +157,9 @@ vector_patches
 #> 9      1     9 POLYGON ((10 20, 11 20, 11 ...
 #> 10     1    10 POLYGON ((13 24, 14 24, 14 ...
 
-plot(vector_patches)
+vector_patches |>
+  dplyr::mutate(patch = as.factor(patch)) |>
+  plot()
 ```
 
 <img src="man/figures/README-get_patches-1.png" width="100%" />

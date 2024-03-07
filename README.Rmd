@@ -110,7 +110,9 @@ This function enables user to create set of geometries from aggregated shapes an
 vector_patches = get_patches(vector_landscape, class = "class", direction = 4)
 vector_patches
 
-plot(vector_patches)
+vector_patches |>
+  dplyr::mutate(patch = as.factor(patch)) |>
+  plot()
 
 ## Shape index
 vm_p_shape(vector_patches, class = "class", patch_id = "patch")
