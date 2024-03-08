@@ -5,9 +5,10 @@ rmarkdown::render("README.Rmd")
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
-
+<!--
 [![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
 [![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
+-->
 <!-- badges: end -->
 
 ## Overview
@@ -20,21 +21,17 @@ geometry format provided by `sf` package. Every function can be used in
 a piped workflow, as it always takes the data as the first argument and
 returns a `tibble`.
 
-### Citation
-
-how to cite this package
-
 ## Installation
 
-You can install the released version of `vectormetrics` from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
+<!--You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
+&#10;
+```r
 install.packages("vectormetrics")
 ```
+-->
 
-You can also download most recent development version of the package
-from GitHub with:
+You can download most recent development version of the package from
+GitHub with:
 
 ``` r
 remotes::install_github("Nowosad/vectormetrics")
@@ -91,7 +88,7 @@ vm_p_shape(vector_landscape, class = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <dbl>
 #> 1 patch 1     1     shape   5.06
@@ -101,7 +98,7 @@ vm_p_shape(vector_landscape, class = "class")
 ## Number of patches
 vm_c_np(vector_landscape, class = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np         1
@@ -111,7 +108,7 @@ vm_c_np(vector_landscape, class = "class")
 ## Largest patch index
 vm_l_lpi(vector_landscape)
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  lpi     49.7
@@ -121,7 +118,7 @@ vm_l_square_mn(vector_landscape)
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.232
@@ -168,7 +165,7 @@ vector_patches |>
 
 ## Shape index
 vm_p_shape(vector_patches, class = "class", patch_id = "patch")
-#> # A tibble: 40 × 5
+#> # A tibble: 40 x 5
 #>    level class id    metric value
 #>    <chr> <chr> <chr> <chr>  <dbl>
 #>  1 patch 1     1     shape   1.66
@@ -181,11 +178,11 @@ vm_p_shape(vector_patches, class = "class", patch_id = "patch")
 #>  8 patch 1     8     shape   1.15
 #>  9 patch 1     9     shape   1.13
 #> 10 patch 1     10    shape   1.13
-#> # ℹ 30 more rows
+#> # i 30 more rows
 
 ## Number of patches
 vm_c_np(vector_patches, class = "class")
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np        19
@@ -194,7 +191,7 @@ vm_c_np(vector_patches, class = "class")
 
 ## Mean squareness
 vm_l_square_mn(vector_patches)
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.845
@@ -208,7 +205,7 @@ function.
 
 ``` r
 get_axes(vector_patches, "class")
-#> # A tibble: 40 × 6
+#> # A tibble: 40 x 6
 #>    level class    id metric    major minor
 #>    <chr> <int> <int> <chr>     <dbl> <dbl>
 #>  1 patch     1     1 main_axes 10.8   5.28
@@ -221,13 +218,10 @@ get_axes(vector_patches, "class")
 #>  8 patch     1     8 main_axes  4.24  2.82
 #>  9 patch     1     9 main_axes  1.42  1.42
 #> 10 patch     1    10 main_axes  1.42  1.42
-#> # ℹ 30 more rows
+#> # i 30 more rows
 ```
 
 ## Contributing
 
-how to contribute
-
-## References
-
-list of references
+This is an experimental version of the package, so any feedback and
+contributions in the form of pull requests are welcome.

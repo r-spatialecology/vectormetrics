@@ -19,8 +19,10 @@ knitr::opts_chunk$set(
 )
 ```
 <!-- badges: start -->
+<!--
 [![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
 [![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
+-->
 <!-- badges: end -->
 
 ## Overview
@@ -30,19 +32,15 @@ Its aim is to provide a set of metrics that can characterize landscape patterns 
 Whole package is based on Simple Feature geometry format provided by `sf` package.
 Every function can be used in a piped workflow, as it always takes the data as the first argument and returns a `tibble`.
 
-### Citation
-
-how to cite this package
-
 ## Installation
 
-You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
+<!--You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r install_cran, eval = FALSE}
 install.packages("vectormetrics")
 ```
-
-You can also download most recent development version of the package from GitHub with:
+-->
+You can download most recent development version of the package from GitHub with:
 
 ```{r install_github, eval = FALSE}
 remotes::install_github("Nowosad/vectormetrics")
@@ -133,8 +131,4 @@ get_axes(vector_patches, "class")
 
 ## Contributing
 
-how to contribute
-
-## References
-
-list of references
+This is an experimental version of the package, so any feedback and contributions in the form of pull requests are welcome.
