@@ -4,12 +4,12 @@
 \alias{vm_c_rough_mn}
 \title{Roughness index(vector data)}
 \usage{
-vm_c_rough_mn(landscape, class, n = 100)
+vm_c_rough_mn(landscape, class_col, n = 100)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{n}{number of boundary points to generate}
 }

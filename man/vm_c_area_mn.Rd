@@ -4,12 +4,12 @@
 \alias{vm_c_area_mn}
 \title{The mean value of all patch areas at class level(vector data)}
 \usage{
-vm_c_area_mn(landscape, class)
+vm_c_area_mn(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated mean value of areas of each class is in column "value",

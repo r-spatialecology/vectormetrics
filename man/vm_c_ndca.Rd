@@ -4,12 +4,12 @@
 \alias{vm_c_ndca}
 \title{the number of disjunct core area in each class(vector data)}
 \usage{
-vm_c_ndca(landscape, class, edge_depth)
+vm_c_ndca(landscape, class_col, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }

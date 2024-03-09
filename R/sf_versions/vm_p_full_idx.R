@@ -2,7 +2,7 @@
 #'
 #' @description Calculate Fullness Index
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param n number of local neighbourhoods to consider in calculating fullness
 #' @return  ratio of the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' ## if the class name of input landscape is landcover,

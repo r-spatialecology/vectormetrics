@@ -4,12 +4,12 @@
 \alias{vm_c_ca}
 \title{The total area of each class(vector data)}
 \usage{
-vm_c_ca(landscape, class)
+vm_c_ca(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated total class areas are in column "value",

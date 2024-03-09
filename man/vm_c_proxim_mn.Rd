@@ -4,12 +4,12 @@
 \alias{vm_c_proxim_mn}
 \title{Proximity Index(vector data)}
 \usage{
-vm_c_proxim_mn(landscape, class, n = 1000)
+vm_c_proxim_mn(landscape, class_col, n = 1000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{n}{number of grid points to generate}
 }

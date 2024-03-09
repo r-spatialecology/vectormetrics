@@ -4,14 +4,14 @@
 \alias{vm_p_fullness}
 \title{Fullness Index(vector data)}
 \usage{
-vm_p_fullness(landscape, class = NA, patch_id = NA, n = 10000)
+vm_p_fullness(landscape, class_col = NULL, patch_col = NULL, n = 10000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
-\item{patch_id}{the name of the id column of the input landscape}
+\item{patch_col}{the name of the id column of the input landscape}
 
 \item{n}{number of local neighbourhoods to consider in calculating fullness}
 }

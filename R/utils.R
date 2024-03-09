@@ -37,25 +37,25 @@ get_igp <- function(shape, n = 1000){
 
 #' Prepare class and patch ID columns
 #' @param landscape sf object
-#' @param class class column name
-#' @param patch_id patch ID column name
+#' @param class_col class column name
+#' @param patch_col patch ID column name
 #' @keywords internal
 #' @NoRd
-prepare_columns <- function(landscape, class, patch_id){
-  if (is.na(patch_id)){
-    patch_id <- "id"
-    landscape[, patch_id] <- as.character(seq_len(nrow(landscape)))
+prepare_columns <- function(landscape, class_col, patch_col){
+  if (is.null(patch_col)){
+    patch_col <- "id"
+    landscape[, patch_col] <- as.character(seq_len(nrow(landscape)))
   } else{
-    landscape[, patch_id] <- as.character(landscape[, patch_id, drop = TRUE])
+    landscape[, patch_col] <- as.character(landscape[, patch_col, drop = TRUE])
   }
-  if (is.na(class)){
-    class <- "class"
-    landscape[, class] <- "1"
+  if (is.null(class_col)){
+    class_col <- "class"
+    landscape[, class_col] <- "1"
   } else{
-    landscape[, class] <- as.character(landscape[, class, drop = TRUE])
+    landscape[, class_col] <- as.character(landscape[, class_col, drop = TRUE])
   }
 
   return(
-    list(landscape = landscape, class = class, patch_id = patch_id)
+    list(landscape = landscape, class_col = class_col, patch_col = patch_col)
   )
 }

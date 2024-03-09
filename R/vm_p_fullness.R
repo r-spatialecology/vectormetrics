@@ -3,8 +3,8 @@
 #' @description Calculate Fullness Index
 #' @details ratio between the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
-#' @param patch_id the name of the id column of the input landscape
+#' @param class_col the name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
 #' @param n number of local neighbourhoods to consider in calculating fullness
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
@@ -15,7 +15,7 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_p_fullness <- function(landscape, class = NA, patch_id = NA, n = 10000) {
+vm_p_fullness <- function(landscape, class_col = NULL, patch_col = NULL, n = 10000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -27,11 +27,11 @@ vm_p_fullness <- function(landscape, class = NA, patch_id = NA, n = 10000) {
   }
 
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, patch_id) |> list2env(envir = environment())
-  landscape <- landscape[, c(class, patch_id)]
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   # caluclate area of polygons
-  area <- vm_p_area(landscape, class, patch_id)$value * 10000
+  area <- vm_p_area(landscape, class_col, patch_col)$value * 10000
   landscape_geos <- geos::as_geos_geometry(landscape)
 
   progress_bar <- utils::txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
@@ -52,8 +52,8 @@ vm_p_fullness <- function(landscape, class = NA, patch_id = NA, n = 10000) {
   # return results tibble
   tibble::new_tibble(list(
     level = rep("patch", nrow(landscape)),
-    class = as.character(landscape[, class, drop = TRUE]),
-    id = as.character(landscape[, patch_id, drop = TRUE]),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
     metric = rep("full_index", nrow(landscape)),
     value = as.double(landscape$fullness / 0.958)
   ))

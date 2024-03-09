@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the percentage of each class in a categorical landscape in vector data format
 #' That means each class area is standardised by the total landscape area, so the comparision among different landscape is possible.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated percentage of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -12,11 +12,11 @@
 #' vm_c_pland(vector_landscape, "class")
 #' @export
 
-vm_c_pland <- function(landscape, class){
+vm_c_pland <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  area <- vm_p_area(landscape, class)
+  area <- vm_p_area(landscape, class_col)
   A <- sum(area$value) * 10000
   area_c <- stats::aggregate(area$value, by = list(area$class), sum, na.rm = FALSE)
 

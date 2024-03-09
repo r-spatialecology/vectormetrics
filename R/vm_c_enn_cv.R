@@ -5,7 +5,7 @@
 #' Euclidean Nearest-Neighbor Distance means the distance from a patch edge to the nearest neighbouring patch belonging to the
 #' same class.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated coefficient of variation of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -14,11 +14,11 @@
 #' vm_c_enn_cv(vector_landscape, "class")
 #' @export
 
-vm_c_enn_cv <- function(landscape, class){
+vm_c_enn_cv <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  enn <- vm_p_enn(landscape, class)
+  enn <- vm_p_enn(landscape, class_col)
   enn_cv <- stats::aggregate(enn$value, by = list(enn$class), vm_cv)
 
   # return results tibble

@@ -2,7 +2,7 @@
 #'
 #' @description Calculate Exchange Index
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return share of the total area of the shape that is inside the equal-area circle about its centroid
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.

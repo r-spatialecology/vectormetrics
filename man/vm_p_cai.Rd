@@ -4,14 +4,14 @@
 \alias{vm_p_cai}
 \title{Core area index(vector data)}
 \usage{
-vm_p_cai(landscape, class = NA, patch_id = NA, edge_depth)
+vm_p_cai(landscape, class_col = NULL, patch_col = NULL, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
-\item{patch_id}{the name of the id column of the input landscape}
+\item{patch_col}{the name of the id column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }

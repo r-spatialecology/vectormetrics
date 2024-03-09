@@ -4,7 +4,7 @@
 #' of fractal dimension index of all patches belonging to class i in a categorical landscape in vector data format
 #' The index is based on the patch perimeter and the patch area and describes the patch complexity
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated mean value of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -13,11 +13,11 @@
 #' vm_c_frac_mn(vector_landscape, "class")
 #' @export
 
-vm_c_frac_mn <- function(landscape, class){
+vm_c_frac_mn <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  frac <- vm_p_frac(landscape, class)
+  frac <- vm_p_frac(landscape, class_col)
   frac_mn <- stats::aggregate(frac$value, by = list(frac$class), mean, na.rm = FALSE)
 
   # return results tibble

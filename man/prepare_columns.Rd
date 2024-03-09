@@ -4,14 +4,14 @@
 \alias{prepare_columns}
 \title{Prepare class and patch ID columns}
 \usage{
-prepare_columns(landscape, class, patch_id)
+prepare_columns(landscape, class_col, patch_col)
 }
 \arguments{
 \item{landscape}{sf object}
 
-\item{class}{class column name}
+\item{class_col}{class column name}
 
-\item{patch_id}{patch ID column name}
+\item{patch_col}{patch ID column name}
 }
 \description{
 Prepare class and patch ID columns

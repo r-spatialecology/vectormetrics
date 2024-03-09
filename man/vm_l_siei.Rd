@@ -4,12 +4,12 @@
 \alias{vm_l_siei}
 \title{Simpson's evenness index (vector data)}
 \usage{
-vm_l_siei(landscape, class)
+vm_l_siei(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index is in column "value",

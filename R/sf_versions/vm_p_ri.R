@@ -2,7 +2,7 @@
 #'
 #' @description Calculate Roughness index (RI)
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return HERE WRITE DESCRIPTION OF METRIC
 #' ## if the class name of input landscape is landcover,
 #' ## then write landcover in a double quotation marks as the second parameter.

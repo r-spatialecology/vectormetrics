@@ -4,12 +4,12 @@
 \alias{vm_l_shdi}
 \title{Shannon's diversity index (vector data)}
 \usage{
-vm_l_shdi(landscape, class)
+vm_l_shdi(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index is in column "value",

@@ -4,12 +4,12 @@
 \alias{vm_c_lsi}
 \title{Landscape shape index (vector data)}
 \usage{
-vm_c_lsi(landscape, class)
+vm_c_lsi(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index are in column "value",

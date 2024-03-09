@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the maximal patch area of each class in relative to
 #' total landscape area in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated index are in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -12,11 +12,11 @@
 #' vm_c_lpi(vector_landscape, "class")
 #' @export
 
-vm_c_lpi <- function(landscape, class){
+vm_c_lpi <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  area <- vm_p_area(landscape, class)
+  area <- vm_p_area(landscape, class_col)
   area$value <- area$value * 10000
   sum_landscape <- sum(area$value)
   area_max <- stats::aggregate(area$value, by = list(area$class), max, na.rm = FALSE)

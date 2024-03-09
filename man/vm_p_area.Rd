@@ -4,14 +4,14 @@
 \alias{vm_p_area}
 \title{AREA (patch level)}
 \usage{
-vm_p_area(landscape, class = NA, patch_id = NA)
+vm_p_area(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{sf* object.}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
-\item{patch_id}{the name of the id column of the input landscape}
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",

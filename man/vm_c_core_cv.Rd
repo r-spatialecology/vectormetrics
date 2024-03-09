@@ -4,12 +4,12 @@
 \alias{vm_c_core_cv}
 \title{The coefficient of variation of each class core areas(vector data)}
 \usage{
-vm_c_core_cv(landscape, class, edge_depth)
+vm_c_core_cv(landscape, class_col, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }

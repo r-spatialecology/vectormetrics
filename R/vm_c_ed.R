@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the total length of all patches
 #' in class i in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated total length of perimeter is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -12,15 +12,15 @@
 #' vm_c_ed(vector_landscape, "class")
 #' @export
 
-vm_c_ed <- function(landscape, class){
+vm_c_ed <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  peri <- vm_p_perim(landscape, class)
+  peri <- vm_p_perim(landscape, class_col)
   peri_sum <- stats::aggregate(peri$value, list(peri$class), sum)
 
   # total area in the landscape
-  area <- vm_p_area(landscape, class)
+  area <- vm_p_area(landscape, class_col)
   area_sum <- sum(area$value) * 10000
 
   peri_sum$ED <- peri_sum[, 2] / area_sum * 10000

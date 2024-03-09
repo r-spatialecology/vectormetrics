@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the mean value
 #' of all core patch areas belonging to one class in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated mean value of core areas of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
@@ -13,11 +13,11 @@
 #' vm_c_core_mn(vector_landscape, "class", edge_depth = 1)
 #' @export
 
-vm_c_core_mn <- function(landscape, class, edge_depth){
+vm_c_core_mn <- function(landscape, class_col, edge_depth){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  core <- vm_p_core(landscape, class, edge_depth = edge_depth)
+  core <- vm_p_core(landscape, class_col, edge_depth = edge_depth)
   core_mn <- stats::aggregate(core$value, by = list(core$class), mean, na.rm = FALSE)
 
   # return results tibble

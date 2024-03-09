@@ -4,12 +4,12 @@
 \alias{vm_c_shape_mn}
 \title{The mean value of Shape index of each class (vector data)}
 \usage{
-vm_c_shape_mn(landscape, class)
+vm_c_shape_mn(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated mean value of each class is in column "value",

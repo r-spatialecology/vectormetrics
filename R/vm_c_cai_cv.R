@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the coefficient of variation
 #' of the ratio of the core area and the area belonging to one class in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated coefficient of variation of ratio of the core area and the area of each class is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
@@ -13,12 +13,12 @@
 #' vm_c_cai_cv(vector_landscape, "class", edge_depth = 1)
 #' @export
 
-vm_c_cai_cv <- function(landscape, class, edge_depth){
+vm_c_cai_cv <- function(landscape, class_col, edge_depth){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   # Calculate core area index
-  cai <- vm_p_cai(landscape, class, edge_depth = edge_depth)
+  cai <- vm_p_cai(landscape, class_col, edge_depth = edge_depth)
   # and calculate cv for each class
   cai_cv <- stats::aggregate(cai$value, by = list(cai$class), vm_cv)
 

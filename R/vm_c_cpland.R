@@ -3,7 +3,7 @@
 #' @description This function allows you to calculate the total core area of each class
 #' in relation to the landscape area in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param edge_depth the fixed distance to the edge of the patch
 #' @return  the returned calculated ratios are in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
@@ -13,14 +13,14 @@
 #' vm_c_cpland(vector_landscape, "class", edge_depth = 1)
 #' @export
 
-vm_c_cpland <- function(landscape, class, edge_depth){
+vm_c_cpland <- function(landscape, class_col, edge_depth){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  area <- vm_p_area(landscape, class)
+  area <- vm_p_area(landscape, class_col)
   sum_landscape <- sum(area$value)
 
-  core <- vm_p_core(landscape, class, edge_depth = edge_depth)
+  core <- vm_p_core(landscape, class_col, edge_depth = edge_depth)
   core_sum <- stats::aggregate(core$value, by = list(core$class), sum, na.rm = FALSE)
 
   # calculate the core area percentage of landscape

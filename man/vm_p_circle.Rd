@@ -4,14 +4,14 @@
 \alias{vm_p_circle}
 \title{CIRCLE (patch level)}
 \usage{
-vm_p_circle(landscape, class = NA, patch_id = NA)
+vm_p_circle(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
 
-\item{class}{Name of the class column of the input landscape}
+\item{class_col}{Name of the class column of the input landscape}
 
-\item{patch_id}{the name of the id column of the input landscape}
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",

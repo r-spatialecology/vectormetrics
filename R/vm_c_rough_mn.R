@@ -3,7 +3,7 @@
 #' @description Calculate Roughness index (RI)
 #' @details to be added...
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param n number of boundary points to generate
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
@@ -14,12 +14,12 @@
 #' International Journal of Geographical Information Science, 31(10), 1952–1977. https://doi.org/10.1080/13658816.2017.1346257
 #' @export
 
-vm_c_rough_mn <- function(landscape, class, n = 100){
+vm_c_rough_mn <- function(landscape, class_col, n = 100){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   # calculate the roughness for all patches
-  ri <- vm_p_rough(landscape, class, n = n)
+  ri <- vm_p_rough(landscape, class_col, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
   ri_mn <- stats::aggregate(ri$value, by = list(ri$class), mean, na.rm = TRUE)

@@ -4,12 +4,12 @@
 \alias{vm_c_pd}
 \title{the patch density in each class(vector data)}
 \usage{
-vm_c_pd(landscape, class)
+vm_c_pd(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated density of each class is in column "value",

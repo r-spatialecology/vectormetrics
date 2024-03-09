@@ -2,7 +2,7 @@
 #'
 #' @description Convert multipolygons to seperate polygons based on chosen neighbourhood type.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param direction 4 or 8
 #' @return sf object with exploded polygons
 #' @examples
@@ -10,13 +10,13 @@
 #' @export
 #' @aliases get_patches
 #' @rdname get_patches
-get_patches <- function(landscape, class, direction = 4){
+get_patches <- function(landscape, class_col, direction = 4){
   UseMethod("get_patches")
 }
 
 #' @name get_patches
 #' @export
-get_patches.sf <- function(landscape, class, direction = 4){
+get_patches.sf <- function(landscape, class_col, direction = 4){
 
   # cast multipolygons to polygons
   landscape_cast <- landscape |>
@@ -26,16 +26,16 @@ get_patches.sf <- function(landscape, class, direction = 4){
     # merge by nieghbourhood type based on touching edges
     result <- landscape_cast
     class(result) <- class(result)[!class(result) %in% c("grouped_df", "tbl_df", "tbl")]
-    result <- result |> dplyr::select(dplyr::all_of(class))
+    result <- result |> dplyr::select(dplyr::all_of(class_col))
 
   } else if (direction == 8){
     # merge by nieghbourhood type based on touching vertices
     nb_string <- "F***T****"
-    lsc_classes <- unique(dplyr::pull(landscape, !!class))
+    lsc_classes <- unique(dplyr::pull(landscape, !!class_col))
 
     landscape_nb <- purrr::map(lsc_classes, function(class_i) {
       # create neighbourhood matrix for each class
-      class_patches <- dplyr::filter(landscape_cast, class == class_i)
+      class_patches <- dplyr::filter(landscape_cast, !!as.symbol(class_col) == class_i)
       nb <- sf::st_relate(class_patches, class_patches, pattern = nb_string, sparse = FALSE)
       done_shapes = c()
 
@@ -66,7 +66,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
           # merge chosen neighbours
           nb_union <- sf::st_union(class_patches[indexes, ])
           nb_union <- sf::st_sf(geometry = nb_union)
-          nb_union$class <- class_i
+          nb_union[, class_col] <- class_i
           nb_union$patch <- patch_i
           nb_union
         }
@@ -82,7 +82,7 @@ get_patches.sf <- function(landscape, class, direction = 4){
   }
   result$patch <- seq_len(nrow(result))
   rownames(result) <- NULL
-  result <- result |> dplyr::select(dplyr::all_of(class), "patch")
+  result <- result |> dplyr::select(dplyr::all_of(class_col), "patch")
 
   message("Number of patches before conversion: ", nrow(landscape))
   message("Number of patches after conversion: ", nrow(result))

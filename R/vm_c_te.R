@@ -2,7 +2,7 @@
 #' 
 #' @description This function allows you to calculate the total length of edge of class i in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @return  the returned calculated length is in column "value",
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
@@ -11,11 +11,11 @@
 #' vm_c_te(vector_landscape, "class")
 #' @export
 
-vm_c_te <- function(landscape, class){
+vm_c_te <- function(landscape, class_col){
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
-  perim <- vm_p_perim(landscape, class)
+  perim <- vm_p_perim(landscape, class_col)
   perim_c <- stats::aggregate(perim$value, by = list(perim$class), sum, na.rm = FALSE)
 
   # return results tibble

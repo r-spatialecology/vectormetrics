@@ -4,12 +4,12 @@
 \alias{vm_c_fullness}
 \title{Fullness Index(vector data)}
 \usage{
-vm_c_fullness(landscape, class, n = 10000)
+vm_c_fullness(landscape, class_col, n = 10000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{n}{number of local neighbourhoods to consider in calculating fullness}
 }

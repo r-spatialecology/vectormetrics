@@ -4,10 +4,12 @@
 \alias{vm_l_rpr}
 \title{Relative patch richness (vector data)}
 \usage{
-vm_l_rpr(landscape, class_max)
+vm_l_rpr(landscape, class_col, class_max)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
+
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{class_max}{the maximal number of class in your input landscape image}
 }

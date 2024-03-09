@@ -4,12 +4,12 @@
 \alias{vm_c_shape_sd}
 \title{The standard deviation of Shape index of each class (vector data)}
 \usage{
-vm_c_shape_sd(landscape, class)
+vm_c_shape_sd(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated standard deviation of each class is in column "value",

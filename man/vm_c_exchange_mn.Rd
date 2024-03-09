@@ -4,12 +4,12 @@
 \alias{vm_c_exchange_mn}
 \title{Exchange Index(vector data)}
 \usage{
-vm_c_exchange_mn(landscape, class)
+vm_c_exchange_mn(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the function returns tibble with the calculated values in column "value",

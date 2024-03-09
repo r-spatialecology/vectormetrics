@@ -4,12 +4,14 @@
 \alias{get_axes}
 \title{Get major and minor axis}
 \usage{
-get_axes(landscape, class)
+get_axes(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
 sf object with exploded polygons

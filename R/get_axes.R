@@ -2,21 +2,24 @@
 #'
 #' @description Get major axis (longest line between vertices) and minor axis (longest line inside a shape that is perpendicular to major axis) of polygon
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
 #' @return sf object with exploded polygons
 #' @examples
 #' get_axes(vector_landscape, "class")
 #' @name get_axes
 #' @export
 
-get_axes <- function(landscape, class){
+get_axes <- function(landscape, class_col = NULL, patch_col = NULL){
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
     message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
   }
-  landscape[, class] <- as.factor(landscape[, class, drop = TRUE])
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   for (row in seq_len(nrow(landscape))) {
     coords <- landscape[row, ] |> sf::st_coordinates()
@@ -29,16 +32,10 @@ get_axes <- function(landscape, class){
     landscape$minor_axis[row] <- round(min(distances, na.rm = TRUE), 2)
   }
 
-  # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)[, class, drop = TRUE]
-  if (methods::is(class_ids, "factor")){
-    class_ids <- as.numeric(as.factor(levels(class_ids)))[class_ids]
-  }
-
   tibble::new_tibble(list(
     level = rep("patch", nrow(landscape)),
-    class = as.integer(class_ids),
-    id = as.integer(seq_len(nrow(landscape))),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
     metric = rep("main_axes", nrow(landscape)),
     major = landscape$major_axis * 2,
     minor = landscape$minor_axis * 2

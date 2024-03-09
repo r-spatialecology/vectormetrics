@@ -4,12 +4,12 @@
 \alias{vm_c_mesh}
 \title{Effective Mesh Size (vector data)}
 \usage{
-vm_c_mesh(landscape, class)
+vm_c_mesh(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated values are in column "value",

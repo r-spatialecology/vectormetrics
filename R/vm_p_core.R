@@ -3,8 +3,8 @@
 #' @description Core area (Core area metric)
 #'
 #' @param landscape *sf* MULTIPOLYGON or POLYGON feature
-#' @param class Name of the class column of the input landscape
-#' @param patch_id the name of the id column of the input landscape
+#' @param class_col Name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
 #' @param edge_depth Distance (in map units) a location has the be away from the patch edge to be considered as core location
 #'
 #' @details
@@ -39,7 +39,7 @@
 #' @name vm_p_core
 #' @export
 
-vm_p_core <- function(landscape, class = NA, patch_id = NA, edge_depth) {
+vm_p_core <- function(landscape, class_col = NULL, patch_col = NULL, edge_depth) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -48,8 +48,8 @@ vm_p_core <- function(landscape, class = NA, patch_id = NA, edge_depth) {
   }
 
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, patch_id) |> list2env(envir = environment())
-  landscape <- landscape[, c(class, patch_id)]
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   #create the core areas using st_buffer with a negetive distance to the edge of polygons
   core_area <- sf::st_buffer(landscape, dist = -edge_depth)
@@ -60,8 +60,8 @@ vm_p_core <- function(landscape, class = NA, patch_id = NA, edge_depth) {
   # return result tibble
   tibble::new_tibble(list(
     level = rep("patch", nrow(landscape)),
-    class = as.character(landscape[, class, drop = TRUE]),
-    id = as.character(landscape[, patch_id, drop = TRUE]),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
     metric = rep("core", nrow(landscape)),
     value = as.double(landscape$core)
   ))

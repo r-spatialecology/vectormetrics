@@ -3,7 +3,7 @@
 #' @description Calculate Fullness Index
 #' @details ratio between the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
+#' @param class_col the name of the class column of the input landscape
 #' @param n number of local neighbourhoods to consider in calculating fullness
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
@@ -14,7 +14,7 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_c_fullness <- function(landscape, class, n = 10000) {
+vm_c_fullness <- function(landscape, class_col, n = 10000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
@@ -25,12 +25,12 @@ vm_c_fullness <- function(landscape, class, n = 10000) {
     warning("Low number of local neighbourhoods, result might be biased.")
   }
   # prepare class and patch ID columns
-  prepare_columns(landscape, class, NA) |> list2env(envir = environment())
+  prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   .data <- NULL
   # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- landscape |> dplyr::group_by_at(class) |> dplyr::summarise(geometry = sf::st_union(.data$geometry)) |> dplyr::ungroup()
-  fullness <- vm_p_fullness(landscape, class, n = n)
+  landscape <- landscape |> dplyr::group_by_at(class_col) |> dplyr::summarise(geometry = sf::st_union(.data$geometry)) |> dplyr::ungroup()
+  fullness <- vm_p_fullness(landscape, class_col, n = n)
 
   tibble::new_tibble(list(
     level = rep("class", nrow(landscape)),
