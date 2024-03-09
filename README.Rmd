@@ -85,10 +85,10 @@ plot(vector_landscape)
 
 ```{r simple_examples}
 ## Shape index
-vm_p_shape(vector_landscape, class = "class")
+vm_p_shape(vector_landscape, class_col = "class")
 
 ## Number of patches
-vm_c_np(vector_landscape, class = "class")
+vm_c_np(vector_landscape, class_col = "class")
 
 ## Largest patch index
 vm_l_lpi(vector_landscape)
@@ -105,7 +105,7 @@ There are two types of neighbourhood relations available: 4 (edge) and 8 (vertex
 This function enables user to create set of geometries from aggregated shapes and analyze each shape's properties seperately.
 
 ```{r get_patches, message = FALSE}
-vector_patches = get_patches(vector_landscape, class = "class", direction = 4)
+vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
 vector_patches
 
 vector_patches |>
@@ -113,10 +113,10 @@ vector_patches |>
   plot()
 
 ## Shape index
-vm_p_shape(vector_patches, class = "class", patch_id = "patch")
+vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
 
 ## Number of patches
-vm_c_np(vector_patches, class = "class")
+vm_c_np(vector_patches, class_col = "class")
 
 ## Mean squareness
 vm_l_square_mn(vector_patches)
@@ -126,7 +126,7 @@ Another utility function is `get_axes()` which calculates the length of the majo
 It is used to calculate the elongation metric in `vm_p_elong()` but since length of axes might be useful information itself, `get_axes()` was exported as seperate function.
 
 ```{r get_axes, message = FALSE}
-get_axes(vector_patches, "class")
+get_axes(vector_patches, class_col = "class")
 ```
 
 ## Contributing

@@ -83,7 +83,7 @@ plot(vector_landscape)
 
 ``` r
 ## Shape index
-vm_p_shape(vector_landscape, class = "class")
+vm_p_shape(vector_landscape, class_col = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
@@ -96,7 +96,7 @@ vm_p_shape(vector_landscape, class = "class")
 #> 3 patch 3     3     shape   4.80
 
 ## Number of patches
-vm_c_np(vector_landscape, class = "class")
+vm_c_np(vector_landscape, class_col = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
 #> # A tibble: 3 x 5
 #>   level class id    metric value
@@ -134,7 +134,7 @@ geometries from aggregated shapes and analyze each shape’s properties
 seperately.
 
 ``` r
-vector_patches = get_patches(vector_landscape, class = "class", direction = 4)
+vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
 vector_patches
 #> Simple feature collection with 40 features and 2 fields
 #> Geometry type: POLYGON
@@ -164,7 +164,7 @@ vector_patches |>
 ``` r
 
 ## Shape index
-vm_p_shape(vector_patches, class = "class", patch_id = "patch")
+vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
 #> # A tibble: 40 x 5
 #>    level class id    metric value
 #>    <chr> <chr> <chr> <chr>  <dbl>
@@ -181,7 +181,7 @@ vm_p_shape(vector_patches, class = "class", patch_id = "patch")
 #> # i 30 more rows
 
 ## Number of patches
-vm_c_np(vector_patches, class = "class")
+vm_c_np(vector_patches, class_col = "class")
 #> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
@@ -204,20 +204,20 @@ useful information itself, `get_axes()` was exported as seperate
 function.
 
 ``` r
-get_axes(vector_patches, "class")
+get_axes(vector_patches, class_col = "class")
 #> # A tibble: 40 x 6
-#>    level class    id metric    major minor
-#>    <chr> <int> <int> <chr>     <dbl> <dbl>
-#>  1 patch     1     1 main_axes 10.8   5.28
-#>  2 patch     1     2 main_axes  9.64  7.84
-#>  3 patch     1     3 main_axes  8.38  5.16
-#>  4 patch     1     4 main_axes  3.6   2.22
-#>  5 patch     1     5 main_axes  1.42  1.42
-#>  6 patch     1     6 main_axes  1.42  1.42
-#>  7 patch     1     7 main_axes  1.42  1.42
-#>  8 patch     1     8 main_axes  4.24  2.82
-#>  9 patch     1     9 main_axes  1.42  1.42
-#> 10 patch     1    10 main_axes  1.42  1.42
+#>    level class id    metric    major minor
+#>    <chr> <chr> <chr> <chr>     <dbl> <dbl>
+#>  1 patch 1     1     main_axes 10.8   5.28
+#>  2 patch 1     2     main_axes  9.64  7.84
+#>  3 patch 1     3     main_axes  8.38  5.16
+#>  4 patch 1     4     main_axes  3.6   2.22
+#>  5 patch 1     5     main_axes  1.42  1.42
+#>  6 patch 1     6     main_axes  1.42  1.42
+#>  7 patch 1     7     main_axes  1.42  1.42
+#>  8 patch 1     8     main_axes  4.24  2.82
+#>  9 patch 1     9     main_axes  1.42  1.42
+#> 10 patch 1     10    main_axes  1.42  1.42
 #> # i 30 more rows
 ```
 
