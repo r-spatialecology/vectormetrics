@@ -27,21 +27,23 @@ vm_p_enn <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=FALSE)
 
   # create a vector to storage all the output of  "for" loop
-  enn <- c()
+  enn <- vector(mode = "numeric", length = nrow(landscape_poly))
   for (i in seq_len(nrow(landscape_poly))) {
-    c <- sf::st_set_geometry(landscape_poly[i, ], NULL)
-    c <- as.numeric(c)
+    c <- landscape_poly[i, ] |>
+      sf::st_drop_geometry() |>
+      dplyr::pull(!!class_col) |>
+      as.character()
 
     landscape_point_1 <- sf::st_cast(landscape_poly[i, ], "POINT", warn = FALSE)
     landscape_point_2 <- sf::st_cast(landscape_poly[-i, ], "POINT", warn = FALSE)
 
     # create another vector to storage all the output of this "for" loop
-    min_dis <- c()
+    min_dis <- vector(mode = "numeric", length = nrow(landscape_point_1))
     for (k in seq_len(nrow(landscape_point_1))) {
       # obtain the distance of each point of the processing patch(polygon)
       # to all the points of other polygons belonging to the same class
-      dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2$landcover == c, ])
-
+      dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2[, class_col, drop = TRUE] == c, ])
+      
       # the closest distance of each point of the patch to all the points of other patches
       min_dis[k] <- min(dis)
     }

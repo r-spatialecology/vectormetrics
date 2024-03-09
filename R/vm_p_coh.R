@@ -38,10 +38,11 @@ vm_p_coh <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000) {
     geom <- landscape[i, ]
     points <- get_igp(geom, n) |> sf::st_as_sf()
 
-    m <- c()
-    for (j in seq_len(length(points))){
+    n_points <- nrow(points)
+    m <- vector(mode = "numeric", length = n_points^2)
+    for (j in seq_len(nrow(points))){
       point <- points[j, ]
-      m <- c(m, geos::geos_distance(point, points))
+      m[((j - 1) * n_points + 1):(j * n_points)] <- geos::geos_distance(point, points)
     }
     m[m == 0] <- NA
     landscape$avg_distance <- mean(m, na.rm = TRUE)
