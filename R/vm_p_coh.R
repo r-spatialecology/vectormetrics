@@ -36,12 +36,12 @@ vm_p_coh <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000) {
 
   for (i in seq_len(nrow(landscape))) {
     geom <- landscape[i, ]
-    points <- get_igp(geom, n) |> sf::st_as_sf()
+    points <- get_igp(geom, n) |> geos::as_geos_geometry()
 
-    n_points <- nrow(points)
+    n_points <- length(points)
     m <- vector(mode = "numeric", length = n_points^2)
-    for (j in seq_len(nrow(points))){
-      point <- points[j, ]
+    for (j in seq_len(n_points)){
+      point <- points[j]
       m[((j - 1) * n_points + 1):(j * n_points)] <- geos::geos_distance(point, points)
     }
     m[m == 0] <- NA
