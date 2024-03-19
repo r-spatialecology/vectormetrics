@@ -8,8 +8,8 @@ diamond <- list(cbind(c(0,4,8,4,0), c(0,2,0,-2,0))) |> sf::st_polygon() |>
 sf::st_geometry(diamond) <- "geometry"
 diamond$class <- 1
 
-circle <- sf::st_point(c(0, 0)) |> sf::st_buffer(1) |>
-  sf::st_sfc() |> sf::st_sf(crs = "EPSG:2180")
+circle <- sf::st_point(c(22220, 22220)) |> sf::st_sfc(crs = "EPSG:2180") |>
+  sf::st_buffer(1L) |> sf::st_sf()
 sf::st_geometry(circle) <- "geometry"
 circle$class <- 1
 
@@ -17,3 +17,8 @@ squaretxt <- list(cbind(c(0,1,1,0,0), c(0,0,1,1,0))) |> sf::st_polygon() |>
   sf::st_sfc() |> sf::st_sf(crs = "EPSG:2180")
 sf::st_geometry(squaretxt) <- "geometry"
 squaretxt$class <- "text"
+
+# sf_use_s2(FALSE)
+# st_inscribed_circle(circle$geometry) |> sf::st_area()
+# sf::st_area(circle)
+# st_is_valid(circle)

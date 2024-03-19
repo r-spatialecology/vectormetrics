@@ -1,7 +1,6 @@
 ---
 output:
-  github_document:
-    html_preview: false
+  github_document
 ---
 
 <!-- To render, run:
@@ -29,8 +28,8 @@ knitr::opts_chunk$set(
 
 `vectormetrics` is a R package for calculating landscape and shape metrics for vector layers.
 Its aim is to provide a set of metrics that can characterize landscape patterns and properties of the shapes defined as polygons and multipolygons.
-Whole package is based on Simple Feature geometry format provided by `sf` package.
-Every function can be used in a piped workflow, as it always takes the data as the first argument and returns a `tibble`.
+Whole package is based on Simple Feature geometry standard provided by **sf** package.
+Every function can be used in a tidy, piped workflow, as it always takes the data as the first argument and returns a `tibble`.
 
 ## Installation
 
@@ -53,7 +52,7 @@ remotes::install_github("Nowosad/vectormetrics")
 All functions in `landscapemetrics` start with *vm_* (for vector landscape metrics).
 The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
 The last part of the function name is the abbreviation of the corresponding metric (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for the rectangularity).
-Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (e.g. mean, sd).
+Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (*e.g. *mean*, sd*).
 
 ```{r function_names, eval = FALSE}
 # Patch level
@@ -78,8 +77,8 @@ Some examples of calculating metrics on all levels and with different class and 
 
 ```{r vector_landscape}
 library(vectormetrics)
-
-vector_landscape = sf::st_as_sf(vector_landscape)
+library(sf)
+data("vector_landscape")
 plot(vector_landscape)
 ```
 
@@ -100,9 +99,9 @@ vm_l_square_mn(vector_landscape)
 ### Utility functions
 
 For now there are two utility functions available in the package.
-First one is `get_patches()` which breaks Multipolygon geometries into Polygons.
-There are two types of neighbourhood relations available: 4 (edge) and 8 (vertex).
-This function enables user to create set of geometries from aggregated shapes and analyze each shape's properties seperately.
+First one is `get_patches()` which breaks multipolygon geometries into polygons.
+There are two types of neighborhood relations available: 4 (edge) and 8 (vertex).
+This function enables users to create set of geometries from aggregated shapes and analyze each shape's properties separately.
 
 ```{r get_patches, message = FALSE}
 vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
@@ -123,7 +122,7 @@ vm_l_square_mn(vector_patches)
 ```
 
 Another utility function is `get_axes()` which calculates the length of the major and minor axes of the shape.
-It is used to calculate the elongation metric in `vm_p_elong()` but since length of axes might be useful information itself, `get_axes()` was exported as seperate function.
+It is used to calculate the elongation metric in `vm_p_elong()` but since length of axes might be useful information itself, `get_axes()` was exported as a separate function.
 
 ```{r get_axes, message = FALSE}
 get_axes(vector_patches, class_col = "class")

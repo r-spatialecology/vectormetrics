@@ -1,6 +1,6 @@
 #' @title Get patches from polygon landscape
 #'
-#' @description Convert multipolygons to seperate polygons based on chosen neighbourhood type.
+#' @description Convert multipolygons to separate polygons based on chosen neighbourhood type.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param direction 4 or 8

@@ -19,7 +19,7 @@ testthat::test_that("check vm_p_girth result structure", {
     nrow(vector_patches)
   )
   expect_true(all(
-    vector_patches |> dplyr::inner_join(vm_p_girth(vector_patches, "class", "patch"), by = c("patch" = "id")) |> 
+    vector_patches |> dplyr::inner_join(vm_p_girth(vector_patches, "class", "patch"), by = c("patch" = "id")) |>
       dplyr::mutate(same_class = class.x == class.y) |> dplyr::pull(same_class)
   ))
   expect_type(vm_p_girth(square, "class")$class, "character")

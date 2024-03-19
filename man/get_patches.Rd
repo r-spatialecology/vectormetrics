@@ -20,7 +20,7 @@ get_patches(landscape, class_col, direction = 4)
 sf object with exploded polygons
 }
 \description{
-Convert multipolygons to seperate polygons based on chosen neighbourhood type.
+Convert multipolygons to separate polygons based on chosen neighbourhood type.
 }
 \examples{
 get_patches(vector_landscape, "class", direction = 4)

@@ -20,7 +20,7 @@ vm_p_fullness <- function(landscape, class_col = NULL, patch_col = NULL, n = 100
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    message("MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.")
+    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
   }
   if (n < 1000){
     warning("Low number of local neighbourhoods, result might be biased.")
