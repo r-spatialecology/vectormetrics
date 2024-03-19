@@ -17,9 +17,9 @@ rmarkdown::render("README.Rmd")
 metrics for vector layers. Its aim is to provide a set of metrics that
 can characterize landscape patterns and properties of the shapes defined
 as polygons and multipolygons. Whole package is based on Simple Feature
-geometry format provided by `sf` package. Every function can be used in
-a piped workflow, as it always takes the data as the first argument and
-returns a `tibble`.
+geometry standard provided by **sf** package. Every function can be used
+in a tidy, piped workflow, as it always takes the data as the first
+argument and returns a `tibble`.
 
 ## Installation
 
@@ -47,8 +47,8 @@ landscape metrics). The second part of the name specifies the level
 function name is the abbreviation of the corresponding metric
 (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for
 the rectangularity). Some landscape and class level functions have also
-a suffix at the end, that specifies the aggregation method (e.g. mean,
-sd).
+a suffix at the end, that specifies the aggregation method
+(*e.g. *mean*, sd*).
 
 ``` r
 # Patch level
@@ -74,8 +74,9 @@ class and patch columns.
 
 ``` r
 library(vectormetrics)
-
-vector_landscape = sf::st_as_sf(vector_landscape)
+library(sf)
+#> Linking to GEOS 3.12.1, GDAL 3.7.3, PROJ 9.2.1; sf_use_s2() is TRUE
+data("vector_landscape")
 plot(vector_landscape)
 ```
 
@@ -84,11 +85,11 @@ plot(vector_landscape)
 ``` r
 ## Shape index
 vm_p_shape(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 3 x 5
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> # A tibble: 3 × 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <dbl>
 #> 1 patch 1     1     shape   5.06
@@ -97,8 +98,8 @@ vm_p_shape(vector_landscape, class_col = "class")
 
 ## Number of patches
 vm_c_np(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 3 x 5
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> # A tibble: 3 × 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np         1
@@ -107,18 +108,18 @@ vm_c_np(vector_landscape, class_col = "class")
 
 ## Largest patch index
 vm_l_lpi(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 1 x 5
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> # A tibble: 1 × 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  lpi     49.7
 
 ## Mean squareness
 vm_l_square_mn(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to seperate polygons with 'get_patches()'.
-#> # A tibble: 1 x 5
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> # A tibble: 1 × 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.232
@@ -127,11 +128,11 @@ vm_l_square_mn(vector_landscape)
 ### Utility functions
 
 For now there are two utility functions available in the package. First
-one is `get_patches()` which breaks Multipolygon geometries into
-Polygons. There are two types of neighbourhood relations available: 4
-(edge) and 8 (vertex). This function enables user to create set of
+one is `get_patches()` which breaks multipolygon geometries into
+polygons. There are two types of neighborhood relations available: 4
+(edge) and 8 (vertex). This function enables users to create set of
 geometries from aggregated shapes and analyze each shape’s properties
-seperately.
+separately.
 
 ``` r
 vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
@@ -165,7 +166,7 @@ vector_patches |>
 
 ## Shape index
 vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
-#> # A tibble: 40 x 5
+#> # A tibble: 40 × 5
 #>    level class id    metric value
 #>    <chr> <chr> <chr> <chr>  <dbl>
 #>  1 patch 1     1     shape   1.66
@@ -178,11 +179,11 @@ vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
 #>  8 patch 1     8     shape   1.15
 #>  9 patch 1     9     shape   1.13
 #> 10 patch 1     10    shape   1.13
-#> # i 30 more rows
+#> # ℹ 30 more rows
 
 ## Number of patches
 vm_c_np(vector_patches, class_col = "class")
-#> # A tibble: 3 x 5
+#> # A tibble: 3 × 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np        19
@@ -191,7 +192,7 @@ vm_c_np(vector_patches, class_col = "class")
 
 ## Mean squareness
 vm_l_square_mn(vector_patches)
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.845
@@ -200,12 +201,12 @@ vm_l_square_mn(vector_patches)
 Another utility function is `get_axes()` which calculates the length of
 the major and minor axes of the shape. It is used to calculate the
 elongation metric in `vm_p_elong()` but since length of axes might be
-useful information itself, `get_axes()` was exported as seperate
+useful information itself, `get_axes()` was exported as a separate
 function.
 
 ``` r
 get_axes(vector_patches, class_col = "class")
-#> # A tibble: 40 x 6
+#> # A tibble: 40 × 6
 #>    level class id    metric    major minor
 #>    <chr> <chr> <chr> <chr>     <dbl> <dbl>
 #>  1 patch 1     1     main_axes 10.8   5.28
@@ -218,7 +219,7 @@ get_axes(vector_patches, class_col = "class")
 #>  8 patch 1     8     main_axes  4.24  2.82
 #>  9 patch 1     9     main_axes  1.42  1.42
 #> 10 patch 1     10    main_axes  1.42  1.42
-#> # i 30 more rows
+#> # ℹ 30 more rows
 ```
 
 ## Contributing

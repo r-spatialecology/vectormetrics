@@ -1,7 +1,7 @@
 #' Calculate coefficient of variation
 #' @param x numeric vector
 #' @keywords internal
-#' @NoRd
+#' @noRd
 
 vm_cv <- function(x, na_rm = FALSE){
   x_mean <- mean(x, na.rm = na_rm)
@@ -15,7 +15,7 @@ vm_cv <- function(x, na_rm = FALSE){
 #' @param shape sf object
 #' @param n number of points to generate
 #' @keywords internal
-#' @NoRd
+#' @noRd
 get_ibp <- function(shape, n = 100){
   sf::st_agr(shape) <- "constant"
   ibp = shape |> sf::st_boundary() |> sf::st_sample(n)|> sf::st_cast("POINT")
@@ -27,7 +27,7 @@ get_ibp <- function(shape, n = 100){
 #' @param shape sf object
 #' @param n number of points to generate
 #' @keywords internal
-#' @NoRd
+#' @noRd
 get_igp <- function(shape, n = 1000){
   points <- shape |>
     sf::st_sample(size = n, type = "regular") |>
@@ -40,7 +40,7 @@ get_igp <- function(shape, n = 1000){
 #' @param class_col class column name
 #' @param patch_col patch ID column name
 #' @keywords internal
-#' @NoRd
+#' @noRd
 prepare_columns <- function(landscape, class_col, patch_col){
   if (is.null(patch_col)){
     patch_col <- "id"
