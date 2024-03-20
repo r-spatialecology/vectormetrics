@@ -14,11 +14,11 @@ Authors@R:
              role = "aut", 
              comment = c(ORCID = "0000-0003-1125-9918")),
       person("Yunyao", "Ma", role = "aut"))
-Description: Package calculates landscape and shape metrics for categorical landscape patterns in 
-    a tidy workflow. 'vectormetrics' reimplements the most common landscapemetrics from
-    'FRAGSTATS' (<https://www.fragstats.org/>) and 'landscapemetrics' (<https://r-spatialecology.github.io/landscapemetrics/>) and 
-    adds many new metrics relating to shape of polygons, based on literature. This package supports Simple Feature objects 
-    as input arguments. It further provides utility functions to break multipolygon patches or calculate main axes of the shape.
+Description: Package calculates landscape and shape metrics for categorical landscape patterns described as vector layers, in 
+    a tidy, piped workflow. 'vectormetrics' reimplements the most common landscapemetrics from 'FRAGSTATS' (<https://www.fragstats.org/>)
+    and 'landscapemetrics' (<https://r-spatialecology.github.io/landscapemetrics/>) and adds many new metrics relating to the shape of polygons.
+    This package supports Simple Feature objects as input arguments. It further provides utility functions to break multipolygon patches
+    or calculate main axes of the shape.
 License: GPL-3
 Depends: 
     R (>= 4.1)
@@ -32,7 +32,6 @@ Imports:
     sf,
     tibble
 Suggests: 
-    sp,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3

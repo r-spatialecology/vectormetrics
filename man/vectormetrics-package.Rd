@@ -6,7 +6,7 @@
 \alias{vectormetrics-package}
 \title{vectormetrics: Landscape Metrics for Categorical Map Patterns in Vector Data}
 \description{
-Package calculates landscape and shape metrics for categorical landscape patterns in a tidy workflow. 'vectormetrics' reimplements the most common landscapemetrics from 'FRAGSTATS' (\url{https://www.fragstats.org/}) and 'landscapemetrics' (\url{https://r-spatialecology.github.io/landscapemetrics/}) and adds many new metrics relating to shape of polygons, based on literature. This package supports Simple Feature objects as input arguments. It further provides utility functions to break multipolygon patches or calculate main axes of the shape.
+Package calculates landscape and shape metrics for categorical landscape patterns described as vector layers, in a tidy, piped workflow. 'vectormetrics' reimplements the most common landscapemetrics from 'FRAGSTATS' (<https://www.fragstats.org/>) and 'landscapemetrics' (<https://r-spatialecology.github.io/landscapemetrics/>) and adds many new metrics relating to the shape of polygons. This package supports Simple Feature objects as input arguments. It further provides utility functions to break multipolygon patches or calculate main axes of the shape.
 }
 \author{
 \strong{Maintainer}: Tomasz Matuszek \email{tom.mateuszek@gmail.com}
