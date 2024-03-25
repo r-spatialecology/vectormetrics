@@ -1,29 +1,26 @@
 #' @title the patch density in the whole landscape(vector data)
+#' 
 #' @description This metric is based on categorical landscape in vector data format. The density is the number of patches of the whole landscape
 #' relative to the total landscape area. Then the number is standardised, so that the comparison among different landscape is possible.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
-
-#' @return  the returned calculated density of each class is in column "value",
-#' and this function returns also some important information such as level and metric name,
-#' Moreover, class number and the "id" column, although both are "NA" here in the landscape level
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_l_pd(vector_landscape, "class")
-
+#' vm_l_pd(vector_landscape)
 #' @export
-vm_l_pd <- function(landscape, class){
-  area <- vm_p_area(landscape, class)
-  pa_num <- length(area$class)
-  A <- sum(area$value*10000)
-  pd <- pa_num / A * 10000 * 100
+
+vm_l_pd <- function(landscape){
+  n_patches <- vm_l_np(landscape)$value
+  area <- vm_p_area(landscape)
+  area_sum <- sum(area$value * 10000)
+  pd <- n_patches / area_sum * 100
+
   # return results tibble
-  tibble::tibble(
+  tibble::new_tibble(list(
     level = "landscape",
-    class = as.integer(NA),
-    id = as.integer(NA),
+    class = as.character(NA),
+    id = as.character(NA),
     metric = "pd",
     value = as.double(pd)
-  )
+  ))
 }

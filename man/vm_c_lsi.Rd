@@ -4,12 +4,12 @@
 \alias{vm_c_lsi}
 \title{Landscape shape index (vector data)}
 \usage{
-vm_c_lsi(landscape, class)
+vm_c_lsi(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index are in column "value",
@@ -23,7 +23,5 @@ and the hypothetical minimum edge length of class i in a categorical landscape i
 The minimum edge length equals the edge length if class i would be maximally aggregated
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_lsi(vector_landscape, "class")
 }

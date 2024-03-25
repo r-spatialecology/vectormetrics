@@ -4,12 +4,12 @@
 \alias{vm_l_shei}
 \title{Shannons's evenness index (vector data)}
 \usage{
-vm_l_shei(landscape, class)
+vm_l_shei(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index is in column "value",
@@ -22,7 +22,5 @@ in a categorical landscape in vector data format, Shannons's evenness index is d
 It is the ratio between the actual Shannon's diversity index and and the theoretical maximum of the Shannon diversity index
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_l_shei(vector_landscape, "class")
 }

@@ -4,15 +4,18 @@
 \alias{vm_p_area}
 \title{AREA (patch level)}
 \usage{
-vm_p_area(landscape, class)
+vm_p_area(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{sf* object.}
 
-\item{class}{Column in sf* object indicating the land use type}
+\item{class_col}{the name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
-tibble
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 Patch area (Area and edge metric)
@@ -32,8 +35,7 @@ metric is the simplest measure of composition.
 \subsection{Behaviour}{Increases, without limit, as the patch size increases.}
 }
 \examples{
-vm_p_area(vector_landscape, "class")
-
+vm_p_area(vector_patches, "class", "patch")
 }
 \references{
 McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis

@@ -4,12 +4,12 @@
 \alias{vm_c_frac_sd}
 \title{The standard deviation of the fractal dimension index of all patches in each class(vector data)}
 \usage{
-vm_c_frac_sd(landscape, class)
+vm_c_frac_sd(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image, should in "POLYGON" or "MULTIPOLYGON" form.}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated standard deviation of each class is in column "value",
@@ -23,7 +23,5 @@ of fractal dimension index of all patches belonging to class i in a categorical 
 The index is based on the patch perimeter and the patch area and describes the patch complexity
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_frac_sd(vector_landscape, "class")
 }

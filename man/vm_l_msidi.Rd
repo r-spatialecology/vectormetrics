@@ -4,12 +4,12 @@
 \alias{vm_l_msidi}
 \title{Modified Simpson's diversity index (vector data)}
 \usage{
-vm_l_msidi(landscape, class)
+vm_l_msidi(landscape, class_col)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
+\item{landscape}{the input landscape image}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index is in column "value",
@@ -21,7 +21,5 @@ This function allows you to calculate the Modified Simpson's diversity index
 in a categorical landscape in vector data format, Modified Simpson's diversity index is diversity index
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_l_msidi(vector_landscape, "class")
 }

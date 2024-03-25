@@ -4,12 +4,12 @@
 \alias{vm_c_pd}
 \title{the patch density in each class(vector data)}
 \usage{
-vm_c_pd(landscape, class)
+vm_c_pd(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated density of each class is in column "value",
@@ -22,7 +22,5 @@ This metric is based on categorical landscape in vector data format. The density
 relative to the total landscape area. Then the number is standardised, so that the comparison among different landscape is possible.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_pd(vector_landscape, "class")
 }

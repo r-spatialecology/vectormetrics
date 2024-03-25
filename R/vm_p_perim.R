@@ -1,49 +1,39 @@
-#' @title The perimeter of each patches(vector data)
+#' @title The perimeter of patch(vector data)
 #'
-#' @description This function allows you to calculate the perimeter of each patches in a categorical landscape in vector data format
+#' @description This function allows you to calculate the perimeter of each patch in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
-#' @return  the returned calculated perimeter of all patches is in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
-#' st_p_area(vector_landscape, "class")
+#' @param class_col the name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
+#' @examples
+#' vm_p_perim(vector_patches, "class", "patch")
 #' @export
 
-vm_p_perim <- function(landscape, class) {
-
+vm_p_perim <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
-  landscape <- landscape[, c("class", "geometry")]
-
-  # extract the multipolygon, cast to single polygons (patch level)
-
-  if(any(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    multi <- landscape[sf::st_geometry_type(landscape)=="MULTIPOLYGON", ]
-    landscape_multi<- sf::st_cast(multi, "POLYGON", warn = FALSE)
-    landscape_poly <- landscape[sf::st_geometry_type(landscape)=="POLYGON", ]
-    landscape <- rbind(landscape_multi, landscape_poly)
-  }
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   # cast then to multilinestring
-  landscape_cast_2 <- sf::st_cast(landscape, "MULTILINESTRING", warn = FALSE)
+  landscape_cast <- sf::st_boundary(landscape)
 
   # calculate the length of each multilinestring, that is the perimeter of each polygon as well
-  landscape_cast_2$perim <- sf::st_length(landscape_cast_2)
+  landscape_cast$perim <- sf::st_length(landscape_cast)
 
   # return results tibble
-  class_ids <- sf::st_set_geometry(landscape, NULL)
-
-  tibble::tibble(
-    level = "patch",
-    class = as.integer(class_ids[, 1]),
-    id = as.integer(1:nrow(landscape_cast_2)),
-    metric = "perim",
-    value = as.double(landscape_cast_2$perim)
-  )
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
+    metric = rep("perim", nrow(landscape)),
+    value = as.double(landscape_cast$perim)
+  ))
 }

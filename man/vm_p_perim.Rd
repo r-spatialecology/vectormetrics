@@ -2,22 +2,24 @@
 % Please edit documentation in R/vm_p_perim.R
 \name{vm_p_perim}
 \alias{vm_p_perim}
-\title{The perimeter of each patches(vector data)}
+\title{The perimeter of patch(vector data)}
 \usage{
-vm_p_perim(landscape, class)
+vm_p_perim(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
-the returned calculated perimeter of all patches is in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-st_p_area(vector_landscape, "class")
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
-This function allows you to calculate the perimeter of each patches in a categorical landscape in vector data format
+This function allows you to calculate the perimeter of each patch in a categorical landscape in vector data format
+}
+\examples{
+vm_p_perim(vector_patches, "class", "patch")
 }

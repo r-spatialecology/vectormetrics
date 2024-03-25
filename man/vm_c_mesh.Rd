@@ -4,12 +4,12 @@
 \alias{vm_c_mesh}
 \title{Effective Mesh Size (vector data)}
 \usage{
-vm_c_mesh(landscape, class)
+vm_c_mesh(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated values are in column "value",
@@ -23,7 +23,5 @@ the calculate process is, each patch is squared before the sums for each class i
 and the sum is standardized by the total landscape area. it is a aggregation metric.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_mesh(vector_landscape, "class")
 }

@@ -4,12 +4,12 @@
 \alias{vm_c_enn_cv}
 \title{The coefficient of variation of Euclidean Nearest-Neighbor Distance of all patches at class level(vector data)}
 \usage{
-vm_c_enn_cv(landscape, class)
+vm_c_enn_cv(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated coefficient of variation of each class is in column "value",
@@ -24,7 +24,5 @@ Euclidean Nearest-Neighbor Distance means the distance from a patch edge to the 
 same class.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_enn_cv(vector_landscape, "class")
 }

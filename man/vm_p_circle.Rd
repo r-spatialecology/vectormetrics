@@ -2,25 +2,51 @@
 % Please edit documentation in R/vm_p_circle.R
 \name{vm_p_circle}
 \alias{vm_p_circle}
-\title{Ratio between the patch area and the smallest circumscribing circle of the patch.}
+\title{CIRCLE (patch level)}
 \usage{
-vm_p_circle(landscape, class)
+vm_p_circle(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
+\item{landscape}{*sf* MULTIPOLYGON or POLYGON feature}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{Name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
-the function returns the calculated ratio of all patches in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
-This function allows you to calculate the ratio between the patch area and the smallest circumscribing circle of the patch.
-The diameter of the smallest circumscribing circle is the The distance between the two farthest points on the patch.
+Related Circumscribing Circle (Shape metric)
+}
+\details{
+\deqn{CIRCLE = 1 - (\frac{a_{ij}} {a_{ij}^{circle}})}
+where \eqn{a_{ij}} is the area in square meters and \eqn{a_{ij}^{circle}} the area of
+the smallest circumscribing circle.
+
+CIRCLE is a 'Shape metric'. The metric is the ratio between the patch area and the smallest
+circumscribing circle of the patch. The diameter of the smallest circumscribing circle is
+the 'diameter' of the patch connecting the opposing corner points of the polygon
+that are the furthest away from each other. The metric characterises the compactness
+of the patch and is comparable among patches with different area.
+
+\subsection{Units}{None}
+\subsection{Range}{0 <= CIRCLE < 1}
+\subsection{Behaviour}{CIRCLE = 0 for a circular patch and approaches CIRCLE = 1 for
+a linear patch.}
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_p_circle(vector_landscape, "class")
+vm_p_circle(vector_patches, "class", "patch")
+
+}
+\references{
+McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
+Program for Categorical and Continuous Maps. Computer software program produced by
+the authors at the University of Massachusetts, Amherst. Available at the following
+web site: http://www.umass.edu/landeco/research/fragstats/fragstats.html
+
+Baker, W. L., and Y. Cai. 1992. The r.le programs for multiscale analysis of
+landscape structure using the GRASS geographical information system.
+Landscape Ecology 7: 291-302.
 }

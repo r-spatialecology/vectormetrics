@@ -4,12 +4,12 @@
 \alias{vm_c_cai_mn}
 \title{The mean value of core area index at class level(vector data)}
 \usage{
-vm_c_cai_mn(landscape, class, edge_depth)
+vm_c_cai_mn(landscape, class_col, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
@@ -24,7 +24,5 @@ This function allows you to calculate the mean value
 of ratio of the core area and the area belonging to one class in a categorical landscape in vector data format
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_cai_mn(vector_landscape, "class", edge_depth = 1)
 }

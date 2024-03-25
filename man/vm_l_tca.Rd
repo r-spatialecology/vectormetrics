@@ -4,12 +4,10 @@
 \alias{vm_l_tca}
 \title{The total core area of the whole landscape(vector data)}
 \usage{
-vm_l_tca(landscape, class, edge_depth)
+vm_l_tca(landscape, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
@@ -23,7 +21,5 @@ This function allows you to calculate the total core area
 in a categorical landscape in vector data format
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_l_tca(vector_landscape, "class", edge_depth= 1)
+vm_l_tca(vector_landscape, edge_depth= 1)
 }

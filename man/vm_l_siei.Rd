@@ -4,12 +4,12 @@
 \alias{vm_l_siei}
 \title{Simpson's evenness index (vector data)}
 \usage{
-vm_l_siei(landscape, class)
+vm_l_siei(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated index is in column "value",
@@ -22,7 +22,5 @@ in a categorical landscape in vector data format, Simpson's evenness index is di
 It is the ratio between the actual Simpson's diversity index and the theoretical maximum Simpson's diversity index
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_l_sidi(vector_landscape, "class")
 }

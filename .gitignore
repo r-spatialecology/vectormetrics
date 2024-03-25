@@ -1,3 +1,8 @@
 .Rproj.user
 .Rhistory
 .RData
+
+.lintr
+/R/sf_versions
+profile.out
+profiling.R

@@ -4,12 +4,10 @@
 \alias{vm_l_shape_mn}
 \title{The mean value of Shape index of landscape (vector data)}
 \usage{
-vm_l_shape_mn(landscape, class)
+vm_l_shape_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated mean value of each class is in column "value",
@@ -24,7 +22,5 @@ The minimum perimeter equals the perimeter if the patch would be maximally compa
 the perimeter of a circle with the same area of the patch.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_l_shape_mn(vector_landscape, "class")
+vm_l_shape_mn(vector_landscape)
 }

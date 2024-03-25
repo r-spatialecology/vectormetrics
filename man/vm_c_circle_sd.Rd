@@ -5,12 +5,12 @@
 \title{The standard deviation of Ratios between the patch area
 and the smallest circumscribing circle of patches at class level(vector data)}
 \usage{
-vm_c_circle_sd(landscape, class)
+vm_c_circle_sd(landscape, class_col)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated standard deviation of ratios of each class is in column "value",
@@ -23,7 +23,5 @@ This function allows you to calculate the standard deviation of ratios of each c
 the ratio is the patch area relative to area of the smallest circumscribing circle of the patch
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
 vm_c_circle_sd(vector_landscape, "class")
 }

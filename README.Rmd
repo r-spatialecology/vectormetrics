@@ -1,7 +1,12 @@
 ---
-output: github_document
+output:
+  github_document
 ---
 
+<!-- To render, run:
+Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")
+rmarkdown::render("README.Rmd")
+-->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -12,41 +17,117 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-[![Travis build status](https://travis-ci.org/marcosci/vectormetrics.svg?branch=master)](https://travis-ci.org/marcosci/vectormetrics)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/marcosci/vectormetrics?branch=master&svg=true)](https://ci.appveyor.com/project/marcosci/vectormetrics)
+<!-- badges: start -->
+<!--
+[![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
+[![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
+-->
+<!-- badges: end -->
 
-# vectormetrics
+## Overview
 
-The goal of vectormetrics is to ...
+`vectormetrics` is a R package for calculating landscape and shape metrics for vector layers.
+Its aim is to provide a set of metrics that can characterize landscape patterns and properties of the shapes defined as polygons and multipolygons.
+Whole package is based on Simple Feature geometry standard provided by **sf** package.
+Every function can be used in a tidy, piped workflow, as it always takes the data as the first argument and returns a `tibble`.
 
 ## Installation
 
-You can install the released version of vectormetrics from [CRAN](https://CRAN.R-project.org) with:
+<!--You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
 
-``` r
+```{r install_cran, eval = FALSE}
 install.packages("vectormetrics")
 ```
+-->
+You can download most recent development version of the package from GitHub with:
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-## basic example code
+```{r install_github, eval = FALSE}
+remotes::install_github("Nowosad/vectormetrics")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Using vectormetrics
 
-```{r cars}
-summary(cars)
+### Function names structure
+
+All functions in `landscapemetrics` start with *vm_* (for vector landscape metrics).
+The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
+The last part of the function name is the abbreviation of the corresponding metric (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for the rectangularity).
+Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (*e.g. *mean*, sd*).
+
+```{r function_names, eval = FALSE}
+# Patch level
+## vm_p_"metric"
+vm_p_area()
+vm_p_square()
+
+# Class level
+## vm_c_"metric"[_"aggregation"]
+vm_c_np()
+vm_c_shape_sd()
+
+# Landscape level
+## vm_l_"metric"[_"aggregation"]
+vm_l_lpi()
+vm_l_square_mn()
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+### Examples
 
-You can also embed plots, for example:
+Some examples of calculating metrics on all levels and with different class and patch columns.
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r vector_landscape}
+library(vectormetrics)
+library(sf)
+data("vector_landscape")
+plot(vector_landscape)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+```{r simple_examples}
+## Shape index
+vm_p_shape(vector_landscape, class_col = "class")
+
+## Number of patches
+vm_c_np(vector_landscape, class_col = "class")
+
+## Largest patch index
+vm_l_lpi(vector_landscape)
+
+## Mean squareness
+vm_l_square_mn(vector_landscape)
+```
+
+### Utility functions
+
+For now there are two utility functions available in the package.
+First one is `get_patches()` which breaks multipolygon geometries into polygons.
+There are two types of neighborhood relations available: 4 (edge) and 8 (vertex).
+This function enables users to create set of geometries from aggregated shapes and analyze each shape's properties separately.
+
+```{r get_patches, message = FALSE}
+vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
+vector_patches
+
+vector_patches |>
+  dplyr::mutate(patch = as.factor(patch)) |>
+  plot()
+
+## Shape index
+vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
+
+## Number of patches
+vm_c_np(vector_patches, class_col = "class")
+
+## Mean squareness
+vm_l_square_mn(vector_patches)
+```
+
+Another utility function is `get_axes()` which calculates the length of the major and minor axes of the shape.
+It is used to calculate the elongation metric in `vm_p_elong()` but since length of axes might be useful information itself, `get_axes()` was exported as a separate function.
+
+```{r get_axes, message = FALSE}
+get_axes(vector_patches, class_col = "class")
+```
+
+## Contributing
+
+This is an experimental version of the package, so any feedback and contributions in the form of pull requests are welcome.

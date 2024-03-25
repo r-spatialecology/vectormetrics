@@ -3,67 +3,61 @@
 #' @description This function allows you to calculate the distance to the nearest neighbouring patch of the same class in meters
 #' The distance is measured from edge-to-edge.
 #' @param landscape the input landscape image,
-#' @param class the name of the class column of the input landscape
-#' @return  the returned calculated distances of all patches are in column "value",
-#' and this function returns also some important information such as level, class, patch id and metric name.
+#' @param class_col the name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' ## if the class name of input landscape is landcover,
-#' ## then write landcover in a double quotation marks as the second parameter.
-#' vm_p_enn(vector_landscape, "class")
-
+#' vm_p_enn(vector_patches, "class", "patch")
 #' @export
-# enn
-vm_p_enn <- function(landscape, class) {
+
+vm_p_enn <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
   }
 
-  # select geometry column for spatial operations and the column that identifies
-  # the classes
-  landscape <- landscape[, c("class", "geometry")]
-
-
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   # cast then to MULTILINESTRING
-  landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=F)
+  landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=FALSE)
 
   # create a vector to storage all the output of  "for" loop
-  enn <- c()
-  for (i in 1:nrow(landscape_poly)) {
-
-    c <- sf::st_set_geometry(landscape_poly[i, ], NULL)
-    c <- as.numeric(c)
+  enn <- vector(mode = "numeric", length = nrow(landscape_poly))
+  for (i in seq_len(nrow(landscape_poly))) {
+    c <- landscape_poly[i, ] |>
+      sf::st_drop_geometry() |>
+      dplyr::pull(!!class_col) |>
+      as.character()
 
     landscape_point_1 <- sf::st_cast(landscape_poly[i, ], "POINT", warn = FALSE)
     landscape_point_2 <- sf::st_cast(landscape_poly[-i, ], "POINT", warn = FALSE)
 
     # create another vector to storage all the output of this "for" loop
-    min_dis <- c()
-    for (k in 1:nrow(landscape_point_1)) {
-
+    min_dis <- vector(mode = "numeric", length = nrow(landscape_point_1))
+    for (k in seq_len(nrow(landscape_point_1))) {
       # obtain the distance of each point of the processing patch(polygon)
       # to all the points of other polygons belonging to the same class
-      dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2$landcover == c, ])
-
-      min_dis[k] <- min(dis) # the closest distance of each point of the patch to all the points of other patches
+      dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2[, class_col, drop = TRUE] == c, ])
+      
+      # the closest distance of each point of the patch to all the points of other patches
+      min_dis[k] <- min(dis)
     }
 
-    enn[i] <- min(min_dis) # the distance of a patch to the nearest patch belonging to the same class
+    # the distance of a patch to the nearest patch belonging to the same class
+    enn[i] <- min(min_dis)
   }
 
   # return results tibble
-  class_ids <- dplyr::pull(sf::st_set_geometry(landscape, NULL), class)
-  if (class(class_ids) == "factor"){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
-  }
-  tibble::tibble(
-    level = "patch",
-    class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape_poly)),
-    metric = "enn",
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
+    metric = rep("enn", nrow(landscape)),
     value = as.double(enn)
-  )
+  ))
 }

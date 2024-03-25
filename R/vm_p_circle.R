@@ -1,9 +1,9 @@
-#' CIRCLE (patch level)
+#' @title CIRCLE (patch level)
 #'
 #' @description Related Circumscribing Circle (Shape metric)
-#'
 #' @param landscape *sf* MULTIPOLYGON or POLYGON feature
-#' @param class Name of the class column of the input landscape
+#' @param class_col Name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
 #'
 #' @details
 #' \deqn{CIRCLE = 1 - (\frac{a_{ij}} {a_{ij}^{circle}})}
@@ -20,12 +20,10 @@
 #' \subsection{Range}{0 <= CIRCLE < 1}
 #' \subsection{Behaviour}{CIRCLE = 0 for a circular patch and approaches CIRCLE = 1 for
 #' a linear patch.}
-#'
-#' @examples-
-#' vm_p_circle(vector_landscape, "class")
-#'
-#' @aliases vm_p_circle
-#' @rdname vm_p_circle
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
+#' @examples
+#' vm_p_circle(vector_patches, "class", "patch")
 #'
 #' @references
 #' McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
@@ -36,62 +34,35 @@
 #' Baker, W. L., and Y. Cai. 1992. The r.le programs for multiscale analysis of
 #' landscape structure using the GRASS geographical information system.
 #' Landscape Ecology 7: 291-302.
-#'
 #' @export
-vm_p_circle <- function(landscape, class) UseMethod("vm_p_circle")
 
-#' @name vm_p_circle
-#' @export
-vm_p_circle.sf <- function(landscape, class) {
-
+vm_p_circle <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON simple feature.")
+    stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
   }
 
-  # select geometry column for spatial operations and the column that identifies the classes
-  landscape <- landscape[, c(class, "geometry")]
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
-  # extract the multipolygon, cast to single polygons (patch level)
-  landscape <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
-
-  # cast then to MULTIPOINT
-  landscape_cast <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split = FALSE)
-
-  # compute max distant for each MULTIPOINT, which is the diameter of a circle around each patch
-  dis_max <- sapply(seq_along(dis_max), function(i){
-    landscape_point <- sf::st_cast(landscape_cast[i, ], "POINT", warn = FALSE)
-    dis <- sf::st_distance(landscape_point, by_element = F)
-    max(dis)
-  })
+  # calculate diameter of smallest circumscribing circle
+  dis_max <- vm_p_circum(landscape, class_col, patch_col)$value
 
   # calculate circle metric
-  circle_area <- vm_p_area(landscape, class)
-  circum_area <- pi * (dis_max / 2)^2
-  landscape_cast$circle <- 1 - (circle_area$value*10000/ circum_area)
-
-  # get class ids and if factor, coerce to numeric
-  class_ids <-  sf::st_set_geometry(landscape, NULL)[, class]
-  if (class(class_ids) == "factor"){
-    class_ids <- as.numeric(levels(class_ids))[class_ids]
-  }
+  circle_area <- vm_p_area(landscape, class_col, patch_col)$value * 10000
+  circum_area <- pi * (dis_max / 2) ^ 2
+  landscape$circle <- 1 - (circle_area / circum_area)
 
   # return result tibble
-  tibble::tibble(
-    level = "patch",
-    class = as.integer(class_ids),
-    id = as.integer(1:nrow(landscape_cast)),
-    metric = "circle",
-    value = as.double(landscape_cast$circle)
-  )
-
-}
-
-#' @name vm_p_circle
-#' @export
-vm_p_circle.SpatialPolygonsDataFrame <- function(landscape, class) {
-
-  vm_p_circle <- sf::st_as_sf(landscape)
-  vm_p_circle(landscape, class, edge_depth)
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
+    metric = rep("circle", nrow(landscape)),
+    value = as.double(landscape$circle)
+  ))
 
 }

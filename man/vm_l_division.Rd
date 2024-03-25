@@ -4,12 +4,10 @@
 \alias{vm_l_division}
 \title{Landscape division index of the whole landscape(vector data)}
 \usage{
-vm_l_division(landscape, class)
+vm_l_division(landscape)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
+\item{landscape}{the input landscape image}
 }
 \value{
 the returned calculated index is in column "value",
@@ -22,7 +20,5 @@ in a categorical landscape in vector data format, Landscape division index can s
 the probability that two randomly selected points are not located in the same patch
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_l_division(vector_landscape, "class")
+vm_l_division(vector_landscape)
 }

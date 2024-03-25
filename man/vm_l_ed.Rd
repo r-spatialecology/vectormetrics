@@ -4,12 +4,10 @@
 \alias{vm_l_ed}
 \title{The Edge density of the whole landscape(vector data)}
 \usage{
-vm_l_ed(landscape, class)
+vm_l_ed(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated total length of perimeter is in column "value",
@@ -21,7 +19,5 @@ This function allows you to calculate the total length of all patches
 in a categorical landscape in vector data format
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_l_ed(vector_landscape, "class")
+vm_l_ed(vector_landscape)
 }

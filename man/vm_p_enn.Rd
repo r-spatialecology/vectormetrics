@@ -4,23 +4,23 @@
 \alias{vm_p_enn}
 \title{Euclidean Nearest-Neighbor Distance(vector data)}
 \usage{
-vm_p_enn(landscape, class)
+vm_p_enn(landscape, class_col = NULL, patch_col = NULL)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 }
 \value{
-the returned calculated distances of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 This function allows you to calculate the distance to the nearest neighbouring patch of the same class in meters
 The distance is measured from edge-to-edge.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_p_enn(vector_landscape, "class")
+vm_p_enn(vector_patches, "class", "patch")
 }

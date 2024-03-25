@@ -1,9 +1,9 @@
-#' AREA (patch level)
+#' @title AREA (patch level)
 #'
 #' @description Patch area (Area and edge metric)
-#'
 #' @param landscape sf* object.
-#' @param class Column in sf* object indicating the land use type
+#' @param class_col the name of the class column of the input landscape
+#' @param patch_col the name of the id column of the input landscape
 #'
 #' @details
 #' \deqn{AREA = a_{ij} * (\frac{1} {10000})}
@@ -19,44 +19,38 @@
 #' \subsection{Range}{AREA > 0}
 #' \subsection{Behaviour}{Increases, without limit, as the patch size increases.}
 #'
-#' @return tibble
-#'
+#' @return the function returns tibble with the calculated values in column "value",
+#' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_p_area(vector_landscape, "class")
-#'
-#' @aliases vm_p_area
-#' @rdname vm_p_area
-#'
+#' vm_p_area(vector_patches, "class", "patch")
 #' @references
 #' McGarigal, K., SA Cushman, and E Ene. 2012. FRAGSTATS v4: Spatial Pattern Analysis
 #' Program for Categorical and Continuous Maps. Computer software program produced by
 #' the authors at the University of Massachusetts, Amherst. Available at the following
 #' web site: http://www.umass.edu/landeco/research/fragstats/fragstats.html
-#'
-#' @name vm_p_area
 #' @export
 
-vm_p_area <- function(landscape, class) {
-
-  # check if x argument is a multipolygon or polygon
+vm_p_area <- function(landscape, class_col = NULL, patch_col = NULL) {
+  # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     stop("Please provide POLYGON or MULTIPOLYGON")
+  } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
+    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
   }
 
-  landscape <- landscape[, c("class", "geometry")]
-
-  # if multipolygon, cast to single polygons (patch level)
-  landscape_cast <- sf::st_cast(landscape, "POLYGON", warn = FALSE)
+  # prepare class and patch ID columns
+  prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
+  landscape <- landscape[, c(class_col, patch_col)]
 
   # compute area and divide by 10000 to get hectare
-  landscape_cast$area <- sf::st_area(landscape_cast) / 10000
+  landscape$area <- sf::st_area(landscape) / 10000
 
   # return results tibble
-  tibble::tibble(
-    level = "patch",
-    class = as.numeric(as.character(landscape_cast$class)),
-    id = as.integer(seq_len(nrow(landscape_cast))),
-    metric = "area",
-    value = as.double(landscape_cast$area)
-  )
+  tibble::new_tibble(list(
+    level = rep("patch", nrow(landscape)),
+    class = as.character(landscape[, class_col, drop = TRUE]),
+    id = as.character(landscape[, patch_col, drop = TRUE]),
+    metric = rep("area", nrow(landscape)),
+    value = as.double(landscape$area)
+  ))
 }

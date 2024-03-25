@@ -2,20 +2,22 @@
 % Please edit documentation in R/vm_p_cai.R
 \name{vm_p_cai}
 \alias{vm_p_cai}
-\title{core area index(vector data)}
+\title{Core area index(vector data)}
 \usage{
-vm_p_cai(landscape, class, edge_depth)
+vm_p_cai(landscape, class_col = NULL, patch_col = NULL, edge_depth)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{class}{the name of the class column of the input landscape}
+\item{class_col}{the name of the class column of the input landscape}
+
+\item{patch_col}{the name of the id column of the input landscape}
 
 \item{edge_depth}{the fixed distance to the edge of the patch}
 }
 \value{
-the returned calculated indices of all patches are in column "value",
-and this function returns also some important information such as level, class, patch id and metric name.
+the function returns tibble with the calculated values in column "value",
+this function returns also some important information such as level, class, patch id and metric name.
 }
 \description{
 This function allows you to calculate the ratio of the core area and the area in square meters.
@@ -23,7 +25,5 @@ Core area is defined as an area that within the patch and its edge is a fixed va
 The index describes the percentage of a patch that is core area.
 }
 \examples{
-## if the class name of input landscape is landcover,
-## then write landcover in a double quotation marks as the second parameter.
-vm_p_cai(vector_landscape, "class", edge_depth = 0.8)
+vm_p_cai(vector_patches, "class", "patch", edge_depth = 0.8)
 }
