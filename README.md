@@ -5,10 +5,12 @@ rmarkdown::render("README.Rmd")
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
-<!--
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=main)
 [![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
-[![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
--->
 <!-- badges: end -->
 
 ## Overview
@@ -41,14 +43,13 @@ remotes::install_github("Nowosad/vectormetrics")
 
 ### Function names structure
 
-All functions in `landscapemetrics` start with *vm\_* (for vector
-landscape metrics). The second part of the name specifies the level
-(patch - *p*, class - *c* or landscape - *l*). The last part of the
-function name is the abbreviation of the corresponding metric
-(e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for
-the rectangularity). Some landscape and class level functions have also
-a suffix at the end, that specifies the aggregation method
-(*e.g. *mean*, sd*).
+All functions in `vectormetrics` start with *vm\_* (for vector metrics).
+The second part of the name specifies the level (patch - *p*, class -
+*c* or landscape - *l*). The last part of the function name is the
+abbreviation of the corresponding metric (e.g. *enn* for the euclidean
+nearest-neighbor distance and *rect* for the rectangularity). Some
+landscape and class level functions have also a suffix at the end, that
+specifies the aggregation method (e.g. *mean*, *sd*).
 
 ``` r
 # Patch level
@@ -75,7 +76,7 @@ class and patch columns.
 ``` r
 library(vectormetrics)
 library(sf)
-#> Linking to GEOS 3.12.1, GDAL 3.7.3, PROJ 9.2.1; sf_use_s2() is TRUE
+#> Linking to GEOS 3.12.1, GDAL 3.7.2, PROJ 9.2.1; sf_use_s2() is TRUE
 data("vector_landscape")
 plot(vector_landscape)
 ```

@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 <!-- badges: start -->
-<!--
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=main)
 [![R-CMD-check](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Nowosad/vectormetrics/actions/workflows/R-CMD-check.yaml)
-[![CodecovTestCoverage](https://codecov.io/gh/Nowosad/vectormetrics/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Nowosad/vectormetrics?branch=master)
--->
 <!-- badges: end -->
 
 ## Overview
@@ -52,7 +52,7 @@ remotes::install_github("Nowosad/vectormetrics")
 All functions in `vectormetrics` start with *vm_* (for vector metrics).
 The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
 The last part of the function name is the abbreviation of the corresponding metric (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for the rectangularity).
-Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (*e.g. *mean*, sd*).
+Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (e.g. *mean*, *sd*).
 
 ```{r function_names, eval = FALSE}
 # Patch level

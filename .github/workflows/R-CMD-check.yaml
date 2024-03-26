@@ -32,9 +32,9 @@ jobs:
           extra-packages: any::pkgdown, any::rcmdcheck, any::covr, local::.
           needs: website
 
-      # - name: Build site
-      #   run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
-      #   shell: Rscript {0}
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
 
       - name: Check
         run: |
@@ -45,13 +45,13 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
-      # - name: Deploy to GitHub pages 🚀
-      #   if: github.event_name != 'pull_request'
-      #   uses: JamesIves/github-pages-deploy-action@v4.4.1
-      #   with:
-      #     clean: false
-      #     branch: gh-pages
-      #     folder: docs
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
 
       - name: Test coverage
         run: covr::codecov()
