@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-`vectormetrics` is a R package for calculating landscape and shape metrics for vector layers.
+`vectormetrics` is an R package for calculating landscape and shape metrics for vector layers.
 Its aim is to provide a set of metrics that can characterize landscape patterns and properties of the shapes defined as polygons and multipolygons.
 Whole package is based on Simple Feature geometry standard provided by **sf** package.
 Every function can be used in a tidy, piped workflow, as it always takes the data as the first argument and returns a `tibble`.

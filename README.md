@@ -18,7 +18,7 @@ coverage](https://codecov.io/gh/r-spatialecology/vectormetrics/branch/main/graph
 
 ## Overview
 
-`vectormetrics` is a R package for calculating landscape and shape
+`vectormetrics` is an R package for calculating landscape and shape
 metrics for vector layers. Its aim is to provide a set of metrics that
 can characterize landscape patterns and properties of the shapes defined
 as polygons and multipolygons. Whole package is based on Simple Feature
