@@ -4,6 +4,9 @@ Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/b
 rmarkdown::render("README.Rmd")
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# vectormetrics
+
 <!-- badges: start -->
 
 [![Lifecycle:
