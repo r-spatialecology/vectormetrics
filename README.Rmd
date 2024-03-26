@@ -49,7 +49,7 @@ remotes::install_github("Nowosad/vectormetrics")
 
 ### Function names structure
 
-All functions in `landscapemetrics` start with *vm_* (for vector landscape metrics).
+All functions in `vectormetrics` start with *vm_* (for vector metrics).
 The second part of the name specifies the level (patch - *p*, class - *c* or landscape - *l*).
 The last part of the function name is the abbreviation of the corresponding metric (e.g. *enn* for the euclidean nearest-neighbor distance and *rect* for the rectangularity).
 Some landscape and class level functions have also a suffix at the end, that specifies the aggregation method (*e.g. *mean*, sd*).
