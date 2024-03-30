@@ -13,15 +13,15 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_l_fullness <- function(landscape, n = 10000) {
+vm_l_fullness <- function(landscape, n = 1000) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON")
+    rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
   }
   if (n < 1000){
-    warning("Low number of local neighbourhoods, result might be biased.")
+    rlang::warn("Low number of local neighbourhoods, result might be biased.")
   }
 
   # select geometry column for spatial operations and the column that identifies the classes

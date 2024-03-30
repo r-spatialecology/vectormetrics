@@ -13,7 +13,7 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_l_fullness_mn <- function(landscape, n = 10000){
+vm_l_fullness_mn <- function(landscape, n = 1000){
   full <- vm_p_fullness(landscape, n = n)
   full_l <- mean(full$value)
 

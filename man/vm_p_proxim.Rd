@@ -26,7 +26,7 @@ Calculate Proximity Index
 ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 }
 \examples{
-vm_p_proxim(vector_landscape, "class")
+vm_p_proxim(vector_landscape, class_col = "class", n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

@@ -29,7 +29,8 @@ Imports:
     geos,
     purrr,
     sf,
-    tibble
+    tibble,
+    rlang
 Suggests: 
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.1

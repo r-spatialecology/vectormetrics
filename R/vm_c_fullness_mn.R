@@ -14,7 +14,7 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_c_fullness_mn <- function(landscape, class_col, n = 10000){
+vm_c_fullness_mn <- function(landscape, class_col, n = 1000){
   # prepare class and patch ID columns
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
