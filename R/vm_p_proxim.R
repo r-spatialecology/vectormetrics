@@ -6,6 +6,7 @@
 #' @param class_col the name of the class column of the input landscape
 #' @param patch_col the name of the id column of the input landscape
 #' @param n number of grid points to generate
+#' @param progress TRUE/FALSE, whether to show progress bar
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
@@ -15,7 +16,7 @@
 #' The Canadian Geographer / Le Géographe Canadien, 54(4), 441–461. https://doi.org/10.1111/j.1541-0064.2009.00304.x
 #' @export
 
-vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000) {
+vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000, progress = TRUE) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
@@ -27,7 +28,14 @@ vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000)
   prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
   landscape <- landscape[, c(class_col, patch_col)]
 
-  progress_bar <- utils::txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
+  if (progress){
+    prog_valid <- 1
+    progress_bar <- utils::txtProgressBar(min = 0, max = nrow(landscape), style = 3, char = "=")
+  } else{
+    prog_valid <- NA
+    progress_bar <- utils::txtProgressBar(initial = NA)
+  }
+
   for (i in seq_len(nrow(landscape))){
     shape <- landscape[i, ]
     igp <- get_igp(shape, n)
@@ -35,7 +43,7 @@ vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000)
 
     igp_dist <- geos::geos_distance(igp, cent)
     landscape$igp_dist[i] <- mean(igp_dist)
-    utils::setTxtProgressBar(progress_bar, value = i)
+    utils::setTxtProgressBar(progress_bar, value = i * prog_valid)
   }
   close(progress_bar)
 
