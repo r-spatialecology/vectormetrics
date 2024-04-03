@@ -4,7 +4,13 @@
 \alias{vm_p_proxim}
 \title{Proximity Index(vector data)}
 \usage{
-vm_p_proxim(landscape, class_col = NULL, patch_col = NULL, n = 1000)
+vm_p_proxim(
+  landscape,
+  class_col = NULL,
+  patch_col = NULL,
+  n = 1000,
+  progress = TRUE
+)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
@@ -14,6 +20,8 @@ vm_p_proxim(landscape, class_col = NULL, patch_col = NULL, n = 1000)
 \item{patch_col}{the name of the id column of the input landscape}
 
 \item{n}{number of grid points to generate}
+
+\item{progress}{TRUE/FALSE, whether to show progress bar}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -26,7 +34,7 @@ Calculate Proximity Index
 ratio between average distance from all points of equal-area circle to its center and average distance from all points of shape to its center
 }
 \examples{
-vm_p_proxim(vector_landscape, "class")
+vm_p_proxim(vector_landscape, class_col = "class", n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

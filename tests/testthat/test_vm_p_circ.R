@@ -6,7 +6,6 @@ testthat::test_that("check vm_p_circum value", {
 
 testthat::test_that("check vm_p_circ result assertions", {
   expect_error(vm_p_circ(vector_patches |> sf::st_centroid(), "class"))
-  expect_message(vm_p_circ(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
 })
 
 testthat::test_that("check vm_p_circ result structure", {

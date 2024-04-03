@@ -17,9 +17,9 @@
 vm_p_comp <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
-    stop("Please provide POLYGON or MULTIPOLYGON")
+    rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    message("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns

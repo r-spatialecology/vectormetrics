@@ -4,7 +4,13 @@
 \alias{vm_p_fullness}
 \title{Fullness Index(vector data)}
 \usage{
-vm_p_fullness(landscape, class_col = NULL, patch_col = NULL, n = 10000)
+vm_p_fullness(
+  landscape,
+  class_col = NULL,
+  patch_col = NULL,
+  n = 1000,
+  progress = TRUE
+)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
@@ -14,6 +20,8 @@ vm_p_fullness(landscape, class_col = NULL, patch_col = NULL, n = 10000)
 \item{patch_col}{the name of the id column of the input landscape}
 
 \item{n}{number of local neighbourhoods to consider in calculating fullness}
+
+\item{progress}{TRUE/FALSE, whether to show progress bar}
 }
 \value{
 the function returns tibble with the calculated values in column "value",
@@ -26,7 +34,7 @@ Calculate Fullness Index
 ratio between the average fullness of small neighbourhoods (1% of area) in the shape and in its equal-area circle
 }
 \examples{
-vm_p_fullness(vector_patches, "class", "patch", 1000)
+vm_p_fullness(vector_landscape, class_col = "class", n = 1000)
 }
 \references{
 Angel, S., Parent, J., & Civco, D. L. (2010). Ten compactness properties of circles: Measuring shape in geography: Ten compactness properties of circles.

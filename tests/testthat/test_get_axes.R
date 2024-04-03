@@ -9,7 +9,6 @@ testthat::test_that("check get_axes value", {
 
 testthat::test_that("check get_axes result assertions", {
   expect_error(get_axes(vector_patches |> sf::st_centroid(), "class"))
-  expect_message(get_axes(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
 })
 
 testthat::test_that("check get_axes result structure", {

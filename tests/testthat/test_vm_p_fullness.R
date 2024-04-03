@@ -1,15 +1,14 @@
 testthat::test_that("check vm_p_fullness value", {
   sf::st_agr(diamond) <- "constant"
-  expect_equal(vm_p_fullness(square, "class")$value, 1, tolerance = 0.015)
-  expect_equal(vm_p_fullness(diamond, "class")$value, 1, tolerance = 0.015)
-  expect_equal(vm_p_fullness(circle, "class")$value, 1, tolerance = 0.015)
-  expect_equal(vm_p_fullness(sf::st_difference(diamond, diamond |> sf::st_centroid() |> sf::st_buffer(1.5)), "class")$value, 0.93, tolerance = 0.01)
+  expect_equal(vm_p_fullness(square, "class", n = 10000)$value, 1, tolerance = 0.015)
+  expect_equal(vm_p_fullness(diamond, "class", n = 10000)$value, 1, tolerance = 0.015)
+  expect_equal(vm_p_fullness(circle, "class", n = 10000)$value, 1, tolerance = 0.015)
+  expect_equal(vm_p_fullness(sf::st_difference(diamond, diamond |> sf::st_centroid() |> sf::st_buffer(1.5)), "class", n = 10000)$value, 0.93, tolerance = 0.01)
 })
 
 testthat::test_that("check vm_p_fullness result assertions", {
   sf::st_agr(vector_landscape) <- "constant"
   expect_error(vm_p_fullness(vector_landscape |> sf::st_centroid(), "class"))
-  expect_message(vm_p_fullness(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
   expect_warning(vm_p_fullness(vector_landscape, "class", n = 100), "Low number of local neighbourhoods, result might be biased.")
 })
 

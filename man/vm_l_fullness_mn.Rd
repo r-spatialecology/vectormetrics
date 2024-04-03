@@ -4,7 +4,7 @@
 \alias{vm_l_fullness_mn}
 \title{Fullness Index(vector data)}
 \usage{
-vm_l_fullness_mn(landscape, n = 10000)
+vm_l_fullness_mn(landscape, n = 1000)
 }
 \arguments{
 \item{landscape}{the input landscape image,}

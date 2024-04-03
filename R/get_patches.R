@@ -84,7 +84,7 @@ get_patches.sf <- function(landscape, class_col, direction = 4){
   rownames(result) <- NULL
   result <- result |> dplyr::select(dplyr::all_of(class_col), "patch")
 
-  message("Number of patches before conversion: ", nrow(landscape))
-  message("Number of patches after conversion: ", nrow(result))
+  rlang::inform(paste("Number of patches before conversion:", nrow(landscape)))
+  rlang::inform(paste("Number of patches after conversion:", nrow(result)))
   return(result)
 }

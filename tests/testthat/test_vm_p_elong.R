@@ -6,7 +6,6 @@ testthat::test_that("check vm_p_elong value", {
 
 testthat::test_that("check vm_p_elong result assertions", {
   expect_error(vm_p_elong(vector_patches |> sf::st_centroid(), "class"))
-  expect_message(vm_p_elong(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
 })
 
 testthat::test_that("check vm_p_elong result structure", {

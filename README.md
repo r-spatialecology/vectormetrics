@@ -79,7 +79,6 @@ class and patch columns.
 ``` r
 library(vectormetrics)
 library(sf)
-#> Linking to GEOS 3.12.1, GDAL 3.7.2, PROJ 9.2.1; sf_use_s2() is TRUE
 data("vector_landscape")
 plot(vector_landscape)
 ```
@@ -89,11 +88,7 @@ plot(vector_landscape)
 ``` r
 ## Shape index
 vm_p_shape(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <dbl>
 #> 1 patch 1     1     shape   5.06
@@ -102,8 +97,7 @@ vm_p_shape(vector_landscape, class_col = "class")
 
 ## Number of patches
 vm_c_np(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np         1
@@ -112,18 +106,14 @@ vm_c_np(vector_landscape, class_col = "class")
 
 ## Largest patch index
 vm_l_lpi(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  lpi     49.7
 
 ## Mean squareness
 vm_l_square_mn(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.232
@@ -170,7 +160,7 @@ vector_patches |>
 
 ## Shape index
 vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
-#> # A tibble: 40 × 5
+#> # A tibble: 40 x 5
 #>    level class id    metric value
 #>    <chr> <chr> <chr> <chr>  <dbl>
 #>  1 patch 1     1     shape   1.66
@@ -183,11 +173,11 @@ vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
 #>  8 patch 1     8     shape   1.15
 #>  9 patch 1     9     shape   1.13
 #> 10 patch 1     10    shape   1.13
-#> # ℹ 30 more rows
+#> # i 30 more rows
 
 ## Number of patches
 vm_c_np(vector_patches, class_col = "class")
-#> # A tibble: 3 × 5
+#> # A tibble: 3 x 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
 #> 1 class 1     <NA>  np        19
@@ -196,7 +186,7 @@ vm_c_np(vector_patches, class_col = "class")
 
 ## Mean squareness
 vm_l_square_mn(vector_patches)
-#> # A tibble: 1 × 5
+#> # A tibble: 1 x 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
 #> 1 landscape <NA>  <NA>  sq_mn  0.845
@@ -210,7 +200,7 @@ function.
 
 ``` r
 get_axes(vector_patches, class_col = "class")
-#> # A tibble: 40 × 6
+#> # A tibble: 40 x 6
 #>    level class id    metric    major minor
 #>    <chr> <chr> <chr> <chr>     <dbl> <dbl>
 #>  1 patch 1     1     main_axes 10.8   5.28
@@ -223,7 +213,7 @@ get_axes(vector_patches, class_col = "class")
 #>  8 patch 1     8     main_axes  4.24  2.82
 #>  9 patch 1     9     main_axes  1.42  1.42
 #> 10 patch 1     10    main_axes  1.42  1.42
-#> # ℹ 30 more rows
+#> # i 30 more rows
 ```
 
 ## Contributing

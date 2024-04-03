@@ -4,7 +4,6 @@ testthat::test_that("check vm_l_square_mn value", {
 
 testthat::test_that("check vm_l_square_mn result assertions", {
   expect_error(vm_l_square_mn(vector_patches |> sf::st_centroid()))
-  expect_message(vm_l_square_mn(vector_landscape), "MULTIPOLYGON geometry provided")
 })
 
 testthat::test_that("check vm_l_square_mn result structure", {

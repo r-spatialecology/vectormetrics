@@ -6,7 +6,6 @@ testthat::test_that("check vm_p_range value", {
 
 testthat::test_that("check vm_p_range result assertions", {
   expect_error(vm_p_range(vector_patches |> sf::st_centroid(), "class"))
-  expect_message(vm_p_range(vector_landscape, "class"), "MULTIPOLYGON geometry provided")
 })
 
 testthat::test_that("check vm_p_range result structure", {
