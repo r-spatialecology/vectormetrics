@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vectormetrics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -111,18 +111,13 @@ install.packages("vectormetrics")
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">vectormetrics</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.12.1, GDAL 3.7.2, PROJ 9.2.1; sf_use_s2() is TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"vector_landscape"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vector_landscape</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-vector_landscape-1.png" width="100%"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Shape index</span></span>
 <span><span class="fu"><a href="reference/vm_p_shape.html">vm_p_shape</a></span><span class="op">(</span><span class="va">vector_landscape</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 patch 1     1     shape   5.06</span></span>
@@ -131,8 +126,7 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Number of patches</span></span>
 <span><span class="fu"><a href="reference/vm_c_np.html">vm_c_np</a></span><span class="op">(</span><span class="va">vector_landscape</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 class 1     &lt;NA&gt;  np         1</span></span>
@@ -141,18 +135,14 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Largest patch index</span></span>
 <span><span class="fu"><a href="reference/vm_l_lpi.html">vm_l_lpi</a></span><span class="op">(</span><span class="va">vector_landscape</span><span class="op">)</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  lpi     49.7</span></span>
 <span></span>
 <span><span class="co">## Mean squareness</span></span>
 <span><span class="fu"><a href="reference/vm_l_square_mn.html">vm_l_square_mn</a></span><span class="op">(</span><span class="va">vector_landscape</span><span class="op">)</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  sq_mn  0.232</span></span></code></pre></div>
@@ -190,7 +180,7 @@ install.packages("vectormetrics")
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Shape index</span></span>
 <span><span class="fu"><a href="reference/vm_p_shape.html">vm_p_shape</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span>, patch_col <span class="op">=</span> <span class="st">"patch"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 40 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 40 x 5</span></span>
 <span><span class="co">#&gt;    level class id    metric value</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 patch 1     1     shape   1.66</span></span>
@@ -203,11 +193,11 @@ install.packages("vectormetrics")
 <span><span class="co">#&gt;  8 patch 1     8     shape   1.15</span></span>
 <span><span class="co">#&gt;  9 patch 1     9     shape   1.13</span></span>
 <span><span class="co">#&gt; 10 patch 1     10    shape   1.13</span></span>
-<span><span class="co">#&gt; # ℹ 30 more rows</span></span>
+<span><span class="co">#&gt; # i 30 more rows</span></span>
 <span></span>
 <span><span class="co">## Number of patches</span></span>
 <span><span class="fu"><a href="reference/vm_c_np.html">vm_c_np</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 class 1     &lt;NA&gt;  np        19</span></span>
@@ -216,14 +206,14 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Mean squareness</span></span>
 <span><span class="fu"><a href="reference/vm_l_square_mn.html">vm_l_square_mn</a></span><span class="op">(</span><span class="va">vector_patches</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  sq_mn  0.845</span></span></code></pre></div>
 <p>Another utility function is <code><a href="reference/get_axes.html">get_axes()</a></code> which calculates the length of the major and minor axes of the shape. It is used to calculate the elongation metric in <code><a href="reference/vm_p_elong.html">vm_p_elong()</a></code> but since length of axes might be useful information itself, <code><a href="reference/get_axes.html">get_axes()</a></code> was exported as a separate function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_axes.html">get_axes</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 40 × 6</span></span>
+<span><span class="co">#&gt; # A tibble: 40 x 6</span></span>
 <span><span class="co">#&gt;    level class id    metric    major minor</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 patch 1     1     main_axes 10.8   5.28</span></span>
@@ -236,7 +226,7 @@ install.packages("vectormetrics")
 <span><span class="co">#&gt;  8 patch 1     8     main_axes  4.24  2.82</span></span>
 <span><span class="co">#&gt;  9 patch 1     9     main_axes  1.42  1.42</span></span>
 <span><span class="co">#&gt; 10 patch 1     10    main_axes  1.42  1.42</span></span>
-<span><span class="co">#&gt; # ℹ 30 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # i 30 more rows</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
