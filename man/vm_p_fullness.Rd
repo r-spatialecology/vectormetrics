@@ -4,7 +4,13 @@
 \alias{vm_p_fullness}
 \title{Fullness Index(vector data)}
 \usage{
-vm_p_fullness(landscape, class_col = NULL, patch_col = NULL, n = 1000)
+vm_p_fullness(
+  landscape,
+  class_col = NULL,
+  patch_col = NULL,
+  n = 1000,
+  progress = TRUE
+)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
@@ -14,6 +20,8 @@ vm_p_fullness(landscape, class_col = NULL, patch_col = NULL, n = 1000)
 \item{patch_col}{the name of the id column of the input landscape}
 
 \item{n}{number of local neighbourhoods to consider in calculating fullness}
+
+\item{progress}{TRUE/FALSE, whether to show progress bar}
 }
 \value{
 the function returns tibble with the calculated values in column "value",

@@ -77,7 +77,7 @@ vm_l_square_mn()
 
 Some examples of calculating metrics on all levels and with different class and patch columns.
 
-```{r vector_landscape}
+```{r vector_landscape, warning=FALSE, message=FALSE}
 library(vectormetrics)
 library(sf)
 data("vector_landscape")
