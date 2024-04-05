@@ -27,7 +27,7 @@ vm_p_elong <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape <- landscape[, c(class_col, patch_col)]
 
   # calculate the length of polygon's axes
-  axes <- get_axes(landscape, class_col)
+  axes <- get_axes(landscape, class_col, patch_col)
   elong_index <- 1 - (axes$minor / axes$major)
 
   # return results tibble

@@ -1,4 +1,5 @@
 testthat::test_that("check get_axes value", {
+  expect_identical(get_axes(small_shape, "class")$major, as.double(NA))
   expect_equal(get_axes(square, "class")$major, 1.42, tolerance = 0.001)
   expect_equal(get_axes(square, "class")$minor, 1.42, tolerance = 0.001)
   expect_equal(get_axes(diamond, "class")$major, 8, tolerance = 0.001)

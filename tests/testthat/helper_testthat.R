@@ -18,7 +18,5 @@ squaretxt <- list(cbind(c(0,1,1,0,0), c(0,0,1,1,0))) |> sf::st_polygon() |>
 sf::st_geometry(squaretxt) <- "geometry"
 squaretxt$class <- "text"
 
-# sf_use_s2(FALSE)
-# st_inscribed_circle(circle$geometry) |> sf::st_area()
-# sf::st_area(circle)
-# st_is_valid(circle)
+small_shape <- data.frame(class = 1, geometry = "Polygon((723185.63000000000465661 484177.21000000002095476, 723185.64000000001396984 484177.21999999997206032, 723185.64000000001396984 484177.21000000002095476, 723185.63000000000465661 484177.21000000002095476))") |> 
+  sf::st_as_sf(wkt = "geometry", crs = 2180)
