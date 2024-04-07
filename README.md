@@ -89,9 +89,7 @@ plot(vector_landscape)
 ## Shape index
 vm_p_shape(vector_landscape, class_col = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> This message is displayed once per session.
 #> # A tibble: 3 × 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <dbl>
@@ -101,7 +99,6 @@ vm_p_shape(vector_landscape, class_col = "class")
 
 ## Number of patches
 vm_c_np(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
 #> # A tibble: 3 × 5
 #>   level class id    metric value
 #>   <chr> <chr> <chr> <chr>  <int>
@@ -111,7 +108,6 @@ vm_c_np(vector_landscape, class_col = "class")
 
 ## Largest patch index
 vm_l_lpi(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
 #> # A tibble: 1 × 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
@@ -119,9 +115,6 @@ vm_l_lpi(vector_landscape)
 
 ## Mean squareness
 vm_l_square_mn(vector_landscape)
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
 #> # A tibble: 1 × 5
 #>   level     class id    metric value
 #>   <chr>     <chr> <chr> <chr>  <dbl>
