@@ -13,7 +13,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Landscape Metrics for Categorical Map Patterns in Vector Data">
 <meta property="og:description" content="Calculates landscape and shape metrics for categorical landscape patterns described as vector layers, in 
-    a tidy, piped workflow. vectormetrics reimplements the most common landscapemetrics from FRAGSTATS (&lt;https://www.fragstats.org/&gt;)
+    a tidy, piped workflow. vectormetrics reimplements the most common landscape metrics from FRAGSTATS (&lt;https://www.fragstats.org/&gt;)
     and landscapemetrics (&lt;https://r-spatialecology.github.io/landscapemetrics/&gt;) and adds many new metrics related to the shape of polygons.
     It also provides utility functions to break multipolygon patches and calculate main axes of the shapes.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -79,7 +79,7 @@ install.packages("vectormetrics")
 -->
 <p>You can download most recent development version of the package from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Nowosad/vectormetrics"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-spatialecology/vectormetrics"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="using-vectormetrics">Using vectormetrics<a class="anchor" aria-label="anchor" href="#using-vectormetrics"></a>
@@ -117,7 +117,11 @@ install.packages("vectormetrics")
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Shape index</span></span>
 <span><span class="fu"><a href="reference/vm_p_shape.html">vm_p_shape</a></span><span class="op">(</span><span class="va">vector_landscape</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 patch 1     1     shape   5.06</span></span>
@@ -126,7 +130,8 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Number of patches</span></span>
 <span><span class="fu"><a href="reference/vm_c_np.html">vm_c_np</a></span><span class="op">(</span><span class="va">vector_landscape</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 class 1     &lt;NA&gt;  np         1</span></span>
@@ -135,14 +140,18 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Largest patch index</span></span>
 <span><span class="fu"><a href="reference/vm_l_lpi.html">vm_l_lpi</a></span><span class="op">(</span><span class="va">vector_landscape</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  lpi     49.7</span></span>
 <span></span>
 <span><span class="co">## Mean squareness</span></span>
 <span><span class="fu"><a href="reference/vm_l_square_mn.html">vm_l_square_mn</a></span><span class="op">(</span><span class="va">vector_landscape</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  sq_mn  0.232</span></span></code></pre></div>
@@ -180,7 +189,7 @@ install.packages("vectormetrics")
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Shape index</span></span>
 <span><span class="fu"><a href="reference/vm_p_shape.html">vm_p_shape</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span>, patch_col <span class="op">=</span> <span class="st">"patch"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 40 x 5</span></span>
+<span><span class="co">#&gt; # A tibble: 40 × 5</span></span>
 <span><span class="co">#&gt;    level class id    metric value</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 patch 1     1     shape   1.66</span></span>
@@ -193,11 +202,11 @@ install.packages("vectormetrics")
 <span><span class="co">#&gt;  8 patch 1     8     shape   1.15</span></span>
 <span><span class="co">#&gt;  9 patch 1     9     shape   1.13</span></span>
 <span><span class="co">#&gt; 10 patch 1     10    shape   1.13</span></span>
-<span><span class="co">#&gt; # i 30 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 30 more rows</span></span>
 <span></span>
 <span><span class="co">## Number of patches</span></span>
 <span><span class="fu"><a href="reference/vm_c_np.html">vm_c_np</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 x 5</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
 <span><span class="co">#&gt;   level class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 class 1     &lt;NA&gt;  np        19</span></span>
@@ -206,14 +215,14 @@ install.packages("vectormetrics")
 <span></span>
 <span><span class="co">## Mean squareness</span></span>
 <span><span class="fu"><a href="reference/vm_l_square_mn.html">vm_l_square_mn</a></span><span class="op">(</span><span class="va">vector_patches</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 5</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;   level     class id    metric value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 landscape &lt;NA&gt;  &lt;NA&gt;  sq_mn  0.845</span></span></code></pre></div>
 <p>Another utility function is <code><a href="reference/get_axes.html">get_axes()</a></code> which calculates the length of the major and minor axes of the shape. It is used to calculate the elongation metric in <code><a href="reference/vm_p_elong.html">vm_p_elong()</a></code> but since length of axes might be useful information itself, <code><a href="reference/get_axes.html">get_axes()</a></code> was exported as a separate function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_axes.html">get_axes</a></span><span class="op">(</span><span class="va">vector_patches</span>, class_col <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 40 x 6</span></span>
+<span><span class="co">#&gt; # A tibble: 40 × 6</span></span>
 <span><span class="co">#&gt;    level class id    metric    major minor</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 patch 1     1     main_axes 10.8   5.28</span></span>
@@ -226,7 +235,7 @@ install.packages("vectormetrics")
 <span><span class="co">#&gt;  8 patch 1     8     main_axes  4.24  2.82</span></span>
 <span><span class="co">#&gt;  9 patch 1     9     main_axes  1.42  1.42</span></span>
 <span><span class="co">#&gt; 10 patch 1     10    main_axes  1.42  1.42</span></span>
-<span><span class="co">#&gt; # i 30 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 30 more rows</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
