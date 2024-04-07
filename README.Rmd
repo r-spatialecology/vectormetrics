@@ -44,7 +44,7 @@ install.packages("vectormetrics")
 You can download most recent development version of the package from GitHub with:
 
 ```{r install_github, eval = FALSE}
-remotes::install_github("Nowosad/vectormetrics")
+remotes::install_github("r-spatialecology/vectormetrics")
 ```
 
 ## Using vectormetrics
