@@ -33,7 +33,7 @@ vm_p_perarea <- function(landscape, class_col = NULL, patch_col = NULL) {
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("para_index", nrow(landscape)),
+    metric = rep("perarea", nrow(landscape)),
     value = as.double(para)
   ))
 }

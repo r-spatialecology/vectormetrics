@@ -45,7 +45,7 @@ vm_p_exchange <- function(landscape, class_col = NULL, patch_col = NULL) {
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("exchange_index", nrow(landscape)),
+    metric = rep("exchange_idx", nrow(landscape)),
     value = as.double(exchange_index)
   ))
 }
