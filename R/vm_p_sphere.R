@@ -8,10 +8,10 @@
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_p_sph(vector_patches, "class", "patch")
+#' vm_p_sphere(vector_patches, "class", "patch")
 #' @export
 
-vm_p_sph <- function(landscape, class_col = NULL, patch_col = NULL) {
+vm_p_sphere <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
@@ -38,7 +38,7 @@ vm_p_sph <- function(landscape, class_col = NULL, patch_col = NULL) {
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("sph_index", nrow(landscape)),
+    metric = rep("sphere", nrow(landscape)),
     value = as.double(sph_index)
   ))
 }
