@@ -36,7 +36,7 @@ vm_c_fullness <- function(landscape, class_col, n = 1000) {
     level = rep("class", nrow(landscape)),
     class = as.integer(fullness$class),
     id = as.integer(NA),
-    metric = "full_index",
+    metric = "full_idx",
     value = as.double(fullness$value / 0.958)
   ))
 }

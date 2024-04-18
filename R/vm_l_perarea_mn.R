@@ -19,7 +19,7 @@ vm_l_perarea_mn <- function(landscape){
     level = "landscape",
     class = as.character(NA),
     id = as.character(NA),
-    metric = "para_mn",
+    metric = "perarea_mn",
     value = as.double(para_l)
   ))
 }

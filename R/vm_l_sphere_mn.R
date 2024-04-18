@@ -17,7 +17,7 @@ vm_l_sphere_mn <- function(landscape){
     level = "landscape",
     class = as.character(NA),
     id = as.character(NA),
-    metric = "sph_mn",
+    metric = "sphere_mn",
     value = as.double(sph_l)
   ))
 }
