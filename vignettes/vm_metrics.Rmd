@@ -1,0 +1,21 @@
+---
+title: "Metrics available in the vectormetrics package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vm_metrics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#| echo: false
+library(vectormetrics)
+knitr::kable(vm_metrics)
+```
