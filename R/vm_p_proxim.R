@@ -55,7 +55,7 @@ vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000,
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("proximity_index", nrow(landscape)),
+    metric = rep("proxim_idx", nrow(landscape)),
     value = as.double(proximity)
   ))
 }

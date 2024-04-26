@@ -25,7 +25,7 @@ vm_c_perarea_mn <- function(landscape, class_col){
     level = rep("class", nrow(para_mn)),
     class = as.character(para_mn[, 1]),
     id = as.character(NA),
-    metric = rep("para_mn", nrow(para_mn)),
+    metric = rep("perarea_mn", nrow(para_mn)),
     value = as.double(para_mn[, 2])
   ))
 }

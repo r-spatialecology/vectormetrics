@@ -41,7 +41,7 @@ vm_p_circ <- function(landscape, class_col = NULL, patch_col = NULL) {
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("circ_index", nrow(landscape)),
+    metric = rep("circ", nrow(landscape)),
     value = as.double(circ_index)
   ))
 }

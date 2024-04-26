@@ -63,7 +63,7 @@ vm_p_fullness <- function(landscape, class_col = NULL, patch_col = NULL, n = 100
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("full_index", nrow(landscape)),
+    metric = rep("full_idx", nrow(landscape)),
     value = as.double(landscape$fullness / 0.958)
   ))
 }

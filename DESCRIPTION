@@ -1,6 +1,6 @@
 Package: vectormetrics
 Title: Landscape Metrics for Categorical Map Patterns in Vector Data
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: 
     c(person("Tomasz", "Matuszek", role = c("cre", "aut"),
              email = "tom.mateuszek@gmail.com"),
@@ -32,6 +32,9 @@ Imports:
     tibble,
     rlang
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3
+VignetteBuilder: knitr

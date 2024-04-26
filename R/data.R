@@ -35,3 +35,9 @@
 #' @format A sf object.
 #' @source Urban Atlas 2018
 "urban_atlas"
+
+#' Table with all metrics' names and descriptions
+#'
+#'
+#' @format data frame.
+"vm_metrics"

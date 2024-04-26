@@ -20,7 +20,7 @@ vm_l_square_mn <- function(landscape){
     level = "landscape",
     class = as.character(NA),
     id = as.character(NA),
-    metric = "sq_mn",
+    metric = "square_mn",
     value = as.double(sq_l)
   ))
 }

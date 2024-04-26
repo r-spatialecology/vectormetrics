@@ -42,7 +42,7 @@ vm_p_rect <- function(landscape, class_col = NULL, patch_col = NULL) {
     level = rep("patch", nrow(landscape)),
     class = as.character(landscape[, class_col, drop = TRUE]),
     id = as.character(landscape[, patch_col, drop = TRUE]),
-    metric = rep("rect_index", nrow(landscape)),
+    metric = rep("rect", nrow(landscape)),
     value = as.double(rect_index)
   ))
 }
