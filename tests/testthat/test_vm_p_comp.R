@@ -1,14 +1,14 @@
-testthat::test_that("check vm_p_circum value", {
+testthat::test_that("check vm_p_comp value", {
   expect_equal(vm_p_comp(square, "class")$value, 0.7853, tolerance = 0.001)
   expect_equal(vm_p_comp(diamond, "class")$value, 0.628, tolerance = 0.001)
   expect_equal(vm_p_comp(circle, "class")$value, 1, tolerance = 0.001)
 })
 
-testthat::test_that("check vm_p_circum result assertions", {
+testthat::test_that("check vm_p_comp result assertions", {
   expect_error(vm_p_comp(vector_patches |> sf::st_centroid(), "class"))
 })
 
-testthat::test_that("check vm_p_circum result structure", {
+testthat::test_that("check vm_p_comp result structure", {
   expect_s3_class(vm_p_comp(square, "class"), "tbl_df")
   expect_equal(ncol(vm_p_comp(square, "class")), 5)
   expect_equal(nrow(vm_p_comp(vector_patches, "class")), nrow(vector_patches))

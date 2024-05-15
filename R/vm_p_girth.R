@@ -31,7 +31,7 @@ vm_p_girth <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape$insc_circle_rad <- sqrt(insc_circle_area[1:nrow(landscape)] / pi)
 
   # calculate the radius of equal-area circle
-  landscape$radius <- vm_p_eac_perim(landscape, class_col, patch_col)$value / (2 * pi)
+  landscape$radius <- get_eac_perim(landscape, class_col, patch_col)$value / (2 * pi)
 
   # ratio of perimeter of equal-area circle and polygon perimeters
   girth_index <- landscape$insc_circle_rad / landscape$radius

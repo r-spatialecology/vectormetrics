@@ -24,7 +24,7 @@ vm_p_sphere <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape <- landscape[, c(class_col, patch_col)]
 
   # calculate the radius of minimum circumscribing circle
-  landscape$circum <- vm_p_circum(landscape, class_col, patch_col)$value / 2
+  landscape$circum <- get_circum_diam(landscape, class_col, patch_col)$value / 2
 
   # calculate the radius of maximum inscribed circle
   insc_circle_area <- landscape |> sf::st_geometry() |> sf::st_inscribed_circle() |> sf::st_area()

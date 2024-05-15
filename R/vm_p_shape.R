@@ -29,7 +29,7 @@ vm_p_shape <- function(landscape, class_col = NULL, patch_col = NULL) {
 
   # shape metric is the ratio between actual perimeter and the hypothetical minimum perimeter of the patch
   # the hypothetical minimum perimeter of the patch is perimeter of the circle with same amount of area
-  shape <- peri$value / vm_p_eac_perim(landscape, class_col, patch_col)$value
+  shape <- peri$value / get_eac_perim(landscape, class_col, patch_col)$value
 
   # return results tibble 
   tibble::new_tibble(list(

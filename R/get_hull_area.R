@@ -8,10 +8,10 @@
 #' @return the function returns tibble with the calculated values in column "value",
 #' this function returns also some important information such as level, class, patch id and metric name.
 #' @examples
-#' vm_p_hull_a(vector_patches, "class", "patch")
+#' get_hull_area(vector_patches, "class", "patch")
 #' @export
 
-vm_p_hull_a <- function(landscape, class_col = NULL, patch_col = NULL) {
+get_hull_area <- function(landscape, class_col = NULL, patch_col = NULL) {
   # check whether the input is a MULTIPOLYGON or a POLYGON
   if (!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))) {
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")

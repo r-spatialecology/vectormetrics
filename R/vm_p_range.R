@@ -27,10 +27,10 @@ vm_p_range <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape <- landscape[, c(class_col, patch_col)]
 
   # calculate the diameter of equal-area circle
-  landscape$circle_diam <- vm_p_eac_perim(landscape, class_col, patch_col)$value / pi
+  landscape$circle_diam <- get_eac_perim(landscape, class_col, patch_col)$value / pi
 
   # calculate the diameter of smallest circumscribing circle
-  landscape$circum_diam <- vm_p_circum(landscape, class_col, patch_col)$value
+  landscape$circum_diam <- get_circum_diam(landscape, class_col, patch_col)$value
 
   # ratio of perimeter of equal-area circle and its convex hull
   range_index <- landscape$circle_diam / landscape$circum_diam

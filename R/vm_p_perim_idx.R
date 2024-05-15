@@ -30,7 +30,7 @@ vm_p_perim_idx <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape$perim <- vm_p_perim(landscape, class_col, patch_col)$value
 
   # calculate the perimeter of equal-area circle
-  landscape$circle_perim <- vm_p_eac_perim(landscape, class_col, patch_col)$value
+  landscape$circle_perim <- get_eac_perim(landscape, class_col, patch_col)$value
 
   # ratio of perimeter of equal-area circle and polygon perimeters
   perim_index <- landscape$circle_perim / landscape$perim
