@@ -25,6 +25,18 @@
     <loc>/reference/get_axes.html</loc>
   </url>
   <url>
+    <loc>/reference/get_circum_diam.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_eac_perim.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_hull_area.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_hull_perim.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_patches.html</loc>
   </url>
   <url>
@@ -391,9 +403,6 @@
     <loc>/reference/vm_p_circle.html</loc>
   </url>
   <url>
-    <loc>/reference/vm_p_circum.html</loc>
-  </url>
-  <url>
     <loc>/reference/vm_p_coh.html</loc>
   </url>
   <url>
@@ -407,9 +416,6 @@
   </url>
   <url>
     <loc>/reference/vm_p_detour.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vm_p_eac_perim.html</loc>
   </url>
   <url>
     <loc>/reference/vm_p_elong.html</loc>
@@ -431,12 +437,6 @@
   </url>
   <url>
     <loc>/reference/vm_p_girth.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vm_p_hull_a.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vm_p_hull_p.html</loc>
   </url>
   <url>
     <loc>/reference/vm_p_ncore.html</loc>
