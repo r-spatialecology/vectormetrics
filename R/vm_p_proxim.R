@@ -47,7 +47,7 @@ vm_p_proxim <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000,
   }
   close(progress_bar)
 
-  radiuses <- vm_p_eac_perim(landscape, class_col, patch_col)$value / (2 * pi) * 0.66
+  radiuses <- get_eac_perim(landscape, class_col, patch_col)$value / (2 * pi) * 0.66
   proximity <- radiuses / landscape$igp_dist
 
   # return results tibble

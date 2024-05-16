@@ -27,10 +27,10 @@ vm_p_detour <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape <- landscape[, c(class_col, patch_col)]
 
   # calculate the length of each perimeter hull
-  landscape$convex_perim <- vm_p_hull_p(landscape, class_col, patch_col)$value
+  landscape$convex_perim <- get_hull_perim(landscape, class_col, patch_col)$value
 
   # ratio of perimeter of equal-area circle and its convex hull
-  detour_index <- vm_p_eac_perim(landscape, class_col, patch_col)$value / landscape$convex_perim
+  detour_index <- get_eac_perim(landscape, class_col, patch_col)$value / landscape$convex_perim
 
   # return results tibble
   tibble::new_tibble(list(

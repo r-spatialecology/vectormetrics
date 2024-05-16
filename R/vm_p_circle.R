@@ -49,7 +49,7 @@ vm_p_circle <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape <- landscape[, c(class_col, patch_col)]
 
   # calculate diameter of smallest circumscribing circle
-  dis_max <- vm_p_circum(landscape, class_col, patch_col)$value
+  dis_max <- get_circum_diam(landscape, class_col, patch_col)$value
 
   # calculate circle metric
   circle_area <- vm_p_area(landscape, class_col, patch_col)$value * 10000

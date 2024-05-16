@@ -30,7 +30,7 @@ vm_p_solid <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape$area <- vm_p_area(landscape, class_col, patch_col)$value * 10000
 
   # calculate the perimeter of convex hull
-  landscape$conv_area <- vm_p_hull_a(landscape, class_col, patch_col)$value
+  landscape$conv_area <- get_hull_area(landscape, class_col, patch_col)$value
 
   # ratio of perimeter of convex hull and polygon perimeters
   solid_index <- landscape$area / landscape$conv_area

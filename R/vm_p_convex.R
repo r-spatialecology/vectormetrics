@@ -30,7 +30,7 @@ vm_p_convex <- function(landscape, class_col = NULL, patch_col = NULL) {
   landscape$perim <- vm_p_perim(landscape, class_col, patch_col)$value
 
   # calculate the perimeter of convex hull
-  landscape$conv_perim <- vm_p_hull_p(landscape, class_col, patch_col)$value
+  landscape$conv_perim <- get_hull_perim(landscape, class_col, patch_col)$value
 
   # ratio of perimeter of convex hull and polygon perimeters
   conv_index <- landscape$conv_perim / landscape$perim

@@ -1,4 +1,4 @@
-testthat::test_that("check vm_p_circum value", {
+testthat::test_that("check vm_p_circ value", {
   expect_equal(vm_p_circ(square, "class")$value, 0.787, tolerance = 0.01)
   expect_equal(vm_p_circ(diamond, "class")$value, 0.628, tolerance = 0.01)
   expect_equal(vm_p_circ(circle, "class")$value, 1, tolerance = 0.01)
