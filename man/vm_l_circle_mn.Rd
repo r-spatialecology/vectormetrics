@@ -9,8 +9,6 @@ vm_l_circle_mn(landscape)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
-
-\item{class_col}{the name of the class column of the input landscape}
 }
 \value{
 the returned calculated mean value of ratios of each class is in column "value",
@@ -23,5 +21,5 @@ This function allows you to calculate the mean value of ratios of each class in 
 the ratio is the patch area relative to area of the smallest circumscribing circle of the patch
 }
 \examples{
-vm_l_circle_mn(vector_landscape, "class")
+vm_l_circle_mn(vector_landscape)
 }
