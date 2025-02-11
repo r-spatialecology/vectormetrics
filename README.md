@@ -11,9 +11,9 @@ rmarkdown::render("README.Rmd")
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Codecov test
-coverage](https://codecov.io/gh/r-spatialecology/vectormetrics/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-spatialecology/vectormetrics?branch=main)
 [![R-CMD-check](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/r-spatialecology/vectormetrics/graph/badge.svg)](https://app.codecov.io/gh/r-spatialecology/vectormetrics)
 <!-- badges: end -->
 
 ## Overview
@@ -30,7 +30,7 @@ argument and returns a `tibble`.
 
 <!--You can install the released version of `vectormetrics` from [CRAN](https://CRAN.R-project.org) with:
 &#10;
-```r
+``` r
 install.packages("vectormetrics")
 ```
 -->
@@ -116,9 +116,9 @@ vm_l_lpi(vector_landscape)
 ## Mean squareness
 vm_l_square_mn(vector_landscape)
 #> # A tibble: 1 × 5
-#>   level     class id    metric value
-#>   <chr>     <chr> <chr> <chr>  <dbl>
-#> 1 landscape <NA>  <NA>  sq_mn  0.232
+#>   level     class id    metric    value
+#>   <chr>     <chr> <chr> <chr>     <dbl>
+#> 1 landscape <NA>  <NA>  square_mn 0.232
 ```
 
 ### Utility functions
@@ -189,9 +189,9 @@ vm_c_np(vector_patches, class_col = "class")
 ## Mean squareness
 vm_l_square_mn(vector_patches)
 #> # A tibble: 1 × 5
-#>   level     class id    metric value
-#>   <chr>     <chr> <chr> <chr>  <dbl>
-#> 1 landscape <NA>  <NA>  sq_mn  0.845
+#>   level     class id    metric    value
+#>   <chr>     <chr> <chr> <chr>     <dbl>
+#> 1 landscape <NA>  <NA>  square_mn 0.845
 ```
 
 Another utility function is `get_axes()` which calculates the length of
