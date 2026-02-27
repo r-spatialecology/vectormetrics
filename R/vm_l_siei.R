@@ -18,7 +18,7 @@ vm_l_siei <- function(landscape, class_col){
   A <- sum(area_class$value)
 
   area_class["pro"] <- (area_class$value / A)^2
-  class_num <- length(area_class[, class_col, drop = TRUE])
+  class_num <- length(unique(area_class$class))
   siei <- (1- sum(area_class$pro)) / (1 - 1 / class_num)
 
   # return results tibble

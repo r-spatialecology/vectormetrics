@@ -18,7 +18,7 @@ vm_l_shei <- function(landscape, class_col){
   A <- sum(area_class$value)
 
   area_class["pro"] <- area_class$value / A
-  class_num <- length(area_class[, class_col, drop = TRUE])
+  class_num <- length(unique(area_class$class))
   shei <- -sum(area_class$pro * log(area_class$pro)) / log(class_num)
 
   # return results tibble
