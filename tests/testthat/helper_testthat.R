@@ -18,5 +18,11 @@ squaretxt <- list(cbind(c(0,1,1,0,0), c(0,0,1,1,0))) |> sf::st_polygon() |>
 sf::st_geometry(squaretxt) <- "geometry"
 squaretxt$class <- "text"
 
-small_shape <- data.frame(class = 1, geometry = "Polygon((723185.63000000000465661 484177.21000000002095476, 723185.64000000001396984 484177.21999999997206032, 723185.64000000001396984 484177.21000000002095476, 723185.63000000000465661 484177.21000000002095476))") |> 
+small_shape <- data.frame(class = 1, geometry = "Polygon((723185.63000000000465661 484177.21000000002095476, 723185.64000000001396984 484177.21999999997206032, 723185.64000000001396984 484177.21000000002095476, 723185.63000000000465661 484177.21000000002095476))") |>
   sf::st_as_sf(wkt = "geometry", crs = 2180)
+
+data("vm_metrics", package = "vectormetrics")
+data("vector_patches", package = "vectormetrics")
+data("clc", package = "vectormetrics")
+# Use smaller clc sample for faster tests (first 20 features)
+clc_sample <- sf::st_as_sf(head(clc, 20))
