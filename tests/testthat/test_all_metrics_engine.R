@@ -68,6 +68,8 @@ testthat::test_that("All metric functions return correct structure", {
       info = fn_name
     )
     testthat::expect_true(all(result$level == level), info = fn_name)
+    testthat::expect_type(result$level, "character")
+    testthat::expect_type(result$metric, "character")
     testthat::expect_true(is.numeric(result$value), info = fn_name)
     # Allow NA, finite, or infinite values (some metrics can legitimately be Inf)
     testthat::expect_true(
