@@ -92,6 +92,7 @@ vm_metrics <- tibble::tribble(
   "landscape", "mean value of patch areas at landscape level", "area_mn", "vm_l_area_mn", "area and edge metric", "patch areas in hectares",
   "landscape", "mean value of core area index at landscape level", "cai_mn", "vm_l_cai_mn", "core area metric", "ratio of the core area and the area",
   "landscape", "mean value of circularity at landscape level", "circ_mn", "vm_l_circ_mn", "shape metric", "ratio between area of polygon and area of equal-perimeter circle",
+  "landscape", "mean value of CIRCLE at landscape level", "circle_mn", "vm_l_circle_mn", "shape metric", "ratio between the patch area and the smallest circumscribing circle of the patch",
   "landscape", "mean value of cohesion index at landscape level", "coh_mn", "vm_l_coh_mn", "shape metric", "ratio of the average distance-squared among all points in an equal-area circle and the average distance-squared among all points in the shape",
   "landscape", "mean value of compactness at landscape level", "comp_mn", "vm_l_comp_mn", "shape metric", "form factor calculated from equation: sqrt(4 * area / pi) / perimeter",
   "landscape", "mean value of convexity at landscape level", "convex_mn", "vm_l_convex_mn", "shape metric", "ratio between perimeter of convex hull and perimeter of polygon",
