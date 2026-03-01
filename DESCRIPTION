@@ -40,3 +40,6 @@ Suggests:
 RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 VignetteBuilder: quarto
+URL: https://r-spatialecology.github.io/vectormetrics/,
+     https://github.com/r-spatialecology/vectormetrics
+BugReports: https://github.com/r-spatialecology/vectormetrics/issues
