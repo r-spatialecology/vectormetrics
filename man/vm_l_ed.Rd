@@ -2,22 +2,33 @@
 % Please edit documentation in R/vm_l_ed.R
 \name{vm_l_ed}
 \alias{vm_l_ed}
-\title{The Edge density of the whole landscape(vector data)}
+\title{ED (landscape level)}
 \usage{
-vm_l_ed(landscape)
+vm_l_ed(landscape, count_boundary = TRUE)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
+
+\item{count_boundary}{Include landscape boundary in edge length (default: TRUE)}
 }
 \value{
-the returned calculated total length of perimeter is in column "value",
+the returned calculated edge density is in column "value",
 and this function returns also some important information such as level and metric name,
 Moreover, class number and the "id" column, although both are "NA" here in the landscape level
 }
 \description{
-This function allows you to calculate the total length of all patches
-in a categorical landscape in vector data format
+This function allows you to calculate the edge density (meters per hectare) 
+for the entire landscape in a categorical landscape in vector data format
+}
+\details{
+Edge density equals the sum of all edges divided by total landscape area.
+The count_boundary parameter is passed to vm_l_te.
+
+Note: The default differs from landscapemetrics (default: FALSE) because vector
+polygon boundaries are explicit geometric features. Set count_boundary=FALSE for
+direct comparison with landscapemetrics results.
 }
 \examples{
 vm_l_ed(vector_landscape)
+vm_l_ed(vector_landscape, count_boundary = FALSE)
 }

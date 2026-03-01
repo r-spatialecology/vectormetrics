@@ -9,7 +9,9 @@ vm_l_dcad(landscape, edge_depth)
 \arguments{
 \item{landscape}{the input landscape image,}
 
-\item{edge_depth}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch (in map units).
+This parameter is required to ensure you explicitly consider the appropriate scale
+for your data and your problem.}
 }
 \value{
 the returned calculated ratios are in column "value",

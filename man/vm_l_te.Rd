@@ -4,10 +4,12 @@
 \alias{vm_l_te}
 \title{Total (class) edge(vector data)}
 \usage{
-vm_l_te(landscape)
+vm_l_te(landscape, count_boundary = TRUE)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
+
+\item{count_boundary}{Include landscape boundary in edge length (default: TRUE)}
 }
 \value{
 the returned calculated length is in column "value",
@@ -17,6 +19,20 @@ Moreover, class number and the "id" column, although both are "NA" here in the l
 \description{
 This function allows you to calculate the total length of edge of whole landscape in a categorical landscape in vector data format
 }
+\details{
+Total edge is calculated as the sum of all unique edge segments in the landscape.
+Shared edges between patches are counted only once (not double-counted).
+By default (count_boundary=TRUE), the outer landscape boundary is included.
+If count_boundary=FALSE, only internal edges between patches are included.
+
+Note: The default differs from landscapemetrics (default: FALSE) because vector
+polygon boundaries are explicit geometric features, while raster landscapes have
+implicit grid boundaries. Set count_boundary=FALSE for direct comparison with
+landscapemetrics results.
+
+The calculation uses: internal_edges = (sum_all_perimeters - outer_boundary) / 2
+}
 \examples{
 vm_l_te(vector_landscape)
+vm_l_te(vector_landscape, count_boundary = FALSE)
 }
