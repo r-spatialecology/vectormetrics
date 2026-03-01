@@ -2,22 +2,21 @@
 % Please edit documentation in R/vm_l_te.R
 \name{vm_l_te}
 \alias{vm_l_te}
-\title{Total (class) edge(vector data)}
+\title{Total (landscape) edge (vector data)}
 \usage{
 vm_l_te(landscape, count_boundary = TRUE)
 }
 \arguments{
-\item{landscape}{the input landscape image,}
+\item{landscape}{the input landscape image}
 
 \item{count_boundary}{Include landscape boundary in edge length (default: TRUE)}
 }
 \value{
-the returned calculated length is in column "value",
-and this function returns also some important information such as level and metric name,
-Moreover, class number and the "id" column, although both are "NA" here in the landscape level
+A tibble with the calculated edge length in the "value" column,
+along with level and metric name metadata
 }
 \description{
-This function allows you to calculate the total length of edge of whole landscape in a categorical landscape in vector data format
+Calculate the total length of all edges in a categorical landscape in vector data format
 }
 \details{
 Total edge is calculated as the sum of all unique edge segments in the landscape.
