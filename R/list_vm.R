@@ -46,9 +46,8 @@ list_vm <- function(level = NULL,
                     name = NULL,
                     type = NULL,
                     what = NULL) {
-  data("vm_metrics", package = "vectormetrics", envir = environment())
 
-  result <- vm_metrics
+  result <- vectormetrics::vm_metrics
 
   # Filter by level
   if (!is.null(level)) {
