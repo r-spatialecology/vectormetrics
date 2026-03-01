@@ -18,7 +18,7 @@ vector_landscape <- sf::st_as_sf(vector_landscape)
 
 usethis::use_data(vector_landscape, overwrite = TRUE)
 
-vector_patches <- get_patches(vector_landscape, "class")
+vector_patches <- get_polygon_patches(vector_landscape, "class")
 vector_patches$patch <- as.character(vector_patches$patch + 10)
 sf::st_agr(vector_patches) <- "constant"
 

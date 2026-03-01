@@ -25,7 +25,7 @@ create_landscapes <- function() {
     terra::as.polygons(dissolve = TRUE) |>
     sf::st_as_sf() |>
     dplyr::rename(class = clumps) |>
-    vectormetrics::get_patches("class", direction = 8) |>
+    vectormetrics::get_polygon_patches("class", direction = 8) |>
     sf::st_set_crs("EPSG:2180")
   list(raster = raster_landscape, polygon = polygon_landscape)
 }

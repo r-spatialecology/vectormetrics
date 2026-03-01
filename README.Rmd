@@ -102,12 +102,12 @@ vm_l_square_mn(vector_landscape)
 ### Utility functions
 
 For now there are two utility functions available in the package.
-First one is `get_patches()` which breaks multipolygon geometries into polygons.
+First one is `get_polygon_patches()` which breaks multipolygon geometries into polygons.
 There are two types of neighborhood relations available: 4 (edge) and 8 (vertex).
 This function enables users to create set of geometries from aggregated shapes and analyze each shape's properties separately.
 
-```{r get_patches, message = FALSE}
-vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
+```{r get_polygon_patches, message = FALSE}
+vector_patches = get_polygon_patches(vector_landscape, class_col = "class", direction = 4)
 vector_patches
 
 vector_patches |>
