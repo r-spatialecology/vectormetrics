@@ -169,9 +169,11 @@ comparison_results <- structure(
   )
 )
 
-# Save to inst/data (not official package data, but included in package)
-dir.create("inst/data", showWarnings = FALSE, recursive = TRUE)
-saveRDS(comparison_results, "inst/data/vm_lsm_baseline.rds")
+# Save to inst/extdata (supplementary data files, not official package data)
+dir.create("inst/extdata", showWarnings = FALSE, recursive = TRUE)
+saveRDS(comparison_results, "inst/extdata/vm_lsm_baseline.rds")
+saveRDS(patches_sf, "inst/extdata/landscape_polygons.rds")
 
-cat("\nResults saved to: inst/data/vm_lsm_baseline.rds\n")
+cat("\nResults saved to: inst/extdata/vm_lsm_baseline.rds\n")
+cat("Test landscape saved to: inst/extdata/landscape_polygons.rds\n")
 

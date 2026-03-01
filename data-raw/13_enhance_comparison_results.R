@@ -11,7 +11,7 @@ library(tidyr)
 # ============================================================
 # Load raw comparison results from script 12
 # ============================================================
-comparison_results <- readRDS("inst/data/vm_lsm_baseline.rds")
+comparison_results <- readRDS("inst/extdata/vm_lsm_baseline.rds")
 
 # ============================================================
 # Unit definitions for each metric
@@ -172,15 +172,16 @@ enhanced_results <- structure(
 metric_map <- source("data-raw/11_build_metric_map.R")$value
 
 # ============================================================
-# Save both to inst/data as RDS (not official package data)
+# Save both to inst/extdata (supplementary data files)
 # ============================================================
-dir.create("inst/data", showWarnings = FALSE, recursive = TRUE)
+dir.create("inst/extdata", showWarnings = FALSE, recursive = TRUE)
 comparison_results_enhanced <- enhanced_results
 saveRDS(
   list(
     comparison_results_enhanced = comparison_results_enhanced,
     metric_map = metric_map
   ),
-  "inst/data/vm_lsm_comparison.rds"
+  "inst/extdata/vm_lsm_comparison.rds"
 )
+cat("\nVignette data saved to: inst/extdata/vm_lsm_comparison.rds\n")
 
