@@ -36,14 +36,14 @@ testthat::test_that("All metric functions return correct structure", {
     args <- formals(fn)
     needs_edge <- "edge_depth" %in% names(args)
     needs_class <- "class_col" %in% names(args)
-    needs_class_max <- "class_max" %in% names(args)
+    needs_classes_max <- "classes_max" %in% names(args)
     
     call_args <- list(test_data)
     if (needs_class) call_args <- c(call_args, class_col = test_class)
     if (level == "patch" && !needs_class) call_args <- c(call_args, test_class, "patch")
     if (level == "class" && !needs_class) call_args <- c(call_args, test_class)
     if (needs_edge) call_args <- c(call_args, edge_depth = 1)
-    if (needs_class_max) call_args <- c(call_args, class_max = 50)
+    if (needs_classes_max) call_args <- c(call_args, classes_max = 50)
     
     # Special handling for proximity (needs n parameter)
     if (grepl("proxim", fn_name)) {
