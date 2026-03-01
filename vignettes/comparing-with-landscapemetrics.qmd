@@ -53,13 +53,7 @@ library(dplyr)
 
 # Create comparable landscapes
 raster_landscape <- landscapemetrics::landscape |> terra::rast()
-polygon_landscape <- raster_landscape |>
-  terra::as.polygons(dissolve = TRUE) |>
-  sf::st_as_sf() |>
-  dplyr::rename(class = clumps) |>
-  vectormetrics::get_polygon_patches("class", direction = 8) |>
-  sf::st_set_crs("EPSG:2180")
-
+polygon_landscape <- readRDS(system.file("extdata/polygon_landscape.rds", package = "vectormetrics"))
 # Determine number of classes
 n_classes <- length(unique(polygon_landscape$class))
 colors <- palette.colors(n_classes, palette = "Set2")
