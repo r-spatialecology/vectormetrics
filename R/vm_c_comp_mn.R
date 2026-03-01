@@ -1,7 +1,11 @@
 #' @title Form factor/Compactness(vector data)
 #'
 #' @description Calculate form factor or compactness
-#' @details sqrt(4 * area / pi) / perimeter
+#' @details Mean compactness across all patches in each class.
+#' Compactness is calculated as:
+#' \deqn{COMPACT = \frac{4\pi A}{P^2}}
+#' where \eqn{A} is the patch area (m²) and \eqn{P} is the perimeter (m).
+#' Values range from 0 (linear) to 1 (circular).
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @return the function returns tibble with the calculated values in column "value",

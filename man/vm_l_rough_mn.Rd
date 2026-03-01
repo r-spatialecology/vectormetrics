@@ -19,7 +19,10 @@ this function returns also some important information such as level, class, patc
 Calculate Roughness index (RI)
 }
 \details{
-to be added...
+Mean roughness across all patches in the landscape.
+Roughness quantifies shape irregularity by measuring the variance
+in distances from boundary points to the centroid, normalized by area and perimeter.
+Higher values indicate more irregular, complex boundaries.
 }
 \examples{
 vm_l_rough_mn(vector_landscape, n = 100)

@@ -1,7 +1,11 @@
 #' @title Roughness index(vector data)
 #'
 #' @description Calculate Roughness index (RI)
-#' @details to be added...
+#' @details Roughness quantifies shape irregularity by measuring the variance
+#' in distances from boundary points to the centroid. Calculated as the squared
+#' mean distance from boundary points to centroid, normalized by area and perimeter.
+#' The scaling constant is based on Basaraner & Cetinkaya (2017). Higher values
+#' indicate more irregular, complex boundaries.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param patch_col the name of the id column of the input landscape

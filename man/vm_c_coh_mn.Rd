@@ -21,8 +21,10 @@ this function returns also some important information such as level, class, patc
 Calculate Cohesion Index
 }
 \details{
-ratio of the average distance-squared among all points in an equalarea circle
-and the average distance-squared among all points in the shape
+Mean cohesion across all patches in each class.
+Cohesion is the ratio of the average distance-squared among all points in an equal-area circle
+to the average distance-squared among all points in the shape.
+Values closer to 1 indicate shapes more similar to circles.
 }
 \examples{
 vm_c_coh_mn(vector_landscape, "class", n = 1000)

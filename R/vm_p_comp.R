@@ -1,7 +1,11 @@
 #' @title Form factor/Compactness(vector data)
 #'
 #' @description Calculate form factor or compactness
-#' @details sqrt(4 * area / pi) / perimeter
+#' @details Form factor (compactness) is calculated as:
+#' \deqn{COMPACT = \frac{4\pi A}{P^2}}
+#' where \eqn{A} is the patch area (m²) and \eqn{P} is the perimeter (m).
+#' This is the isoperimetric quotient, ranging from 0 (linear) to 1 (circular).
+#' Higher values indicate more compact, circle-like shapes.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param patch_col the name of the id column of the input landscape

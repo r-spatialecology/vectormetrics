@@ -1,8 +1,10 @@
 #' @title Cohesion Index(vector data)
 #'
 #' @description Calculate Cohesion Index
-#' @details ratio of the average distance-squared among all points in an equalarea circle
-#' and the average distance-squared among all points in the shape
+#' @details Mean cohesion across all patches in the landscape.
+#' Cohesion is the ratio of the average distance-squared among all points in an equal-area circle
+#' to the average distance-squared among all points in the shape.
+#' Values closer to 1 indicate shapes more similar to circles.
 #' @param landscape the input landscape image,
 #' @param n number of grid points to generate
 #' @return the function returns tibble with the calculated values in column "value",
