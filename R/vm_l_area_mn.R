@@ -11,7 +11,7 @@
 
 vm_l_area_mn <- function(landscape){
   area <- vm_p_area(landscape)
-  area_l <- mean(area$value * 10000)
+  area_l <- mean(area$value)  # hectares
 
   # return results tibble
   tibble::new_tibble(list(
