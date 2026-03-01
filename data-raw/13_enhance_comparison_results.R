@@ -11,7 +11,7 @@ library(tidyr)
 # ============================================================
 # Load raw comparison results from script 12
 # ============================================================
-comparison_results <- readRDS("tests/testthat/fixtures/comparison_results_baseline.rds")
+comparison_results <- readRDS("inst/data/vm_lsm_baseline.rds")
 
 # ============================================================
 # Unit definitions for each metric

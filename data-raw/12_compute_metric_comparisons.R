@@ -154,11 +154,7 @@ comparison_p <- raw_comparison |>
 # ============================================================
 # Save raw comparison results
 # ============================================================
-# Save to test fixtures - this is the baseline for regression tests
-# and is also used by script 13 for enhanced results
-dir.create("tests/testthat/fixtures", recursive = TRUE, showWarnings = FALSE)
-
-structure(
+comparison_results <- structure(
   list(
     all = raw_comparison,
     landscape = comparison_l,
@@ -171,10 +167,11 @@ structure(
     timestamp = Sys.time(),
     note = "Raw metric values with differences; patch-level metrics are aggregated by class"
   )
-) |>
-  saveRDS("tests/testthat/fixtures/comparison_results_baseline.rds")
+)
 
-cat("\nResults saved to: tests/testthat/fixtures/comparison_results_baseline.rds\n")
+# Save to inst/data (not official package data, but included in package)
+dir.create("inst/data", showWarnings = FALSE, recursive = TRUE)
+saveRDS(comparison_results, "inst/data/vm_lsm_baseline.rds")
 
-# Also return for piping to script 13
-invisible(readRDS("tests/testthat/fixtures/comparison_results_baseline.rds"))
+cat("\nResults saved to: inst/data/vm_lsm_baseline.rds\n")
+
