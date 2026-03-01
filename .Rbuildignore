@@ -7,3 +7,4 @@
 ^\.Rproj\.user$
 ^\.github$
 ^codecov\.yml$
+^vignettes/*_files$
