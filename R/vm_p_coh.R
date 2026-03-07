@@ -21,7 +21,7 @@ vm_p_coh <- function(landscape, class_col = NULL, patch_col = NULL, n = 1000) {
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns

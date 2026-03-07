@@ -1,7 +1,11 @@
 #' @title Roughness index(vector data)
 #'
 #' @description Calculate Roughness index (RI)
-#' @details to be added...
+#' @details Roughness quantifies shape irregularity by measuring the variance
+#' in distances from boundary points to the centroid. Calculated as the squared
+#' mean distance from boundary points to centroid, normalized by area and perimeter.
+#' The scaling constant is based on Basaraner & Cetinkaya (2017). Higher values
+#' indicate more irregular, complex boundaries.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param patch_col the name of the id column of the input landscape
@@ -20,7 +24,7 @@ vm_p_rough <- function(landscape, class_col = NULL, patch_col = NULL, n = 100){
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns

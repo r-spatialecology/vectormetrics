@@ -1,0 +1,314 @@
+---
+title: "Comparing metrics between vectormetrics and landscapemetrics R packages"
+format: 
+  html:
+    toc: true
+    toc_depth: 3
+    number-sections: true
+    code_folding: show
+vignette: >
+  %\VignetteIndexEntry{Comparing metrics between vectormetrics and landscapemetrics R packages}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  eval = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+<!--
+> **Note**: This vignette uses comparison results from three data-raw scripts:
+> - `11_build_metric_map.R`: Discovers metric functions in both packages
+> - `12_compute_metric_comparisons.R`: Computes metrics and calculates differences
+> - `13_enhance_comparison_results.R`: Adds units, categorizes differences, and provides explanations
+-->
+
+## Introduction
+
+The **vectormetrics** package calculates landscape metrics based on vector polygon representations. 
+It shares many metrics with the **landscapemetrics** package which offers landscape metrics for raster data.
+In principle, both packages should produce similar or nearly identical results as long as the input data is equivalent (e.g., raster and vector representations of the exact polygon geometry).
+However, differences can arise due to several factors, including computational approaches, treatment of polygon boundaries, and underlying assumptions about how landscape features are measured.
+
+This comparison uses the `landscapemetrics::landscape` dataset, a 30×30 cell raster at 1m resolution containing 3 classes across 28 patches (9 patches in class 1, 13 in class 2, and 6 in class 3).
+The same landscape was converted to vector polygons for comparison.
+
+> **Note**: When converting polygon data to raster for analysis with **landscapemetrics**, the rasterization process affects the actual landscape structure. 
+Coarser resolutions can eliminate small patches entirely, merge adjacent patches, and distort patch boundaries -- fundamentally changing what is measured.
+These structural changes cascade through all dependent metrics: patch counts change, patch areas and shapes shift, which then affects perimeter-based metrics (te, ed, shape, circle, lsi), distance calculations (enn, proximity), and core area detection (cai, dcore).
+This vignette uses an idealized scenario in which we have exactly the same landscape in both formats to show the pure representation difference -- but in practice, converting your polygons to raster will change the landscape structure and thus the metrics you get.
+
+```{r visualize-datasets}
+#| echo: false
+#| layout-ncol: 2
+library(terra)
+library(sf)
+library(dplyr)
+
+# Create comparable landscapes
+raster_landscape <- landscapemetrics::landscape |> terra::rast()
+polygon_landscape <- raster_landscape |>
+  terra::as.polygons(dissolve = TRUE) |>
+  sf::st_as_sf() |>
+  dplyr::rename(class = clumps) |>
+  vectormetrics::get_polygon_patches("class", direction = 8) |>
+  sf::st_set_crs("EPSG:2180")
+# Determine number of classes
+n_classes <- length(unique(polygon_landscape$class))
+colors <- palette.colors(n_classes, palette = "Set2")
+
+# Plot raster version
+plot(raster_landscape, 
+     main = "Raster Representation",
+     col = colors,
+     axes = FALSE)
+
+# Plot vector version
+plot(polygon_landscape["class"],
+     main = "Vector (Polygon) Representation",
+     pal = colors,
+     border = "black",
+     axes = FALSE)
+```
+
+```{r setup}
+#| echo: false
+library(vectormetrics)
+library(landscapemetrics)
+library(dplyr)
+library(knitr)
+
+# Load pre-computed comparison results and metric map from vignette data
+vignette_data <- readRDS(system.file("extdata/vm_lsm_comparison.rds", package = "vectormetrics"))
+results <- vignette_data$comparison_results_enhanced
+metric_map <- vignette_data$metric_map
+
+# Extract results by metric level
+landscape_metrics <- results$landscape
+class_metrics <- results$class
+patch_metrics <- results$patch
+all_metrics <- results$all
+```
+
+## Summary of comparison
+
+This comparison evaluates **78 metrics** that exist in both packages, organized across three analysis levels:
+
+- **Patch level**: `r nrow(patch_metrics |> distinct(metric_name))` metrics
+- **Class level**: `r nrow(class_metrics |> distinct(metric_name))` metrics  
+- **Landscape level**: `r nrow(landscape_metrics |> distinct(metric_name))` metrics
+
+Beyond these shared metrics, **vectormetrics** offers **61 exclusive metrics** not found in **landscapemetrics** -- primarily specialized shape complexity and geometry measures suited to vector polygon analysis.
+
+## Metrics with perfect or near-perfect agreement
+
+Many metrics show perfect or near-perfect agreement, with absolute differences less than 0.001 on our test landscape.
+These metrics are robust to the vector-raster representation difference because they rely on count-based, proportion-based, or compositional calculations that behave consistently across representations.
+When patches agree at the patch level, those agreements propagate to class and landscape levels since higher levels aggregate patch-level data.
+
+### Patch level: metrics with close agreement
+
+```{r patch-close-agreement}
+#| code-fold: true
+patch_close <- patch_metrics |>
+  filter(abs_diff < 0.001, class == 1) |>
+  group_by(metric_name) |>
+  ungroup() |>
+  select(metric_name, class, n_patches_vm, n_patches_lsm, value_vm, value_lsm, abs_diff, vm_units) |>
+  arrange(metric_name)
+
+kable(
+  patch_close,
+  digits = 3,
+  caption = sprintf("Patch-level metrics with close agreement: %d unique metrics", 
+                    n_distinct(patch_close$metric_name)),
+  col.names = c("Metric", "Class", "N Patches VM", "N Patches LSM", "VM Value", "LSM Value", "Abs Diff", "Units")
+)
+```
+
+`r n_distinct(patch_close$metric_name)` patch-level metrics show close agreement across all patches within class 1. These foundational patch-level agreements are carried forward to higher aggregation levels.
+Note that `p_core` are idential because we use the same core distance threshold -- but in practice, differences in core area detection methods (buffer vs. erosion) can lead to differences in core area metrics.
+
+### Class level: metrics with close agreement
+
+```{r class-close-agreement}
+#| code-fold: true
+class_close <- class_metrics |>
+  filter(abs_diff < 0.001, class == 1) |>
+  group_by(metric_name) |>
+  ungroup() |>
+  select(metric_name, class, value_vm, value_lsm, abs_diff, vm_units) |>
+  arrange(metric_name)
+
+kable(
+  class_close,
+  digits = 3,
+  caption = sprintf("Class-level metrics with close agreement: %d unique metrics (class 1 shown)", 
+                    n_distinct(class_close$metric_name)),
+  col.names = c("Metric", "Class", "VM Value", "LSM Value", "Abs Diff", "Units")
+)
+```
+
+`r n_distinct(class_close$metric_name)` class-level metrics show close agreement (class 1 shown). Class-level agreement reflects the patch-level patterns, since class metrics aggregate across patches within each class.
+
+### Landscape level: metrics with close agreement
+
+```{r landscape-close-agreement}
+#| code-fold: true
+landscape_close <- landscape_metrics |>
+  filter(abs_diff < 0.001) |>
+  select(metric_name, value_vm, value_lsm, abs_diff, vm_units) |>
+  distinct(metric_name, .keep_all = TRUE) |>
+  arrange(metric_name)
+
+kable(
+  landscape_close,
+  digits = 3,
+  caption = sprintf("Landscape-level metrics with close agreement (abs_diff < 0.001): %d metrics", 
+                    nrow(landscape_close)),
+  col.names = c("Metric", "VM Value", "LSM Value", "Abs Diff", "Units")
+)
+```
+
+All `r nrow(landscape_close)` landscape-level metrics with differences below 0.001 show near-perfect agreement. Landscape-level patterns reflect the patch and class agreements that feed into them.
+
+## Metrics with systematic differences
+
+Some metrics differ substantially between packages due to fundamental differences in how vector and raster data represent landscape features.
+
+
+### Patch level differences
+
+```{r patch-differences}
+#| code-fold: true
+patch_diffs <- patch_metrics |>
+  filter(abs_diff > 0.001) |>
+  arrange(desc(abs_diff)) |>
+  group_by(metric_name) |>
+  slice(1) |>
+  ungroup() |>
+  select(metric_name, class, value_vm, value_lsm, abs_diff, vm_units, diff_explanation) |>
+  arrange(metric_name)
+
+kable(
+  patch_diffs,
+  digits = 3,
+  caption = "Patch-level metrics with notable differences",
+  col.names = c("Metric", "Class", "VM Value", "LSM Value", "Abs Diff", "Units", "Explanation")
+)
+```
+
+### Class level differences
+
+```{r class-differences}
+#| code-fold: true
+class_diffs <- class_metrics |>
+  filter(abs_diff > 0.001) |>
+  arrange(desc(abs_diff)) |>
+  group_by(metric_name) |>
+  slice(1) |>
+  ungroup() |>
+  select(metric_name, class, value_vm, value_lsm, abs_diff, vm_units, diff_explanation) |>
+  arrange(metric_name)
+
+kable(
+  class_diffs,
+  digits = 3,
+  caption = "Class-level metrics with notable differences",
+  col.names = c("Metric", "Class", "VM Value", "LSM Value", "Abs Diff", "Units", "Explanation")
+)
+```
+
+### Landscape level differences
+
+```{r landscape-differences}
+#| code-fold: true
+landscape_diffs <- landscape_metrics |>
+  filter(abs_diff > 0.001) |>
+  select(metric_name, value_vm, value_lsm, abs_diff, vm_units, diff_explanation) |>
+  distinct(metric_name, .keep_all = TRUE) |>
+  arrange(metric_name)
+
+kable(
+  landscape_diffs,
+  digits = 3,
+  caption = "Landscape-level metrics with notable differences",
+  col.names = c("Metric", "VM Value", "LSM Value", "Abs Diff", "Units", "Explanation")
+)
+```
+
+### Common sources of differences
+
+The main reasons for metric differences across representation types (when they do differ):
+
+1. **Boundary inclusion in edge metrics**: 
+   - Vector: Naturally include landscape boundary as part of polygon geometry (default behavior)
+   - Raster: Typically exclude boundary edges from calculations
+   - Affected metrics: `te`, `ed`, `shape`, `shape_mn`, `shape_sd`, `circle`, `circle_mn`, `circle_sd`, `circle_cv`, `lsi`
+
+2. **Circle vs. square standardization**: 
+   - Vector (CIRCLE metrics): Standardize to the smallest circumscribing circle
+   - Raster: Standardize to a circumscribing square
+   - Affected metrics: `circle`, `circle_mn`, `circle_sd`, `circle_cv`
+
+3. **Core area detection method**:
+   - Vector: Contracts patch boundaries inward by a specified distance (in map units)
+   - Raster: Excludes edge cells through erosion filtering (in cells)
+   - Affected metrics: `ncore`, `cai`, `cai_mn`, `cai_sd`, `cai_cv`, `tca`, `dcore_mn`, `dcore_sd`, `dcore_cv`, `dcad`, `ndca`, `cpland`, `core_cv`
+
+4. **Distance measurement reference points**:
+   - Vector: Measures from exact polygon boundaries (continuous geometry)
+   - Raster: Measures from cell centers on patch edges (discrete, grid-aligned points)
+   - Affected metrics: `enn`, `enn_mn`, `enn_sd`, `enn_cv`
+
+<!-- Since both packages use the same units, residual differences arise from:
+
+- **Geometry representation**: Vector uses exact polygon boundaries; raster approximates with cell edges
+- **Patch delineation**: Vector uses polygon boundaries (exact); raster uses cell connectivity (4- or 8-connected)
+- **Area measurement**: Vector computes exact polygon area; raster sums cell areas, creating boundary effects
+- **Perimeter calculation**: Vector uses exact boundary length; raster counts shared cell edges (creates stair-step approximation)
+- **Core area detection**: Vector uses negative buffer; raster uses erosion filter (different geometric operations)
+- **Diversity metrics**: Depend on class area proportions, which differ due to rasterization effects on area measurement -->
+
+## vectormetrics-exclusive metrics
+
+**vectormetrics** includes 61 unique metrics not available in **landscapemetrics**. These exclusive metrics reflect the strengths of working with precise vector geometry and include advanced shape complexity measures, specialized distance calculations, and polygon-specific geometry metrics.
+
+```{r exclusive-metrics}
+#| code-fold: true
+# Load vectormetrics metrics reference
+vm_metrics <- vectormetrics::vm_metrics
+
+# metric_map already loaded in setup chunk above
+# Extract metrics that exist only in vectormetrics (lsm_fun is NA)
+exclusive_metrics <- metric_map |>
+  filter(is.na(lsm_fun)) |>
+  select(metric_name, level, vm_fun) |>
+  distinct() |>
+  left_join(vm_metrics |> select(function_name, type, description), by = c("vm_fun" = "function_name")) |>
+  select(metric_name, level, type, description) |>
+  mutate(level = factor(level, levels = c("patch", "class", "landscape"))) |>
+  arrange(metric_name)
+
+kable(
+  exclusive_metrics,
+  caption = sprintf("All %d vectormetrics-exclusive metrics", nrow(exclusive_metrics)),
+  col.names = c("Metric", "Level", "Type", "Description")
+)
+```
+
+## Conclusion
+
+**vectormetrics** and **landscapemetrics** are complementary tools for landscape ecology:
+
+- **78 shared metrics** provide common ground for landscape analysis, with most showing close agreement when applied to the same landscape in vector and raster formats
+- **61 **vectormetrics**-exclusive metrics** offer specialized shape complexity measures suited to vector polygon geometry
+- **Systematic differences** (perimeter, edge density, core areas) reflect fundamental differences in how vector and raster representations capture landscape structure
+
+The choice between packages should be driven by your data format and analytical goals -- they represent different but equally valid approaches to landscape metrics. 

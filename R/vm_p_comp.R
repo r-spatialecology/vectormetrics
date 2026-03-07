@@ -1,7 +1,11 @@
 #' @title Form factor/Compactness(vector data)
 #'
 #' @description Calculate form factor or compactness
-#' @details sqrt(4 * area / pi) / perimeter
+#' @details Form factor (compactness) is calculated as:
+#' \deqn{COMPACT = \frac{4\pi A}{P^2}}
+#' where \eqn{A} is the patch area (m²) and \eqn{P} is the perimeter (m).
+#' This is the isoperimetric quotient, ranging from 0 (linear) to 1 (circular).
+#' Higher values indicate more compact, circle-like shapes.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param patch_col the name of the id column of the input landscape
@@ -19,7 +23,7 @@ vm_p_comp <- function(landscape, class_col = NULL, patch_col = NULL) {
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns

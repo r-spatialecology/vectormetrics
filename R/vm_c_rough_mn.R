@@ -1,7 +1,10 @@
 #' @title Roughness index(vector data)
 #'
 #' @description Calculate Roughness index (RI)
-#' @details to be added...
+#' @details Mean roughness across all patches in each class.
+#' Roughness quantifies shape irregularity by measuring the variance
+#' in distances from boundary points to the centroid, normalized by area and perimeter.
+#' Higher values indicate more irregular, complex boundaries.
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
 #' @param n number of boundary points to generate

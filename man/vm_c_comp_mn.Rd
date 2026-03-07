@@ -19,7 +19,11 @@ this function returns also some important information such as level, class, patc
 Calculate form factor or compactness
 }
 \details{
-sqrt(4 * area / pi) / perimeter
+Mean compactness across all patches in each class.
+Compactness is calculated as:
+\deqn{COMPACT = \frac{4\pi A}{P^2}}
+where \eqn{A} is the patch area (m²) and \eqn{P} is the perimeter (m).
+Values range from 0 (linear) to 1 (circular).
 }
 \examples{
 vm_c_comp_mn(vector_landscape, "class")

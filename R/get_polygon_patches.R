@@ -6,17 +6,17 @@
 #' @param direction 4 or 8
 #' @return sf object with exploded polygons
 #' @examples
-#' get_patches(vector_landscape, "class", direction = 4)
+#' get_polygon_patches(vector_landscape, "class", direction = 4)
 #' @export
-#' @aliases get_patches
-#' @rdname get_patches
-get_patches <- function(landscape, class_col, direction = 4){
-  UseMethod("get_patches")
+#' @aliases get_polygon_patches
+#' @rdname get_polygon_patches
+get_polygon_patches <- function(landscape, class_col, direction = 4){
+  UseMethod("get_polygon_patches")
 }
 
-#' @name get_patches
+#' @name get_polygon_patches
 #' @export
-get_patches.sf <- function(landscape, class_col, direction = 4){
+get_polygon_patches.sf <- function(landscape, class_col, direction = 4){
 
   # cast multipolygons to polygons
   landscape_cast <- landscape |>

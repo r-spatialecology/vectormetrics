@@ -1,5 +1,5 @@
 testthat::test_that("check vm_l_area_mn value", {
-  expect_equal(vm_l_area_mn(square |> rbind(circle) |> rbind(diamond))$value, 6.713, tolerance = 0.001)
+  expect_equal(vm_l_area_mn(square |> rbind(circle) |> rbind(diamond))$value, 6.713/10000, tolerance = 0.001)
 })
 
 testthat::test_that("check vm_l_area_mn result assertions", {

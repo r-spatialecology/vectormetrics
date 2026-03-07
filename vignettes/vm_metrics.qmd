@@ -1,9 +1,8 @@
 ---
 title: "Metrics available in the vectormetrics package"
-output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vm_metrics}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Metrics available in the vectormetrics package}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 

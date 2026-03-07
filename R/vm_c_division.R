@@ -1,14 +1,15 @@
-#' @title Landscape division index of each class(vector data)
+#' @title Landscape division index of each class (vector data)
 #'
-#' @description This function allows you to calculate the Landscape division index
-#' of each class in a categorical landscape in vector data format, Landscape division index can somehow reflect
-#' the probability that two randomly selected points are not located in the same patch of class i
-#' @param landscape the input landscape image,
-#' @param class_col the name of the class column of the input landscape
-#' @return  the returned calculated index is in column "value",
-#' and this function returns also some important information such as level, class number and metric name.
-#' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
-#' at class level should correspond to patch level one by one, and then it is more convinient to combine metric values at different levels and compare them.
+#' @description Calculate the division index for each class, reflecting the probability
+#' that two randomly selected points are not in the same patch.
+#'
+#' @details
+#' Calculated as: \deqn{DIVISION = 1 - \sum (A_i / A_{landscape})^2}
+#' Range: 0 to 1 (unitless). Higher values indicate more fragmentation.
+#'
+#' @param landscape the input landscape
+#' @param class_col the name of the class column
+#' @return A tibble with division index values (0-1)
 #' @examples
 #' vm_c_division(vector_landscape, "class")
 #' @export
