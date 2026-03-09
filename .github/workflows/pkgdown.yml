@@ -34,6 +34,9 @@ jobs:
           extra-packages: any::rcmdcheck, any::pkgdown, any::covr
           needs: check
 
+      - run: R CMD INSTALL .
+        shell: bash
+
       - name: Check package
         uses: r-lib/actions/check-r-package@v2
         with:
