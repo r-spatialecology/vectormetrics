@@ -15,7 +15,7 @@ get_axes <- function(landscape, class_col = NULL, patch_col = NULL){
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
   # prepare class and patch ID columns
   prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
@@ -31,8 +31,16 @@ get_axes <- function(landscape, class_col = NULL, patch_col = NULL){
       distances <- stats::dist(rbind(t(elipsoid$loc), el_pts)) |> as.matrix()
       distances <- distances[1,]
       distances[distances == 0] <- NA
-      landscape$major_axis[row] <- round(max(distances, na.rm = TRUE), 2)
-      landscape$minor_axis[row] <- round(min(distances, na.rm = TRUE), 2)
+      major <- round(max(distances, na.rm = TRUE), 2)
+      minor <- round(min(distances, na.rm = TRUE), 2)
+      # Check for degenerate geometries (returns 0, Inf, or NaN on some platforms)
+      if (!is.finite(major) || !is.finite(minor) || major == 0 || minor == 0) {
+        landscape$major_axis[row] <- NA
+        landscape$minor_axis[row] <- NA
+      } else {
+        landscape$major_axis[row] <- major
+        landscape$minor_axis[row] <- minor
+      }
     }, error = function(e) {
       landscape$major_axis[row] <- NA
       landscape$minor_axis[row] <- NA

@@ -2,25 +2,34 @@
 % Please edit documentation in R/vm_c_ed.R
 \name{vm_c_ed}
 \alias{vm_c_ed}
-\title{The Edge density of each class(vector data)}
+\title{Edge density(vector data)}
 \usage{
-vm_c_ed(landscape, class_col)
+vm_c_ed(landscape, class_col, count_boundary = TRUE)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class_col}{the name of the class column of the input landscape}
+
+\item{count_boundary}{Include landscape boundary in edge length (default: TRUE)}
 }
 \value{
-the returned calculated total length of perimeter is in column "value",
+the returned calculated length is in column "value",
 and this function returns also some important information such as level, class number and metric name.
 Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
 at class level should correspond to patch level one by one, and then it is more convinient to combine metric values at different levels and compare them.
 }
 \description{
-This function allows you to calculate the total length of all patches
-in class i in a categorical landscape in vector data format
+This function allows you to calculate the edge density of class i in a categorical landscape in vector data format
+}
+\details{
+Edge density is calculated as the total edge length divided by total landscape area (in m/ha).
+
+Note: The default differs from landscapemetrics (default: FALSE) because vector
+polygon boundaries are explicit geometric features. Set count_boundary=FALSE for
+direct comparison with landscapemetrics results.
 }
 \examples{
 vm_c_ed(vector_landscape, "class")
+vm_c_ed(vector_landscape, "class", count_boundary = FALSE)
 }

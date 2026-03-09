@@ -12,7 +12,7 @@
 vm_l_pd <- function(landscape){
   n_patches <- vm_l_np(landscape)$value
   area <- vm_p_area(landscape)
-  area_sum <- sum(area$value * 10000)
+  area_sum <- sum(area$value)
   pd <- n_patches / area_sum * 100
 
   # return results tibble

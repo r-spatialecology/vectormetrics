@@ -11,7 +11,9 @@ vm_c_dcad(landscape, class_col, edge_depth)
 
 \item{class_col}{the name of the class column of the input landscape}
 
-\item{edge_depth}{the fixed distance to the edge of the patch}
+\item{edge_depth}{the fixed distance to the edge of the patch (in map units).
+This parameter is required to ensure you explicitly consider the appropriate scale
+for your data and your problem.}
 }
 \value{
 the returned calculated ratios are in column "value",

@@ -18,8 +18,8 @@ vm_c_pd <- function(landscape, class_col){
 
   patch <- vm_c_np(landscape, class_col)
   area <- vm_p_area(landscape, class_col)
-  A <- sum(area$value * 10000)
-  patch$pd <- patch$value / A * 10000 * 100
+  A <- sum(area$value)
+  patch$pd <- patch$value / A * 100
 
   # return results tibble
   tibble::new_tibble(list(

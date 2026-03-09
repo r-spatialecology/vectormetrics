@@ -18,7 +18,7 @@ vm_l_fullness <- function(landscape, n = 1000) {
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
   if (n < 1000){
     rlang::warn("Low number of local neighbourhoods, result might be biased.")

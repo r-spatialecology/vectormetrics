@@ -90,7 +90,7 @@ plot(vector_landscape)
 ``` r
 ## Shape index
 vm_p_shape(vector_landscape, class_col = "class")
-#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.
+#> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.
 #> This message is displayed once per session.
 #> # A tibble: 3 × 5
 #>   level class id    metric value
@@ -126,14 +126,14 @@ vm_l_square_mn(vector_landscape)
 ### Utility functions
 
 For now there are two utility functions available in the package. First
-one is `get_patches()` which breaks multipolygon geometries into
+one is `get_polygon_patches()` which breaks multipolygon geometries into
 polygons. There are two types of neighborhood relations available: 4
 (edge) and 8 (vertex). This function enables users to create set of
 geometries from aggregated shapes and analyze each shape’s properties
 separately.
 
 ``` r
-vector_patches = get_patches(vector_landscape, class_col = "class", direction = 4)
+vector_patches = get_polygon_patches(vector_landscape, class_col = "class", direction = 4)
 vector_patches
 #> Simple feature collection with 40 features and 2 fields
 #> Geometry type: POLYGON
@@ -158,7 +158,7 @@ vector_patches |>
   plot()
 ```
 
-<img src="man/figures/README-get_patches-1.png" width="100%" />
+<img src="man/figures/README-get_polygon_patches-1.png" width="100%" />
 
 ``` r
 

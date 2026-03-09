@@ -16,40 +16,30 @@ vm_p_enn <- function(landscape, class_col = NULL, patch_col = NULL) {
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns
   prepare_columns(landscape, class_col, patch_col) |> list2env(envir = environment())
   landscape <- landscape[, c(class_col, patch_col)]
 
-  # cast then to MULTILINESTRING
-  landscape_poly <- sf::st_cast(landscape, "MULTIPOINT", warn = FALSE, do_split=FALSE)
-
-  # create a vector to storage all the output of  "for" loop
-  enn <- vector(mode = "numeric", length = nrow(landscape_poly))
-  for (i in seq_len(nrow(landscape_poly))) {
-    c <- landscape_poly[i, ] |>
-      sf::st_drop_geometry() |>
-      dplyr::pull(!!class_col) |>
-      as.character()
-
-    landscape_point_1 <- sf::st_cast(landscape_poly[i, ], "POINT", warn = FALSE)
-    landscape_point_2 <- sf::st_cast(landscape_poly[-i, ], "POINT", warn = FALSE)
-
-    # create another vector to storage all the output of this "for" loop
-    min_dis <- vector(mode = "numeric", length = nrow(landscape_point_1))
-    for (k in seq_len(nrow(landscape_point_1))) {
-      # obtain the distance of each point of the processing patch(polygon)
-      # to all the points of other polygons belonging to the same class
-      dis <- sf::st_distance(landscape_point_1[k, ], landscape_point_2[landscape_point_2[, class_col, drop = TRUE] == c, ])
-      
-      # the closest distance of each point of the patch to all the points of other patches
-      min_dis[k] <- min(dis)
+  # create a vector to store nearest neighbor distances
+  enn <- vector(mode = "numeric", length = nrow(landscape))
+  
+  for (i in seq_len(nrow(landscape))) {
+    # get class of current patch
+    patch_class <- landscape[[class_col]][i]
+    
+    # find other patches of same class
+    same_class <- landscape[[class_col]] == patch_class & seq_len(nrow(landscape)) != i
+    
+    if (any(same_class)) {
+      # calculate edge-to-edge distances to all other patches of same class
+      distances <- sf::st_distance(landscape[i, ], landscape[same_class, ])
+      enn[i] <- min(distances)
+    } else {
+      enn[i] <- NA_real_
     }
-
-    # the distance of a patch to the nearest patch belonging to the same class
-    enn[i] <- min(min_dis)
   }
 
   # return results tibble

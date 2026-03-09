@@ -22,16 +22,20 @@ vm_c_mesh <- function(landscape, class_col){
   area$value <- area$value * 10000
   area$value_2 <- (area$value)^2
 
-  area_sum <- stats::aggregate(area$value_2, by = list(area$class), sum, na.rm = FALSE)
+  # sum of squared areas by class
+  area_sum_sq <- stats::aggregate(area$value_2, by = list(area$class), sum, na.rm = FALSE)
+  # total landscape area (for normalization)
   A <- sum(area$value)
-  area_sum$mesh <- area_sum[, 2] / A / 10000
+  
+  # mesh = sum of squared areas / total landscape area / 10000
+  area_sum_sq$mesh <- area_sum_sq[, 2] / A / 10000
 
   # return results tibble
   tibble::new_tibble(list(
-    level = rep("class", nrow(area_sum)),
-    class = as.character(area_sum[, 1]),
+    level = rep("class", nrow(area_sum_sq)),
+    class = as.character(area_sum_sq[, 1]),
     id = as.character(NA),
-    metric = rep("mesh", nrow(area_sum)),
-    value = as.double(area_sum[, 2])
+    metric = rep("mesh", nrow(area_sum_sq)),
+    value = as.double(area_sum_sq$mesh)
   ))
 }

@@ -18,8 +18,17 @@ vm_cv <- function(x, na_rm = FALSE){
 #' @noRd
 get_ibp <- function(shape, n = 100){
   sf::st_agr(shape) <- "constant"
-  ibp = shape |> sf::st_boundary() |> sf::st_sample(n)|> sf::st_cast("POINT")
-  ibp = c(ibp, shape |> sf::st_cast("POINT") |> sf::st_geometry())
+  ibp <- tryCatch({
+    shape |> sf::st_boundary() |> sf::st_sample(n) |> sf::st_cast("POINT")
+  }, warning = function(w) {
+    suppressWarnings(
+      shape |> sf::st_boundary() |> sf::st_sample(n) |> sf::st_cast("POINT")
+    )
+  }, error = function(e) {
+    sf::st_sfc()
+  })
+  
+  ibp <- c(ibp, shape |> sf::st_cast("POINT") |> sf::st_geometry())
   ibp
 }
 

@@ -17,7 +17,7 @@ vm_p_frac <- function(landscape, class_col = NULL, patch_col = NULL) {
   if(!all(sf::st_geometry_type(landscape) %in% c("MULTIPOLYGON", "POLYGON"))){
     rlang::abort("Please provide POLYGON or MULTIPOLYGON")
   } else if (all(sf::st_geometry_type(landscape) == "MULTIPOLYGON")){
-    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_patches()'.", .frequency = "once", .frequency_id = "1")
+    rlang::inform("MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.", .frequency = "once", .frequency_id = "1")
   }
 
   # prepare class and patch ID columns
@@ -27,7 +27,10 @@ vm_p_frac <- function(landscape, class_col = NULL, patch_col = NULL) {
   # calculating the metric frac
   area <- vm_p_area(landscape, class_col, patch_col)$value * 10000
   peri <- vm_p_perim(landscape, class_col, patch_col)
-  frac <- 2 * log(peri$value) / log(area)
+  frac <- 2 * log(0.25 * peri$value) / log(area)
+
+  # NaN for patches with only one cell (mathematical reasons) -> should be 1
+  frac[!is.finite(frac)] <- 1
 
   # return results tibble
   tibble::new_tibble(list(

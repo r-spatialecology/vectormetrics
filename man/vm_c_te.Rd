@@ -4,12 +4,14 @@
 \alias{vm_c_te}
 \title{Total (class) edge  (vector data)}
 \usage{
-vm_c_te(landscape, class_col)
+vm_c_te(landscape, class_col, count_boundary = TRUE)
 }
 \arguments{
 \item{landscape}{the input landscape image,}
 
 \item{class_col}{the name of the class column of the input landscape}
+
+\item{count_boundary}{Include landscape boundary in edge length (default: TRUE)}
 }
 \value{
 the returned calculated length is in column "value",
@@ -20,6 +22,16 @@ at class level should correspond to patch level one by one, and then it is more 
 \description{
 This function allows you to calculate the total length of edge of class i in a categorical landscape in vector data format
 }
+\details{
+Total edge for a class includes all edges between that class and other classes.
+Internal edges between patches of the same class are not counted (they disappear when patches are merged).
+This is calculated as the perimeter of the union of all patches of that class.
+
+Note: The default differs from landscapemetrics (default: FALSE) because vector
+polygon boundaries are explicit geometric features. Set count_boundary=FALSE for
+direct comparison with landscapemetrics results.
+}
 \examples{
 vm_c_te(vector_landscape, "class")
+vm_c_te(vector_landscape, "class", count_boundary = FALSE)
 }

@@ -4,7 +4,7 @@
 #' total landscape area in a categorical landscape in vector data format
 #' @param landscape the input landscape image,
 #' @param class_col the name of the class column of the input landscape
-#' @return  the returned calculated index are in column "value",
+#' @return  the returned calculated index are in column "value" (as a percentage, 0-100),
 #' and this function returns also some important information such as level, class number and metric name.
 #' Moreover, the "id" column, although it is just NA here at class level. we need it because the output struture of metrics
 #' at class level should correspond to patch level one by one, and then it is more convinient to combine metric values at different levels and compare them.

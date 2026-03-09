@@ -20,7 +20,14 @@ at class level should correspond to patch level one by one, and then it is more 
 \description{
 This function allows you to calculate the ratio between the actual edge length of class i
 and the hypothetical minimum edge length of class i in a categorical landscape in vector data format.
-The minimum edge length equals the edge length if class i would be maximally aggregated
+The minimum edge length equals the edge length if class i would be maximally aggregated into a circle.
+}
+\details{
+LSI is calculated as: LSI = TE / (2 * pi * sqrt(CA/pi))
+where TE is the total edge (in meters) and CA is the class area (in square meters).
+This uses circle standardization, which is more natural for vector data.
+An LSI of 1 indicates a perfectly circular class.
+Note: This differs from landscapemetrics which uses square standardization.
 }
 \examples{
 vm_c_lsi(vector_landscape, "class")
