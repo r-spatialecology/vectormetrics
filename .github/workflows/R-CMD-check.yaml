@@ -45,6 +45,9 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - run: R CMD INSTALL .
+        shell: bash
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
