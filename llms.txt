@@ -198,8 +198,7 @@ get_axes(vector_patches, class_col = "class")
 
 ## Contributing
 
-This is an experimental version of the package, so any feedback and
-contributions in the form of pull requests are welcome.
+Any feedback and contributions in the form of pull requests are welcome.
 
 # Package index
 
