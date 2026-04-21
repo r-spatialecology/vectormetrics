@@ -3,6 +3,7 @@
 Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")
 rmarkdown::render("README.Rmd")
 -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # vectormetrics
@@ -11,8 +12,6 @@ rmarkdown::render("README.Rmd")
 
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/r-spatialecology/vectormetrics/graph/badge.svg)](https://app.codecov.io/gh/r-spatialecology/vectormetrics)
@@ -85,7 +84,7 @@ data("vector_landscape")
 plot(vector_landscape)
 ```
 
-<img src="man/figures/README-vector_landscape-1.png" width="100%" />
+<img src="man/figures/README-vector_landscape-1.png" alt="" width="100%" />
 
 ``` r
 ## Shape index
@@ -158,7 +157,7 @@ vector_patches |>
   plot()
 ```
 
-<img src="man/figures/README-get_polygon_patches-1.png" width="100%" />
+<img src="man/figures/README-get_polygon_patches-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -222,5 +221,4 @@ get_axes(vector_patches, class_col = "class")
 
 ## Contributing
 
-This is an experimental version of the package, so any feedback and
-contributions in the form of pull requests are welcome.
+Any feedback and contributions in the form of pull requests are welcome.

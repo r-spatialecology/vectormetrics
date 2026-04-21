@@ -22,7 +22,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-<!-- [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) -->
 [![R-CMD-check](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-spatialecology/vectormetrics/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/r-spatialecology/vectormetrics/graph/badge.svg)](https://app.codecov.io/gh/r-spatialecology/vectormetrics)
 <!-- badges: end -->
@@ -133,4 +132,4 @@ get_axes(vector_patches, class_col = "class")
 
 ## Contributing
 
-This is an experimental version of the package, so any feedback and contributions in the form of pull requests are welcome.
+Any feedback and contributions in the form of pull requests are welcome.
