@@ -16,7 +16,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/r-spatialecology/vectormetrics/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/r-spatialecology/vectormetrics/blob/v0.3.0/DESCRIPTION)
 
 Matuszek T, Nowosad J, Sciaini M, Hesselbarth M, Ma Y (2026).
 *vectormetrics: Landscape Metrics for Categorical Map Patterns in Vector

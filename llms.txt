@@ -16,6 +16,7 @@ You can download most recent development version of the package from
 GitHub with:
 
 ``` r
+
 remotes::install_github("r-spatialecology/vectormetrics")
 ```
 
@@ -32,6 +33,7 @@ landscape and class level functions have also a suffix at the end, that
 specifies the aggregation method (e.g. *mean*, *sd*).
 
 ``` r
+
 # Patch level
 ## vm_p_"metric"
 vm_p_area()
@@ -54,6 +56,7 @@ Some examples of calculating metrics on all levels and with different
 class and patch columns.
 
 ``` r
+
 library(vectormetrics)
 library(sf)
 data("vector_landscape")
@@ -63,6 +66,7 @@ plot(vector_landscape)
 ![](reference/figures/README-vector_landscape-1.png)
 
 ``` r
+
 ## Shape index
 vm_p_shape(vector_landscape, class_col = "class")
 #> MULTIPOLYGON geometry provided. You may want to cast it to separate polygons with 'get_polygon_patches()'.
@@ -108,6 +112,7 @@ enables users to create set of geometries from aggregated shapes and
 analyze each shape’s properties separately.
 
 ``` r
+
 vector_patches = get_polygon_patches(vector_landscape, class_col = "class", direction = 4)
 vector_patches
 #> Simple feature collection with 40 features and 2 fields
@@ -136,6 +141,7 @@ vector_patches |>
 ![](reference/figures/README-get_polygon_patches-1.png)
 
 ``` r
+
 
 ## Shape index
 vm_p_shape(vector_patches, class_col = "class", patch_col = "patch")
@@ -179,6 +185,7 @@ be useful information itself, [`get_axes()`](reference/get_axes.md) was
 exported as a separate function.
 
 ``` r
+
 get_axes(vector_patches, class_col = "class")
 #> # A tibble: 40 × 6
 #>    level class id    metric    major minor
