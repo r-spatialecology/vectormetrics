@@ -21,7 +21,7 @@ vm_c_perim_idx_mn <- function(landscape, class_col){
   perim_idx <- vm_p_perim_idx(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  perim_mn <- stats::aggregate(perim_idx$value, by = list(perim_idx$class), mean, na.rm = TRUE)
+  perim_mn <- stats::aggregate(perim_idx$value, by = list(factor(perim_idx$class, levels = unique(perim_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

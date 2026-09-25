@@ -16,7 +16,7 @@ vm_c_np <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   area <- vm_p_area(landscape, class_col)
-  patch <- table(area$class) |> as.data.frame()
+  patch <- table(factor(area$class, levels = unique(area$class))) |> as.data.frame()
   
   # return results tibble
   tibble::new_tibble(list(

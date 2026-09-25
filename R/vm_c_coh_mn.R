@@ -25,7 +25,7 @@ vm_c_coh_mn <- function(landscape, class_col, n = 1000){
   coh_idx <- vm_p_coh(landscape, class_col, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  coh_mn <- stats::aggregate(coh_idx$value, by = list(coh_idx$class), mean, na.rm = TRUE)
+  coh_mn <- stats::aggregate(coh_idx$value, by = list(factor(coh_idx$class, levels = unique(coh_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

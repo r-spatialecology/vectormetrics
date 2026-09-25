@@ -27,6 +27,9 @@ vm_c_fullness <- function(landscape, class_col, n = 1000) {
   # prepare class and patch ID columns
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
+  classes <- unique(landscape[[class_col]])
+  landscape[[class_col]] <- factor(landscape[[class_col]], levels = classes)
+
   .data <- NULL
   # select geometry column for spatial operations and the column that identifies the classes
   landscape <- landscape |> dplyr::group_by_at(class_col) |> dplyr::summarise(geometry = sf::st_union(.data$geometry)) |> dplyr::ungroup()
@@ -34,8 +37,8 @@ vm_c_fullness <- function(landscape, class_col, n = 1000) {
 
   tibble::new_tibble(list(
     level = rep("class", nrow(landscape)),
-    class = as.integer(fullness$class),
-    id = as.integer(NA),
+    class = as.character(fullness$class),
+    id = as.character(NA),
     metric = "full_idx",
     value = as.double(fullness$value / 0.958)
   ))

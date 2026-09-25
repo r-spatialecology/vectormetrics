@@ -21,7 +21,7 @@ vm_c_detour_mn <- function(landscape, class_col){
   detour_idx <- vm_p_detour(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  detour_mn <- stats::aggregate(detour_idx$value, by = list(detour_idx$class), mean, na.rm = TRUE)
+  detour_mn <- stats::aggregate(detour_idx$value, by = list(factor(detour_idx$class, levels = unique(detour_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

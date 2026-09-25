@@ -21,7 +21,7 @@ vm_c_circ_mn <- function(landscape, class_col){
   circ_idx <- vm_p_circ(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  circ_mn <- stats::aggregate(circ_idx$value, by = list(circ_idx$class), mean, na.rm = TRUE)
+  circ_mn <- stats::aggregate(circ_idx$value, by = list(factor(circ_idx$class, levels = unique(circ_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

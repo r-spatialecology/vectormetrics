@@ -23,7 +23,7 @@ vm_c_mesh <- function(landscape, class_col){
   area$value_2 <- (area$value)^2
 
   # sum of squared areas by class
-  area_sum_sq <- stats::aggregate(area$value_2, by = list(area$class), sum, na.rm = FALSE)
+  area_sum_sq <- stats::aggregate(area$value_2, by = list(factor(area$class, levels = unique(area$class)) ), sum, na.rm = FALSE)
   # total landscape area (for normalization)
   A <- sum(area$value)
   

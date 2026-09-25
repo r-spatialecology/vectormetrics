@@ -21,7 +21,7 @@ vm_c_proxim_mn <- function(landscape, class_col, n = 1000){
   proxim_idx <- vm_p_proxim(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  proxim_mn <- stats::aggregate(proxim_idx$value, by = list(proxim_idx$class), mean, na.rm = TRUE)
+  proxim_mn <- stats::aggregate(proxim_idx$value, by = list(factor(proxim_idx$class, levels = unique(proxim_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

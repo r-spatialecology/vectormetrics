@@ -19,7 +19,7 @@ vm_c_lpi <- function(landscape, class_col){
   area <- vm_p_area(landscape, class_col)
   area$value <- area$value * 10000
   sum_landscape <- sum(area$value)
-  area_max <- stats::aggregate(area$value, by = list(area$class), max, na.rm = FALSE)
+  area_max <- stats::aggregate(area$value, by = list(factor(area$class, levels = unique(area$class)) ), max, na.rm = FALSE)
   area_max$lpi <- area_max[, 2] / sum_landscape * 100
 
   # return results tibble

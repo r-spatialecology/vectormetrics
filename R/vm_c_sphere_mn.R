@@ -18,7 +18,7 @@ vm_c_sphere_mn <- function(landscape, class_col){
   sph_idx <- vm_p_sphere(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  sph_mn <- stats::aggregate(sph_idx$value, by = list(sph_idx$class), mean, na.rm = TRUE)
+  sph_mn <- stats::aggregate(sph_idx$value, by = list(factor(sph_idx$class, levels = unique(sph_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

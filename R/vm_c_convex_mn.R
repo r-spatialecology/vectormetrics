@@ -21,7 +21,7 @@ vm_c_convex_mn <- function(landscape, class_col){
   conv_idx <- vm_p_convex(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  conv_mn <- stats::aggregate(conv_idx$value, by = list(conv_idx$class), mean, na.rm = TRUE)
+  conv_mn <- stats::aggregate(conv_idx$value, by = list(factor(conv_idx$class, levels = unique(conv_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

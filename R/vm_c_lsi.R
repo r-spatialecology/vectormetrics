@@ -28,7 +28,7 @@ vm_c_lsi <- function(landscape, class_col){
   
   # Get class area in square meters
   area <- vm_c_ca(landscape, class_col)
-  area_m2 <- area$value * 10000  # convert hectares to m²
+  area_m2 <- area$value[match(te$class, area$class)] * 10000  # convert hectares to m²
   
   # Calculate LSI using circle standardization: TE / (2 * pi * sqrt(area/pi))
   # Minimum perimeter for a circle: 2 * pi * radius where radius = sqrt(area/pi)

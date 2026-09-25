@@ -17,7 +17,7 @@ vm_c_enn_sd <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   enn <- vm_p_enn(landscape, class_col)
-  enn_sd <- stats::aggregate(enn$value, by = list(enn$class), stats::sd, na.rm = FALSE)
+  enn_sd <- stats::aggregate(enn$value, by = list(factor(enn$class, levels = unique(enn$class)) ), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(

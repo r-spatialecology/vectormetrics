@@ -18,7 +18,7 @@ vm_c_core_sd <- function(landscape, class_col, edge_depth){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   core <- vm_p_core(landscape, class_col, edge_depth = edge_depth)
-  core_sd <- stats::aggregate(core$value, by = list(core$class), stats::sd, na.rm = FALSE)
+  core_sd <- stats::aggregate(core$value, by = list(factor(core$class, levels = unique(core$class)) ), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(

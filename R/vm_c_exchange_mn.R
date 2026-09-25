@@ -21,7 +21,7 @@ vm_c_exchange_mn <- function(landscape, class_col){
   exchange_idx <- vm_p_exchange(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  exchange_mn <- stats::aggregate(exchange_idx$value, by = list(exchange_idx$class), mean, na.rm = TRUE)
+  exchange_mn <- stats::aggregate(exchange_idx$value, by = list(factor(exchange_idx$class, levels = unique(exchange_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

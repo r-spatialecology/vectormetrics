@@ -20,7 +20,7 @@ vm_c_cai_cv <- function(landscape, class_col, edge_depth){
   # Calculate core area index
   cai <- vm_p_cai(landscape, class_col, edge_depth = edge_depth)
   # and calculate cv for each class
-  cai_cv <- stats::aggregate(cai$value, by = list(cai$class), vm_cv)
+  cai_cv <- stats::aggregate(cai$value, by = list(factor(cai$class, levels = unique(cai$class)) ), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(

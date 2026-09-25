@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Tomasz Matuszek \email{tom.mateuszek@gmail.com}
   \item Jakub Nowosad \email{nowosad.jakub@gmail.com} (\href{https://orcid.org/0000-0002-1057-3721}{ORCID})
   \item Marco Sciaini (\href{https://orcid.org/0000-0002-3042-5435}{ORCID})
   \item Maximillian H.K. Hesselbarth (\href{https://orcid.org/0000-0003-1125-9918}{ORCID})

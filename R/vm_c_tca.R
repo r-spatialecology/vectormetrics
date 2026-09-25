@@ -18,7 +18,12 @@ vm_c_tca <- function(landscape, class_col, edge_depth){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   core <- vm_p_core(landscape, class_col, edge_depth = edge_depth)
-  core_sum <- stats::aggregate(core$value, by = list(core$class), sum, na.rm = FALSE)
+  core_sum <- stats::aggregate(
+    core$value,
+    by = list(class = factor(core$class, levels = unique(core$class))),
+    sum,
+    na.rm = FALSE
+  )
 
   # return results tibble
   tibble::new_tibble(list(

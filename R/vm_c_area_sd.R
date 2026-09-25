@@ -18,7 +18,7 @@ vm_c_area_sd <- function(landscape, class_col){
   area <- vm_p_area(landscape, class_col)
 
   # grouped by the class, and then calculate the standard deviation of area
-  area_sd <- stats::aggregate(area$value, by = list(area$class), stats::sd, na.rm = FALSE)
+  area_sd <- stats::aggregate(area$value, by = list(factor(area$class, levels = unique(area$class)) ), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(

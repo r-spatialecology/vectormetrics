@@ -17,7 +17,7 @@ vm_c_ndca <- function(landscape, class_col, edge_depth){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   dcore <- vm_p_ncore(landscape, class_col, edge_depth = edge_depth)
-  dcore_c <- stats::aggregate(dcore$value, by = list(dcore$class), sum, na.rm = FALSE)
+  dcore_c <- stats::aggregate(dcore$value, by = list(factor(dcore$class, levels = unique(dcore$class)) ), sum, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
