@@ -1,6 +1,6 @@
 # vectormetrics 0.3.1
 
-* Bug fix: all class-level metrics now preserve the first-occurrence order of classes.
+* Bug fix: all class-level metrics now preserve the first-occurrence order of classes. (thanks to the WP report)
 
 # vectormetrics 0.3.0
 
