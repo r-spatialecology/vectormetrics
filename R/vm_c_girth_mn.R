@@ -21,7 +21,7 @@ vm_c_girth_mn <- function(landscape, class_col){
   girth_idx <- vm_p_girth(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  girth_mn <- stats::aggregate(girth_idx$value, by = list(girth_idx$class), mean, na.rm = TRUE)
+  girth_mn <- stats::aggregate(girth_idx$value, by = list(factor(girth_idx$class, levels = unique(girth_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

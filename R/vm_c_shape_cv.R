@@ -20,7 +20,7 @@ vm_c_shape_cv <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   shape <- vm_p_shape(landscape, class_col)
-  shape_cv <- stats::aggregate(shape$value, by = list(shape$class), vm_cv)
+  shape_cv <- stats::aggregate(shape$value, by = list(factor(shape$class, levels = unique(shape$class)) ), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(

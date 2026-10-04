@@ -25,7 +25,7 @@ vm_c_rough_mn <- function(landscape, class_col, n = 100){
   ri <- vm_p_rough(landscape, class_col, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  ri_mn <- stats::aggregate(ri$value, by = list(ri$class), mean, na.rm = TRUE)
+  ri_mn <- stats::aggregate(ri$value, by = list(factor(ri$class, levels = unique(ri$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

@@ -18,7 +18,7 @@ vm_c_circle_cv <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
   
   circle <- vm_p_circle(landscape, class_col)
-  circle_cv <- stats::aggregate(circle$value, by = list(circle$class), vm_cv)
+  circle_cv <- stats::aggregate(circle$value, by = list(factor(circle$class, levels = unique(circle$class)) ), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(

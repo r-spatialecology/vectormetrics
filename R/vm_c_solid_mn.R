@@ -21,7 +21,7 @@ vm_c_solid_mn <- function(landscape, class_col){
   solid_idx <- vm_p_solid(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  solid_mn <- stats::aggregate(solid_idx$value, by = list(solid_idx$class), mean, na.rm = TRUE)
+  solid_mn <- stats::aggregate(solid_idx$value, by = list(factor(solid_idx$class, levels = unique(solid_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

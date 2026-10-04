@@ -21,7 +21,7 @@ vm_c_rect_mn <- function(landscape, class_col){
   rect_idx <- vm_p_rect(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  rect_mn <- stats::aggregate(rect_idx$value, by = list(rect_idx$class), mean, na.rm = TRUE)
+  rect_mn <- stats::aggregate(rect_idx$value, by = list(factor(rect_idx$class, levels = unique(rect_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

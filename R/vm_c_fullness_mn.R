@@ -22,7 +22,7 @@ vm_c_fullness_mn <- function(landscape, class_col, n = 1000){
   full_idx <- vm_p_fullness(landscape, class_col, n = n)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  full_mn <- stats::aggregate(full_idx$value, by = list(full_idx$class), mean, na.rm = TRUE)
+  full_mn <- stats::aggregate(full_idx$value, by = list(factor(full_idx$class, levels = unique(full_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

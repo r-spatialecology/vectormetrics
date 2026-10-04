@@ -18,7 +18,7 @@ vm_c_frac_mn <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   frac <- vm_p_frac(landscape, class_col)
-  frac_mn <- stats::aggregate(frac$value, by = list(frac$class), mean, na.rm = FALSE)
+  frac_mn <- stats::aggregate(frac$value, by = list(factor(frac$class, levels = unique(frac$class)) ), mean, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(

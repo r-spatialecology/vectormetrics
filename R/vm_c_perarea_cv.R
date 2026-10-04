@@ -17,7 +17,7 @@ vm_c_perarea_cv <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   para <- vm_p_perarea(landscape, class_col)
-  para_cv <- stats::aggregate(para$value, by = list(para$class), vm_cv)
+  para_cv <- stats::aggregate(para$value, by = list(factor(para$class, levels = unique(para$class)) ), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(

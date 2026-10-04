@@ -18,7 +18,7 @@ vm_c_frac_cv <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   frac <- vm_p_frac(landscape, class_col)
-  frac_cv <- stats::aggregate(frac$value, by = list(frac$class), vm_cv)
+  frac_cv <- stats::aggregate(frac$value, by = list(factor(frac$class, levels = unique(frac$class)) ), vm_cv)
 
   # return results tibble
   tibble::new_tibble(list(

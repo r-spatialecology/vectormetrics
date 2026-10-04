@@ -21,7 +21,7 @@ vm_c_elong_mn <- function(landscape, class_col){
   elong_idx <- vm_p_elong(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  elong_mn <- stats::aggregate(elong_idx$value, by = list(elong_idx$class), mean, na.rm = TRUE)
+  elong_mn <- stats::aggregate(elong_idx$value, by = list(factor(elong_idx$class, levels = unique(elong_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

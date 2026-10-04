@@ -22,7 +22,7 @@ vm_c_division <- function(landscape, class_col){
   area_sum <- sum(area$value)
   area$division <- (area$value / area_sum)^2
 
-  c_division <- stats::aggregate(area$division, list(area$class), sum)
+  c_division <- stats::aggregate(area$division, list(factor(area$class, levels = unique(area$class))), sum)
   c_division$division <- 1 - c_division[, 2]
 
   # return results tibble

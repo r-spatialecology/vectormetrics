@@ -19,7 +19,7 @@ vm_c_cai_sd <- function(landscape, class_col, edge_depth){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
   
   cai <- vm_p_cai(landscape, class_col, edge_depth = edge_depth)
-  cai_sd <- stats::aggregate(cai$value, by = list(cai$class), stats::sd, na.rm = FALSE)
+  cai_sd <- stats::aggregate(cai$value, by = list(factor(cai$class, levels = unique(cai$class)) ), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(

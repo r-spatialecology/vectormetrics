@@ -15,7 +15,12 @@ vm_c_ca <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   area <- vm_p_area(landscape, class_col)
-  area_sum <- stats::aggregate(area$value, by = list(area$class), sum, na.rm = FALSE)
+  area_sum <- stats::aggregate(
+    area$value,
+    by = list(class = factor(area$class, levels = unique(area$class))),
+    sum,
+    na.rm = FALSE
+  )
 
   # return results tibble
   tibble::new_tibble(list(

@@ -21,7 +21,7 @@ vm_c_eri_mn <- function(landscape, class_col){
   eri <- vm_p_eri(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  eri_mn <- stats::aggregate(eri$value, by = list(eri$class), mean, na.rm = TRUE)
+  eri_mn <- stats::aggregate(eri$value, by = list(factor(eri$class, levels = unique(eri$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

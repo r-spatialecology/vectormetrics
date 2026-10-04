@@ -25,7 +25,7 @@ vm_c_comp_mn <- function(landscape, class_col){
   comp_idx <- vm_p_comp(landscape, class_col)
 
   # grouped by the class, and then calculate the average value of detour index for each class,
-  comp_mn <- stats::aggregate(comp_idx$value, by = list(comp_idx$class), mean, na.rm = TRUE)
+  comp_mn <- stats::aggregate(comp_idx$value, by = list(factor(comp_idx$class, levels = unique(comp_idx$class)) ), mean, na.rm = TRUE)
 
   # return results tibble
   tibble::new_tibble(list(

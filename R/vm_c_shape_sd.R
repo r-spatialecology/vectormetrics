@@ -20,7 +20,7 @@ vm_c_shape_sd <- function(landscape, class_col){
   prepare_columns(landscape, class_col, NULL) |> list2env(envir = environment())
 
   shape <- vm_p_shape(landscape, class_col)
-  shape_sd <- stats::aggregate(shape$value, by = list(shape$class), stats::sd, na.rm = FALSE)
+  shape_sd <- stats::aggregate(shape$value, by = list(factor(shape$class, levels = unique(shape$class)) ), stats::sd, na.rm = FALSE)
 
   # return results tibble
   tibble::new_tibble(list(
