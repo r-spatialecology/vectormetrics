@@ -45,9 +45,9 @@ circles. The Canadian Geographer / Le Géographe Canadien, 54(4),
 vm_c_fullness(vector_landscape, "class")
 #>   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
 #> # A tibble: 3 × 5
-#>   level class    id metric   value
-#>   <chr> <int> <int> <chr>    <dbl>
-#> 1 class     1    NA full_idx 0.877
-#> 2 class     2    NA full_idx 0.892
-#> 3 class     3    NA full_idx 0.892
+#>   level class id    metric   value
+#>   <chr> <chr> <chr> <chr>    <dbl>
+#> 1 class 1     NA    full_idx 0.877
+#> 2 class 2     NA    full_idx 0.892
+#> 3 class 3     NA    full_idx 0.892
 ```

@@ -16,17 +16,17 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/r-spatialecology/vectormetrics/blob/v0.3.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/r-spatialecology/vectormetrics/blob/main/DESCRIPTION)
 
 Matuszek T, Nowosad J, Sciaini M, Hesselbarth M, Ma Y (2026).
 *vectormetrics: Landscape Metrics for Categorical Map Patterns in Vector
-Data*. R package version 0.3.0,
+Data*. R package version 0.3.1,
 <https://r-spatialecology.github.io/vectormetrics/>.
 
     @Manual{,
       title = {vectormetrics: Landscape Metrics for Categorical Map Patterns in Vector Data},
       author = {Tomasz Matuszek and Jakub Nowosad and Marco Sciaini and Maximillian H.K. Hesselbarth and Yunyao Ma},
       year = {2026},
-      note = {R package version 0.3.0},
+      note = {R package version 0.3.1},
       url = {https://r-spatialecology.github.io/vectormetrics/},
     }

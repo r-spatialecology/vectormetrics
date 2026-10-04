@@ -26,6 +26,8 @@ Useful links:
 
 Authors:
 
+- Tomasz Matuszek <tom.mateuszek@gmail.com>
+
 - Jakub Nowosad <nowosad.jakub@gmail.com>
   ([ORCID](https://orcid.org/0000-0002-1057-3721))
 
